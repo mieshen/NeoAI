@@ -3,9 +3,6 @@ import subprocess
 import tempfile
 import shutil
 import json  # 用于持久化配置
-import importlib
-import re
-import argparse
 from utils.system_info import get_system_info
 from utils.ai_interaction import get_ai_response
 from level.operation_levels import operation_levels
