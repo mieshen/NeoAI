@@ -58,6 +58,10 @@ def generate_prompt(level, user_input, system_info, allowed_operations, restrict
  - 用户请求：50秒后关机。
  - AI回复：抱歉，您的权限不足，无法执行此操作。请提升至最少 Level 0 权限。
 
+示例4：
+ - 情景信息：用户为 Level 1 权限。
+ - 用户请求：打开终端。
+ - AI回复：好的，将为您打开终端。
 
 
 如果权限足够，请直接生成代码。如果权限不足，请明确提示用户需要的最低权限等级。
