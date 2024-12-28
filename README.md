@@ -5,7 +5,7 @@
 - **“我的工作报表文件在哪？”**  
   **“您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？”**
 
-<img src="docs/PC.png" alt="PC" width="200">
+<img src="docs/PC.png" alt="PC" width="300">
 
 ---
 
