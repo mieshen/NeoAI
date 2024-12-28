@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoAI - 设置</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='config.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <!-- 这是临时跳转！！！后续会增加弹出菜单 并且优化更多！！！ -->
+    <div class="header" onclick="window.location.href = '/'">NeoAI - 设置</div>
+
+    
+    <div class="container">
+        <form id="config_form">
+            <button type="button" id="toggle_password" onclick="togglePasswordVisibility()">查看隐私项👁️</button>
+            <label for="api_key">
+                API Key:
+                <span class="tooltip-icon" data-tooltip="请输入您的 OpenAI API 密钥">?</span>
+            </label>
+            <input type="password" id="api_key" name="API_KEY" value="{{ config['API_KEY'] }}">
+            
+            
+            <label for="api_base_url">
+                API Base URL:
+                <span class="tooltip-icon" data-tooltip="请输入您的 API 基础 URL，默认值为 https://api.openai.com/v1/chat/completions">?</span>
+            </label>
+            <input type="text" id="api_base_url" name="API_BASE_URL" value="{{ config['API_BASE_URL'] }}">
+            
+            <label for="model">
+                模型:
+                <span class="tooltip-icon" data-tooltip="请输入您希望使用的模型名称，例如 gpt-4">?</span>
+            </label>
+            
+            <input type="text" id="model" name="MODEL" value="{{ config['MODEL'] }}">
+
+
+
+            <label for="execution_level">
+                安全等级:
+                <span class="tooltip-icon" data-tooltip="输入安全等级，范围 0 - 3。">?</span>
+            </label>
+
+            <input type="number" id="execution_level" name="EXECUTION_LEVEL" min="0" max="3" value="{{ config['EXECUTION_LEVEL'] }}">
+
+
+
+            <button type="button" id="update_button" onclick="saveConfig()">保存配置</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='config.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+
+</html>

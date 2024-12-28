@@ -14,7 +14,7 @@ DEFAULT_CONFIG = {
     "API_KEY": "YOUR_API_KEY",
     "API_BASE_URL": "https://api.openai.com/v1/chat/completions",
     "MODEL": "gpt-4o",
-    "EXECUTION_LEVEL": 0,
+    "EXECUTION_LEVEL": 2,
     "LOOP": True,
     "LOG_OUTPUT": False
 }
@@ -131,7 +131,7 @@ def run_main_program(user_input, web_ui_url=None):
     # 获取系统信息
     system_info = get_system_info()
 
-    # 根据当前执行级别选择合适的参数
+    # 根据当前安全等级选择合适的参数
     execution_level = config["EXECUTION_LEVEL"]
     if execution_level == 0:
         from level.level_0 import get_prompt
@@ -142,7 +142,7 @@ def run_main_program(user_input, web_ui_url=None):
     elif execution_level == 3:
         from level.level_3 import get_prompt
     else:
-        raise ValueError("无效的执行级别")
+        raise ValueError("无效的安全等级")
 
     # 生成 Prompt
     prompt = get_prompt(user_input, system_info)

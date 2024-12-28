@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from main import run_main_program
-from main import run_main_program, load_config, config
+from main import run_main_program, load_config, config, save_config
 
 # 指定 templates 和 static 文件夹路径
 app = Flask(
@@ -17,6 +16,14 @@ def index():
     WebUI 主页面
     """
     return render_template("index.html")
+
+@app.route("/config")
+def config_page():
+    """
+    配置管理页面
+    """
+    return render_template("config.html", config=config)
+
 
 @app.route("/api/logs", methods=["GET"])
 def get_logs():
@@ -56,13 +63,23 @@ def interact_with_ai():
     }), 200
 
 
-@app.route("/api/config", methods=["GET"])
-def get_config():
+@app.route("/api/config", methods=["GET", "POST"])
+def manage_config():
     """
-    返回当前的配置
+    获取或更新配置
     """
-    return jsonify(config), 200
+    if request.method == "GET":
+        return jsonify(config), 200
 
+    elif request.method == "POST":
+        new_config = request.json
+        if not new_config:
+            return jsonify({"error": "Invalid configuration data"}), 400 # 返回错误消息
+        
+        # 更新配置
+        config.update(new_config)
+        save_config()  # 保存配置到文件
+        return jsonify({"message": "Configuration updated successfully!"}), 200 # 返回成功消息
 
 
 def find_free_port():
@@ -74,8 +91,9 @@ def find_free_port():
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
 
+
 if __name__ == "__main__":
-    load_config()  
+    load_config()  # 加载配置
     # 使用动态端口
     port = 7820
     print(f"Starting WebUI on http://0.0.0.0:{port}...")
