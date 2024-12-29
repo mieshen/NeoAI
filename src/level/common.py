@@ -22,7 +22,13 @@ def generate_prompt(level, user_input, system_info, allowed_operations, restrict
 
     return f"""
 ⚙️ 当前安全等级：Level {level}(数字越小权限越高)。
-例：如一个操作需要Level 2权限，那么Level 3 无法执行，Level 2 、Level 1 和 Level 0 也可以执行。这就是等级数字越小，权限越高的含义。
+
+❗️ 关于安全等级：
+如一个操作需要Level 2权限，那么Level 3 无法执行，Level 2 、Level 1 和 Level 0 也可以执行。
+所以数字小的安全等级可以执行数字大的安全等级的操作，反之则不行。
+
+
+
 🖥️ 系统信息：
 {system_info_text}
 
@@ -41,6 +47,9 @@ def generate_prompt(level, user_input, system_info, allowed_operations, restrict
 请记住你给出的代码会立刻执行。绝对不要提醒让用户去执行代码，而是提醒用户你将为用户执行代码。
 
 请记住当前的安全等级，用户无法修改安全等级。
+
+
+
 示例1：
  - 情景信息：用户的安全等级为 Level 1 级。
  - 用户请求：打开资源管理器。

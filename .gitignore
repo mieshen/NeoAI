@@ -1,4 +1,7 @@
-/config.json
+# 忽略Python制造的垃圾
 /*.pyc
 __pycache__/
-/temp_scripts
+# 里面包含了重大敏感信息 不要上传
+src/config.json
+# NeoAI运行时产生的临时脚本文件
+src/temp_scripts

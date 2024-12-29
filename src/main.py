@@ -1,3 +1,4 @@
+import ast
 import os
 import subprocess
 import tempfile
@@ -16,7 +17,8 @@ DEFAULT_CONFIG = {
     "MODEL": "gpt-4o",
     "EXECUTION_LEVEL": 2,
     "LOOP": True,
-    "LOG_OUTPUT": False
+    "LOG_OUTPUT": False,
+    "RETURN_TIMEOUT" : -1 # -1 为自适应超时，大于 0 为固定超时
 }
 
 # 全局配置变量
@@ -25,17 +27,35 @@ config = DEFAULT_CONFIG.copy()
 
 def load_config():
     """
-    从 config.json 加载配置
-    如果配置文件不存在，创建一个默认配置文件
+    从脚本运行目录的 config.json 加载配置
+    如果配置文件不存在，创建一个默认配置文件。
+    如果配置文件缺少参数，自动补充缺失参数。
     """
     global config
-    if os.path.exists(CONFIG_FILE):
+    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+    config_updated = False  # 标志是否需要更新配置文件
+
+    if os.path.exists(config_file_path):
         try:
-            with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-                config.update(json.load(f))
+            with open(config_file_path, "r", encoding="utf-8") as f:
+                loaded_config = json.load(f)
+                # 补充缺失的参数
+                for key, value in DEFAULT_CONFIG.items():
+                    if key not in loaded_config:
+                        print(f"配置文件缺少参数 < {key} >，已补充默认值: < {value} >")
+                        loaded_config[key] = value
+                        config_updated = True  # 标记配置文件需要更新
+
+                config.update(loaded_config)
+
+                # 如果有更新，保存回配置文件
+                if config_updated:
+                    save_config()
             print("配置文件加载成功！")
         except Exception as e:
-            print(f"加载配置文件失败，使用默认配置: {e}")
+            print(f"加载配置文件失败，将使用默认配置覆盖原有的问题配置: {e}")
+            config = DEFAULT_CONFIG.copy()  # 使用默认配置
+            save_config()
     else:
         # 如果配置文件不存在，生成默认配置
         print("配置文件不存在，正在生成默认配置...")
@@ -44,14 +64,15 @@ def load_config():
 
 def save_config():
     """
-    将当前配置保存到 config.json
+    将当前配置保存到脚本运行目录的 config.json
     """
     try:
-        with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"), "w", encoding="utf-8") as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
-        print("配置已保存到 config.json")
+        print("配置已保存到脚本目录的 config.json")
     except Exception as e:
         print(f"保存配置文件失败: {e}")
+
 
 
 def clear_console():
@@ -86,13 +107,75 @@ def log_to_web_ui(web_ui_url, data):
             print(f"无法发送日志到 WebUI：{e}")
 
 
-def execute_in_subprocess(code):
-    temp_file_path = os.path.join(tempfile.gettempdir(), next(tempfile._get_candidate_names()) + ".py")
-    with open(temp_file_path, "w", encoding="utf-8") as temp_file:  # 确保使用 UTF-8 编码
-        temp_file.write("# -*- coding: utf-8 -*-\n")  # 写入编码声明
-        temp_file.write(code)
 
+def estimate_timeout(code):
+    """
+    根据代码复杂度动态计算超时时间，优化简单语句和重复语句的权重
+    """
     try:
+        # 解析代码为 AST（抽象语法树）
+        tree = ast.parse(code)
+        
+        # 基础时间和权重
+        base_timeout = 5  # 基础超时时间
+        statement_weight = 0.5  # 默认语句权重
+        simple_call_weight = 0.1  # 简单函数调用权重
+        loop_weight = 2  # 循环结构权重
+        total_complexity = base_timeout
+
+        # 定义常见简单函数集合
+        simple_functions = {"print", "len", "input", "range", "str", "int", "float", "bool", "list", "dict", "set", "tuple"}
+
+        # 遍历 AST，计算复杂度
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.For, ast.While)):
+                total_complexity += loop_weight
+            elif isinstance(node, (ast.If, ast.FunctionDef)):
+                total_complexity += statement_weight
+            elif isinstance(node, ast.Call):
+                # 如果是简单的调用（如 print），降低权重
+                if isinstance(node.func, ast.Name) and node.func.id in simple_functions:
+                    total_complexity += simple_call_weight
+                else:
+                    total_complexity += statement_weight
+            elif isinstance(node, ast.Assign):
+                total_complexity += statement_weight
+        
+        # 返回计算的超时时间，确保至少为 5 秒
+        return max(5, total_complexity)
+    except Exception as e:
+        # 如果代码解析失败，返回默认超时时间
+        return 10
+
+
+def execute_in_subprocess(code):
+    """
+    在脚本运行目录的 temp_scripts 文件夹中创建临时文件并执行代码，支持全局超时设置
+    """
+    try:
+        # 使用全局变量确定超时时间
+        if config["RETURN_TIMEOUT"] < 0:
+            timeout = estimate_timeout(code)  # 自适应超时
+        else:
+            timeout = config["RETURN_TIMEOUT"]  # 使用固定超时
+        
+        # 获取脚本运行目录
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # 构造 temp_scripts 文件夹路径
+        temp_scripts_dir = os.path.join(script_dir, "temp_scripts")
+        
+        # 如果 temp_scripts 文件夹不存在，则创建
+        if not os.path.exists(temp_scripts_dir):
+            os.makedirs(temp_scripts_dir)
+        
+        # 创建临时 Python 文件
+        temp_file_path = os.path.join(temp_scripts_dir, next(tempfile._get_candidate_names()) + ".py")
+        with open(temp_file_path, "w", encoding="utf-8") as temp_file:
+            temp_file.write("# -*- coding: utf-8 -*-\n")
+            temp_file.write(code)
+        
+        # 执行临时文件
         process = subprocess.Popen(
             ["python", temp_file_path],
             stdout=subprocess.PIPE,
@@ -100,27 +183,35 @@ def execute_in_subprocess(code):
             text=True,
             start_new_session=True
         )
-        stdout, stderr = process.communicate()
+        
+        try:
+            # 设置超时并等待输出
+            stdout, stderr = process.communicate(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            # 如果超时，则终止子进程
+            process.kill()
+            return None, f"[TIMEOUT] 执行超时设定的 {timeout:.2f} 秒，已自动结束。"
+
+        # 返回输出和错误信息
         if stderr.strip():
             return stdout.strip(), stderr.strip()
         return stdout.strip(), None
     except Exception as e:
-        return None, str(e)
-    finally:
-        try:
-            os.remove(temp_file_path)
-        except Exception as cleanup_error:
-            pass
+        return None, f"[ERROR] {str(e)}"
+
 
 
 def cleanup_temp_dir():
     """
-    清理临时文件夹
+    清理脚本运行目录下的 temp_scripts 文件夹
     """
-    temp_dir = os.path.join(os.getcwd(), "temp_scripts")
+    # 获取脚本运行目录
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    temp_dir = os.path.join(script_dir, "temp_scripts")
+    
+    # 检查文件夹是否存在
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
-
 
 def run_main_program(user_input, web_ui_url=None):
 
@@ -158,12 +249,14 @@ def run_main_program(user_input, web_ui_url=None):
     if code:
         stdout, stderr = execute_in_subprocess(code)
         if stderr:  # 如果有错误输出
-            execution_result = f"执行错误: {stderr}"
+            if "[TIMEOUT]" in stderr:  # 检测是否为超时错误
+                execution_result = f"{stderr}"
+            else:
+                execution_result = f"执行错误: {stderr}"
         else:
             execution_result = stdout if stdout else "无标准输出"
     else:
         execution_result = None
-
     # 构造返回数据
     result = {
         "prompt": prompt,
@@ -296,6 +389,7 @@ def main():
         if user_input.upper() == ".HELP":
             show_help()
         elif user_input.upper() == ".EXIT":
+            cleanup_temp_dir()
             print("程序已退出，感谢使用！")
             exit(0)
         else:

@@ -46,6 +46,13 @@
 
             <input type="number" id="execution_level" name="EXECUTION_LEVEL" min="0" max="3" value="{{ config['EXECUTION_LEVEL'] }}">
 
+            <label for="return_timeout">
+                执行超时:
+                <span class="tooltip-icon" data-tooltip="输入超时时间(单位秒)，-1为自适应超时时间。">?</span>
+            </label>
+
+            <input type="number" id="return_timeout" name="RETURN_TIMEOUT" step="0.1" value="{{ config['RETURN_TIMEOUT'] }}">
+
 
 
             <button type="button" id="update_button" onclick="saveConfig()">保存配置</button>
