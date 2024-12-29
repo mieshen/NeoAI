@@ -22,7 +22,7 @@ def generate_prompt(level, user_input, system_info, allowed_operations, restrict
 
     return f"""
 ⚙️ 当前安全等级：Level {level}(数字越小权限越高)。
-例：如一个操作需要Level 2权限，那么Level 3 无法执行，Level 1 和 Level 0 也可以执行。这就是等级数字越小，权限越高的含义。
+例：如一个操作需要Level 2权限，那么Level 3 无法执行，Level 2 、Level 1 和 Level 0 也可以执行。这就是等级数字越小，权限越高的含义。
 🖥️ 系统信息：
 {system_info_text}
 
