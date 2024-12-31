@@ -18,7 +18,11 @@ DEFAULT_CONFIG = {
     "EXECUTION_LEVEL": 2,
     "LOOP": True,
     "LOG_OUTPUT": False,
-    "RETURN_TIMEOUT" : -1 # -1 为自适应超时，大于 0 为固定超时
+    "RETURN_TIMEOUT" : -1, # -1 为自适应超时，大于 0 为固定超时
+    "TEMPERATURE": 0.7,
+    "MAX_TOKENS": 4096,
+    "MAX_TURNS": 32,
+
 }
 
 # 全局配置变量
@@ -236,10 +240,10 @@ def run_main_program(user_input, web_ui_url=None):
         raise ValueError("无效的安全等级")
 
     # 生成 Prompt
-    prompt = get_prompt(user_input, system_info)
+    prompt = get_prompt(system_info)
 
     # 获取 AI 响应
-    ai_response = get_ai_response(prompt, api_key, api_base_url, model)
+    ai_response = get_ai_response(prompt, api_key, api_base_url, model, user_input, config["TEMPERATURE"], config["MAX_TOKENS"],config["MAX_TURNS"])
 
     # 提取代码块
     code = extract_code(ai_response)

@@ -2,7 +2,7 @@ from level.common import generate_prompt
 
 from level.operation_levels import operation_levels
 
-def get_prompt(user_input, system_info):
+def get_prompt(system_info):
     allowed_operations = """
   1. 运行大多数合法的 Python 代码。
   2. 使用系统命令（限制极危险操作）。
@@ -21,5 +21,5 @@ import os
 os.remove('example.txt')
 <<<RUN<<<
 """
-    return generate_prompt(1, user_input, system_info, allowed_operations, restrictions, examples, operation_levels)
+    return generate_prompt(1,system_info, allowed_operations, restrictions, examples, operation_levels)
 

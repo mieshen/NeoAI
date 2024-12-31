@@ -1,7 +1,7 @@
 import importlib
 import re
 
-def generate_prompt(level, user_input, system_info, allowed_operations, restrictions, examples, operation_levels):
+def generate_prompt(level,  system_info, allowed_operations, restrictions, examples, operation_levels):
     """
     动态生成 Prompt，并让 AI 自行判断权限是否足够。
     """
@@ -88,13 +88,13 @@ def generate_prompt(level, user_input, system_info, allowed_operations, restrict
    - 结束：`<<<RUN<<<`
    - 前后需使用markdown代码块格式（```）包裹。
 4.可以提示用户需要的库，但不要给出安装库的命令。
+5.如果用户不需要你执行操作，你给出的代码就不需要使用`>>>RUN>>>`和`<<<RUN<<<`标记。
 
 📘 示例代码（格式严格）：
 {examples}
 
 {level_definition}
 
-用户请求：{user_input}
 """
 
 

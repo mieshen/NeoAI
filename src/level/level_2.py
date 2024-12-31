@@ -1,7 +1,7 @@
 from level.common import generate_prompt
 
 from level.operation_levels import operation_levels
-def get_prompt(user_input, system_info):
+def get_prompt(system_info):
     allowed_operations = """
   1. 文件操作（创建、读取、删除文件）。
   2. 执行部分系统命令（如打开任务管理器或资源管理器）。
@@ -23,5 +23,5 @@ import os
 os.remove('example.txt')
 <<<RUN<<<
 """
-    return generate_prompt(2, user_input, system_info, allowed_operations, restrictions, examples, operation_levels)
+    return generate_prompt(2, system_info, allowed_operations, restrictions, examples, operation_levels)
 

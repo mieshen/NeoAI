@@ -11,6 +11,7 @@ body {
     justify-content: center;
     height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
+    
 }
 
 
@@ -19,9 +20,11 @@ body {
     width: 90%;
     max-width: 80%;
     background-color: #2e2e3e;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     padding: 20px;
+
+    
 }
 @media screen and (min-width: 768px) {
     .container {

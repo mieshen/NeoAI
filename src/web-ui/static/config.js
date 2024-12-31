@@ -5,11 +5,24 @@ function saveConfig() {
 
     const config = {};
     formData.forEach((value, key) => {
-        if (key === "EXECUTION_LEVEL") {
+        if (key === "EXECUTION_LEVEL" || key === "MAX_TOKENS" || key === "MAX_TURNS") {
             config[key] = parseInt(value, 10); // 一定要转换为10进制整数！！！否则后端会出现未知安全等级
-        } else if (key === "RETURN_TIMEOUT") {
+        } else if (key === "RETURN_TIMEOUT"  ) {
             config[key] = parseFloat(value); // 将 RETURN_TIMEOUT 转换为浮点数
-        } else if (value === "on") {
+        }else if (key === "TEMPERATURE") {
+            if(value < 0){
+                config[key] = 0; // 温度不能为负数
+            }
+            else if(value > 2){
+                config[key] = 2; // 温度不能大于2
+            }
+            else{
+                config[key] = parseFloat(value);
+            }
+
+        }
+        
+        else if (value === "on") {
             config[key] = true; // 处理布尔值
         } else if (value === "off") {
             config[key] = false; // 处理布尔值关闭情况

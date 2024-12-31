@@ -80,15 +80,17 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
             
             bubble.innerText = content;
         } else {
-            
+
             const markdownContent = marked.parse(content, {
                 highlight: function (code, lang) {
                     if (hljs.getLanguage(lang)) {
                         return hljs.highlight(lang, code).value;
                     }
-                    return hljs.highlightAuto(code).value; 
+                    return hljs.highlightAuto(code).value;
                 },
+                gfm: true,
             });
+            
             simulateTypingAnimation(bubble, markdownContent);
         }
 
@@ -98,6 +100,10 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
 
     return bubble.id; 
 }
+hljs.configure({ languages: ['python', 'javascript', 'html', 'css'] });
+document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el);
+});
 
 
 

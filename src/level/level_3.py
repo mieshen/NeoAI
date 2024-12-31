@@ -3,7 +3,7 @@ from level.common import generate_prompt
 
 from level.operation_levels import operation_levels
 
-def get_prompt(user_input, system_info):
+def get_prompt(system_info):
     allowed_operations = """
   1. 读取文件内容。
   2. 打印简单的计算结果。
@@ -25,5 +25,5 @@ with open("example.txt", "r") as f:
 print(1 + 2 * 3)
 <<<RUN<<<
 """
-    return generate_prompt(3, user_input, system_info, allowed_operations, restrictions, examples, operation_levels)
+    return generate_prompt(3, system_info, allowed_operations, restrictions, examples, operation_levels)
 
