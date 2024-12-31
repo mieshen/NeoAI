@@ -1,28 +1,29 @@
 # **NeoAI：无需一行代码！让AI控制你的电脑！**
 ## **NeoAI 实现了微软吹过的牛！**
 
-### **在您的电脑上**  
-- **“我的工作报表文件在哪？”**  
-  **“您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？”**
+<p align="center">
+  <img src="docs/LOGO.png" alt="Logo" width="400" />
+</p>
 
-<img src="docs/PC.png" alt="PC" width="300">
-
----
-
-### **在您的手机上**  
-- **“10 分钟后帮我重启电脑。”**  
-  **“好的，已为您添加定时执行。”**
-  
-<img src="docs/Phone.jpg" alt="Phone" width="200">
+  <section align="center">
+    <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
+    <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
+    <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
+  </section>
 
 ---
 
+## **✨ NeoAI 能为您做什么？**
 
-### **随时随地掌控一切**  
-NeoAI 支持在任何有浏览器的设备上远程控制您的电脑。
+| 设备  | 对话示例                                                                 | 功能展示                |
+|-------|--------------------------------------------------------------------------|-------------------------|
+| 电脑  | **“我的工作报表文件在哪？”**  <br> **“您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？”** | ![PC](docs/PC.png)      |
+| 手机  | **“10 分钟后帮我重启电脑。”** <br> **“好的，已为您添加定时执行。”**                     | ![Phone](docs/Phone.jpg)|
 
 ---
 
-**NeoAI** 是一款专为开发者和高级用户设计的开源 AI 工具，能够通过自然语言直接控制操作系统，执行开发相关任务并大幅提升工作效率。  
-它不仅仅是一个聊天助手，**更是一个能与系统深度交互的强大工具**。
 
+### NeoAI 支持通过任何带浏览器的设备远程控制您的电脑！
+
+---
