@@ -24,6 +24,10 @@ def config_page():
     """
     return render_template("config.html", config=config)
 
+@app.route("/menu")
+def menu():
+    return render_template("menu.html")
+
 
 @app.route("/api/logs", methods=["GET"])
 def get_logs():

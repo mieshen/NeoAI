@@ -7,13 +7,16 @@
     <title>NeoAI - 设置</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='config.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
 </head>
 
 <body>
-    <!-- 这是临时跳转！！！后续会增加弹出菜单 并且优化更多！！！ -->
-    <div class="header" onclick="window.location.href = '/'">NeoAI - 设置</div>
 
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <div class="header" onclick="showMenu()">NeoAI - 设置</div>
+    <div id="menuOverlay" class="hidden"></div>
     
+    <div class="none"></div>
     <div class="container">
         <form id="config_form">
             <button type="button" id="toggle_password" onclick="togglePasswordVisibility()">查看隐私项👁️</button>
@@ -61,6 +64,7 @@
 
     <script src="{{ url_for('static', filename='config.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
 </body>
 
 </html>
