@@ -68,3 +68,20 @@ python ./src/web-ui.py
 ```bash
 python ./src/main.py
 ```
+ - ### 使用
+
+>WebUI
+
+进入 ```localhost:7820``` 点击左上角的NeoAI > ⚙️设置⚙️ > 进行初次配置
+
+### 或
+
+进入 ```localhost:7820/config``` 进行初次配置
+
+>终端
+
+运行后如正确显示NeoAI LOGO后输入消息 ```.help``` 进行初次配置
+
+>设置完成
+
+### 开始使用NeoAI！
