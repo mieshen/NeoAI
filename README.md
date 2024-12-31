@@ -14,6 +14,9 @@
 ---
 
  - [演示](#-neoai-能做什么)
+ - [安装与使用](#安装与使用)
+    - [安装](#安装)
+    - [使用](#使用)
 
 ---
 
@@ -31,3 +34,37 @@
 ### NeoAI 支持通过任何带浏览器的设备远程控制您的电脑！
 
 ---
+
+# 安装与使用
+
+ - ### 安装
+
+### 克隆仓库
+```bash
+git clone https://github.com/TheD0ubleC/NeoAI.git
+```
+
+### 进入目录
+
+```bash
+cd NeoAI
+```
+
+### 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+### 运行
+
+>WebUI
+
+```bash
+python ./src/web-ui.py
+```
+>终端
+
+```bash
+python ./src/main.py
+```
