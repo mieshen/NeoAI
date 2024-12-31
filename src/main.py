@@ -8,6 +8,7 @@ from utils.system_info import get_system_info
 from utils.ai_interaction import get_ai_response
 from level.operation_levels import operation_levels
 from level.common import generate_prompt, extract_code
+from utils.ai_interaction import append_to_last_history
 
 # === 配置常量 ===
 CONFIG_FILE = os.path.join(os.getcwd(), "config.json")  # 配置文件路径
@@ -193,7 +194,7 @@ def execute_in_subprocess(code):
             stdout, stderr = process.communicate(timeout=timeout)
         except subprocess.TimeoutExpired:
             # 如果超时，则终止子进程
-            process.kill()
+            # process.kill()
             return None, f"[TIMEOUT] 执行超时设定的 {timeout:.2f} 秒，已自动结束。"
 
         # 返回输出和错误信息
@@ -261,6 +262,8 @@ def run_main_program(user_input, web_ui_url=None):
             execution_result = stdout if stdout else "无标准输出"
     else:
         execution_result = None
+
+    append_to_last_history("执行结果:" + execution_result if execution_result !=None else "" )
     # 构造返回数据
     result = {
         "prompt": prompt,

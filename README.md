@@ -1,87 +1,125 @@
-# **NeoAI：无需一行代码！让AI控制你的电脑！NeoAI 实现了微软吹过的牛！**
+# NeoAI：无需一行代码！让 AI 掌控您的电脑！
 
 <p align="center">
   <img src="docs/LOGO.png" alt="Logo" width="400" />
 </p>
 
-  <section align="center">
-    <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
-    <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
-    <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
-    <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
-  </section>
+<section align="center">
+  <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
+  <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
+  <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
+</section>
 
 ---
 
- - [演示](#-neoai-能做什么)
- - [安装与使用](#安装与使用)
-    - [安装](#安装)
-    - [使用](#使用)
+## **目录**
+
+- [NeoAI 的功能](#neoai-的功能)
+- [安装与使用](#安装与使用)
+  - [快速安装](#快速安装)
+  - [快速使用](#快速使用)
 
 ---
 
+## **✨ NeoAI 的功能**
 
-## **✨ NeoAI 能做什么？**
+NeoAI 是一款创新的工具，能够帮助您通过自然语言控制电脑，实现远程操作、自动化任务和设备管理。它功能强大且简单易用，支持以下场景：
 
-| 设备  | 对话示例                                                                 | 功能展示                |
+| 设备  | 示例对话                                                                 | 功能展示                |
 |-------|--------------------------------------------------------------------------|-------------------------|
-| 电脑  | **“我的工作报表文件在哪？”**  <br> **“您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？”** | ![PC](docs/PC.png)      |
-| 手机  | **“10 分钟后帮我重启电脑。”** <br> **“好的，已为您添加定时执行。”**                     | ![Phone](docs/Phone.jpg)|
+| **电脑**  | **"我的工作报表文件在哪？"**  <br> **"您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？"** | ![PC](docs/PC.png)      |
+| **手机**  | **"10 分钟后帮我重启电脑。"** <br> **"好的，已为您添加定时执行。"**                     | ![Phone](docs/Phone.jpg)|
+
+NeoAI 支持通过任何带有浏览器的设备操作。您可以在您的主机上创建服务，再在手机上对AI输入想要执行的操作，AI会帮您立刻执行。
+---
+
+## **安装与使用**
+
+### **快速安装**
+
+1. **克隆仓库**
+   ```bash
+   git clone https://github.com/TheD0ubleC/NeoAI.git
+   ```
+
+2. **进入目录**
+   ```bash
+   cd NeoAI
+   ```
+
+3. **安装依赖**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **启动 NeoAI**
+
+   - **WebUI 模式：**
+     ```bash
+     python ./src/web-ui.py
+     ```
+
+   - **终端模式：**
+     ```bash
+     python ./src/main.py
+     ```
 
 ---
 
+### **快速使用**
 
-### NeoAI 支持通过任何带浏览器的设备远程控制您的电脑！
+#### **WebUI 模式**
+
+1. 启动后打开浏览器，访问：
+   ```
+   localhost:7820
+   ```
+
+2. 点击左上角的 **NeoAI** > ⚙️ **设置** 进行初次配置。
+   或直接访问：
+   ```
+   localhost:7820/config
+   ```
+
+#### **终端模式**
+
+1. 启动程序，若正确显示 NeoAI 的 LOGO：
+   ```
+   +=========================================+
+    ███╗   ██╗███████╗ ██████╗      █████╗ ██╗
+    ████╗  ██║██╔════╝██╔═══██╗    ██╔══██╗██║
+    ██╔██╗ ██║█████╗  ██║   ██║    ███████║██║
+    ██║╚██╗██║██╔══╝  ██║   ██║    ██╔══██║██║
+    ██║ ╚████║███████╗╚██████╔╝    ██║  ██║██║
+     ╚═╝  ╚═══╝╚══════╝ ╚═════╝     ╚═╝  ╚═╝╚═╝
+   +=========================================+
+   ```
+
+2. 输入以下命令查看帮助并完成初次配置：
+   ```bash
+   .help
+   ```
+
+3. 按需设置完成后，开始享受 AI 的强大功能！
 
 ---
 
-# 安装与使用
+### **NeoAI 的亮点功能**
 
- - ### 安装
+- **远程操作设备：**
+  - 随时随地通过手机或其他设备远程控制电脑。
 
-### 克隆仓库
-```bash
-git clone https://github.com/TheD0ubleC/NeoAI.git
-```
+- **快速文件管理：**
+  - 通过简单的对话找到文件并直接打开。
 
-### 进入目录
+- **自动化任务：**
+  - 定时重启、定时关机，轻松安排任务。
 
-```bash
-cd NeoAI
-```
+- **设备管理：**
+  - 监控和控制多个设备，高效便捷。
 
-### 安装依赖
+---
 
-```bash
-pip install -r requirements.txt
-```
+**立即试用 NeoAI，解锁设备管理新方式！**
 
-### 运行
-
->WebUI
-
-```bash
-python ./src/web-ui.py
-```
->终端
-
-```bash
-python ./src/main.py
-```
- - ### 使用
-
->WebUI
-
-进入 ```localhost:7820``` 点击左上角的NeoAI > ⚙️设置⚙️ > 进行初次配置
-
-### 或
-
-进入 ```localhost:7820/config``` 进行初次配置
-
->终端
-
-运行后如正确显示NeoAI LOGO后输入消息 ```.help``` 进行初次配置
-
->设置完成
-
-### 开始使用NeoAI！

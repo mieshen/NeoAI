@@ -27,6 +27,8 @@ def get_ai_response(prompt, api_key, api_base_url, model, user_input, temperatur
         "Authorization": f"Bearer {api_key}"
     }
     
+    print(f"history: {history}")
+
     # 构造完整的 messages，包含固定的 prompt 和历史记录
     messages = [{"role": "system", "content": prompt}] + history + [{"role": "user", "content": user_input}]
     
@@ -56,3 +58,17 @@ def get_ai_response(prompt, api_key, api_base_url, model, user_input, temperatur
         return ai_response
     else:
         return f"调用失败，状态码：{response.status_code}, 错误信息：{response.text}"
+    
+    
+def append_to_last_history(content_to_append):
+    """
+    将字符串拼接到 history 列表最后一个元素的 content 字段末尾。
+    
+    参数：
+        content_to_append (str): 要拼接的字符串。
+    """
+    global history
+    if history:  # 确保 history 不为空
+        history[-1]["content"] += f"\n\n{content_to_append}"
+    else:
+        print("历史记录为空，无法拼接内容！")
