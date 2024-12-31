@@ -37,6 +37,7 @@ def get_logs():
     return jsonify(logs), 200
 
 
+
 @app.route("/api/interact", methods=["POST"])
 def interact_with_ai():
     """

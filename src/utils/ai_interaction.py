@@ -27,7 +27,6 @@ def get_ai_response(prompt, api_key, api_base_url, model, user_input, temperatur
         "Authorization": f"Bearer {api_key}"
     }
     
-    print(f"history: {history}")
 
     # 构造完整的 messages，包含固定的 prompt 和历史记录
     messages = [{"role": "system", "content": prompt}] + history + [{"role": "user", "content": user_input}]
