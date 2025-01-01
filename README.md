@@ -1,4 +1,4 @@
-# NeoAI: No Coding Required! Let AI Take Control of Your Computer!
+# NeoAI: No Coding Required! Let AI Take Control of Your Computer! | NeoAI：无需一行代码！让 AI 掌控您的电脑！
 
 ## [简体中文文档点我](docs/README(zh-CN).md)
 
