@@ -1,4 +1,6 @@
-# NeoAI：无需一行代码！让 AI 掌控您的电脑！
+# NeoAI: No Coding Required! Let AI Take Control of Your Computer!
+
+## [简体中文文档点我](docs/README(zh-CN).md)
 
 <p align="center">
   <img src="docs/LOGO.png" alt="Logo" width="400" />
@@ -13,78 +15,85 @@
 
 ---
 
-## **目录**
+**Introduction:** NeoAI is currently in the testing phase and may have some unknown issues.
 
-- [NeoAI 的功能](#neoai-的功能)
-- [安装与使用](#安装与使用)
-  - [快速安装](#快速安装)
-  - [快速使用](#快速使用)
+If you are willing, you can become a contributor to NeoAI and help us improve it together!
 
 ---
 
-## **✨ NeoAI 的功能**
+## **Table of Contents**
 
-NeoAI 是一款创新的工具，能够帮助您通过自然语言控制电脑，实现远程操作、自动化任务和设备管理。它功能强大且简单易用，支持以下场景：
+- [Features of NeoAI](#features-of-neoai)
+- [Installation and Usage](#installation-and-usage)
+  - [Quick Installation](#quick-installation)
+  - [Quick Start](#quick-start)
 
-| 设备  | 示例对话                                                                 | 功能展示                |
-|-------|--------------------------------------------------------------------------|-------------------------|
-| **电脑**  | **"我的工作报表文件在哪？"**  <br> **"您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？"** | ![PC](docs/PC.png)      |
-| **手机**  | **"10 分钟后帮我重启电脑。"** <br> **"好的，已为您添加定时执行。"**                     | ![Phone](docs/Phone.jpg)|
-
-NeoAI 支持通过任何带有浏览器的设备操作。您可以在您的主机上创建服务，再在手机上对AI输入想要执行的操作，AI会帮您立刻执行。
 ---
 
-## **安装与使用**
+## **✨ Features of NeoAI**
 
-### **快速安装**
+NeoAI is an innovative tool that enables you to control your computer through natural language, facilitating remote operations, task automation, and device management. It is powerful yet easy to use and supports the following scenarios:
 
-1. **克隆仓库**
+| Device  | Example Dialog                                                             | Feature Demonstration     |
+|---------|----------------------------------------------------------------------------|---------------------------|
+| **PC**  | **"Where is my work report file?"**  <br> **"Your work report file is located in the Project folder on drive D. Shall I open it for you?"** | ![PC](docs/PC.png)        |
+| **Phone** | **"Restart the computer in 10 minutes."** <br> **"Sure, I have scheduled it for you."**                 | ![Phone](docs/Phone.jpg) |
+
+NeoAI supports operation from any device with a browser. You can host the service on your machine and then input commands to the AI via your phone, and it will execute them immediately.
+
+---
+
+## **Installation and Usage**
+
+### **Quick Installation**
+
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/TheD0ubleC/NeoAI.git
    ```
 
-2. **进入目录**
+2. **Navigate to the Directory**
    ```bash
    cd NeoAI
    ```
 
-3. **安装依赖**
+3. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **启动 NeoAI**
+4. **Start NeoAI**
 
-   - **WebUI 模式：**
+   - **WebUI Mode:**
      ```bash
      python ./src/web-ui.py
      ```
 
-   - **终端模式：**
+   - **Terminal Mode:**
      ```bash
      python ./src/main.py
      ```
 
 ---
 
-### **快速使用**
+### **Quick Start**
 
-#### **WebUI 模式**
+#### **WebUI Mode**
 
-1. 启动后打开浏览器，访问：
+1. After starting, open your browser and visit:
    ```
    localhost:7820
    ```
 
-2. 点击左上角的 **NeoAI** > ⚙️ **设置** 进行初次配置。
-   或直接访问：
+2. Click **NeoAI** > ⚙️ **Settings** in the top left corner to perform initial configuration.
+   Or directly visit:
    ```
    localhost:7820/config
    ```
 
-#### **终端模式**
+#### **Terminal Mode**
 
-1. 启动程序，若正确显示 NeoAI 的 LOGO：
+1. Start the program. If NeoAI’s logo displays correctly:
    ```
    +=========================================+
     ███╗   ██╗███████╗ ██████╗      █████╗ ██╗
@@ -96,30 +105,32 @@ NeoAI 支持通过任何带有浏览器的设备操作。您可以在您的主�
    +=========================================+
    ```
 
-2. 输入以下命令查看帮助并完成初次配置：
+2. Enter the following command to view help and complete the initial configuration:
    ```bash
    .help
    ```
 
-3. 按需设置完成后，开始享受 AI 的强大功能！
+3. After setup, start enjoying the powerful features of NeoAI!
 
 ---
 
-### **NeoAI 的亮点功能**
+### **Highlight Features of NeoAI**
 
-- **远程操作设备：**
-  - 随时随地通过手机或其他设备远程控制电脑。
+- **Remote Device Operations:**
+  - Control your computer remotely from your phone or other devices, anytime, anywhere.
 
-- **快速文件管理：**
-  - 通过简单的对话找到文件并直接打开。
+- **Quick File Management:**
+  - Find and open files with simple conversations.
 
-- **自动化任务：**
-  - 定时重启、定时关机，轻松安排任务。
+- **Task Automation:**
+  - Schedule tasks like restarting or shutting down with ease.
 
-- **设备管理：**
-  - 监控和控制多个设备，高效便捷。
+- **Device Management:**
+  - Monitor and manage multiple devices efficiently.
 
 ---
 
-**立即试用 NeoAI，解锁设备管理新方式！**
+**Try NeoAI Now!**
+
+![Star Trend](https://starchart.cc/thed0ublec/neoai.svg)
 

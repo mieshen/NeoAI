@@ -99,5 +99,6 @@ if __name__ == "__main__":
     load_config()  # 加载配置
     # 使用动态端口
     port = 7820
-    print(output_handler.get_translation("starting_web_ui").format(port=port))
+    print(output_handler.get_translation("starting_web_ui", port=port))
+
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
