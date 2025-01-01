@@ -1,5 +1,9 @@
 from flask import Flask, request, jsonify, render_template
 from main import run_main_program, load_config, config, save_config
+from utils.output_handler import OutputHandler  # 导入 OutputHandler
+
+# 初始化 OutputHandler（默认语言：英语）
+output_handler = OutputHandler(language=config["LANGUAGE"], log_output=True)
 
 # 指定 templates 和 static 文件夹路径
 app = Flask(
@@ -28,15 +32,12 @@ def config_page():
 def menu():
     return render_template("menu.html")
 
-
 @app.route("/api/logs", methods=["GET"])
 def get_logs():
     """
     返回实时日志数据
     """
     return jsonify(logs), 200
-
-
 
 @app.route("/api/interact", methods=["POST"])
 def interact_with_ai():
@@ -45,7 +46,7 @@ def interact_with_ai():
     """
     data = request.json
     if not data or "user_input" not in data:
-        return jsonify({"error": "Missing user_input"}), 400
+        return jsonify({"error": output_handler.get_translation("missing_user_input")}), 400
 
     user_input = data["user_input"]
     
@@ -67,7 +68,6 @@ def interact_with_ai():
         "execution_result": result.get("execution_result", "").strip()
     }), 200
 
-
 @app.route("/api/config", methods=["GET", "POST"])
 def manage_config():
     """
@@ -79,13 +79,12 @@ def manage_config():
     elif request.method == "POST":
         new_config = request.json
         if not new_config:
-            return jsonify({"error": "Invalid configuration data"}), 400 # 返回错误消息
+            return jsonify({"error": output_handler.get_translation("invalid_configuration_data")}), 400
         
         # 更新配置
         config.update(new_config)
         save_config()  # 保存配置到文件
-        return jsonify({"message": "Configuration updated successfully!"}), 200 # 返回成功消息
-
+        return jsonify({"message": output_handler.get_translation("config_updated_successfully")}), 200
 
 def find_free_port():
     """
@@ -96,10 +95,9 @@ def find_free_port():
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
 
-
 if __name__ == "__main__":
     load_config()  # 加载配置
     # 使用动态端口
     port = 7820
-    print(f"Starting WebUI on http://0.0.0.0:{port}...")
+    print(output_handler.get_translation("starting_web_ui").format(port=port))
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
