@@ -97,6 +97,40 @@
     "missing_user_input": "Missing user input",
     "invalid_configuration_data": "Invalid configuration data",
     "config_updated_successfully": "Configuration updated successfully!",
-    "starting_web_ui": "Starting WebUI on port: {port}"
+    "starting_web_ui": "Starting WebUI on port: {port}",
+
+
+
+
+    "web_ui_titel": "NeoAI",
+
+    "menu_chat": "💬Chat💬",
+    "menu_config": "⚙️Settings⚙️",
+    "menu_help": "📜Help (Not Ready Yet)📜",
+    "menu_github": "🐈️Github🐈️",
+    "menu_close": "Close",
+    "menu_header_title": "NeoAI - Menu",
+    "title": "NeoAI - Settings",
+    "header_title": "NeoAI - Settings",
+    "toggle_password_button": "Show Private Fields👁️",
+    "api_key_label": "API Key:",
+    "api_key_tooltip": "Enter your OpenAI API key",
+    "api_base_url_label": "API Base URL:",
+    "api_base_url_tooltip": "Enter your API base URL, default is https://api.openai.com/v1/chat/completions",
+    "model_label": "Model:",
+    "model_tooltip": "Enter the model name you'd like to use, e.g., gpt-4",
+    "execution_level_label": "Security Level:",
+    "execution_level_tooltip": "Input the security level, range 0 - 3.",
+    "return_timeout_label": "Execution Timeout:",
+    "return_timeout_tooltip": "Input timeout duration (in seconds), -1 for adaptive timeout.",
+    "temperature_label": "Temperature:",
+    "temperature_tooltip": "Set the temperature, range 0 - 2.",
+    "max_tokens_label": "Max Tokens:",
+    "max_tokens_tooltip": "Set the maximum output token count.",
+    "max_turns_label": "Max Dialogue Turns:",
+    "max_turns_tooltip": "Set the maximum number of saved dialogue turns, 1 turn = 1 question + 1 answer.",
+    "save_config_button": "Save Configuration",
+    "language_label": "Select Language (WebUI must be restarted after change):",
+    "language_tooltip": "Choose your preferred language. Changes will not take effect unless the WebUI is restarted."
 
 }

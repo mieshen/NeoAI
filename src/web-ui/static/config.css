@@ -163,3 +163,25 @@ button:disabled {
     visibility: visible;
     opacity: 1;
 }
+form select {
+    background-color: #1e1e2e;
+    border: 1px solid #444;
+    color: #eaeaea;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    cursor: pointer;
+}
+
+form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
+
+form select option {
+    background-color: #2e2e3e;
+    color: #eaeaea;
+}

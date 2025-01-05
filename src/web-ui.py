@@ -16,6 +16,14 @@ app = Flask(
 
 logs = []
 
+@app.template_filter("translate")
+def translate(key, **kwargs):
+    """
+    根据全局语言设置动态获取翻译
+    """
+    output_handler.set_language(config["LANGUAGE"])
+    return output_handler.get_translation(key, **kwargs)
+
 
 @app.route("/")
 def index():
@@ -129,6 +137,14 @@ def find_free_port():
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
 
+@app.route("/set_language/<lang>", methods=["POST", "GET"])
+def set_language(lang):
+    config["LANGUAGE"] = lang
+    save_config()
+
+    output_handler.set_language(lang)
+
+    return jsonify({"LANGUAGE": lang, "message": f"Language set to {lang}"}), 200
 
 if __name__ == "__main__":
     load_config()  # 加载配置

@@ -11,16 +11,18 @@
 <body>
     <div class="menu-container">
         <div class="menu-header">
-            <h1 class="menu-header-title">NeoAI - 菜单</h1>
+            <h1 class="menu-header-title">{{ "menu_header_title" | translate }}</h1>
 
         </div>
         <div class="menu-content">
-            <button class="menu-button" onclick="window.location.href = '/'">💬聊天💬</button>
-            <button class="menu-button" onclick="window.location.href = '/config'">⚙️设置⚙️</button>
-            <button class="menu-button" onclick="window.location.href = '/'">📜帮助(还没做好)📜</button>
-            <button class="menu-button"
-                onclick="window.location.href = 'https://github.com/thed0ublec/NeoAI'">🐈️Github🐈️</button>
-            <button class="menu-button" style="margin-top: 40px;" onclick="closeMenu()">关闭</button>
+            <button class="menu-button" onclick="window.location.href = '/'">{{ "menu_chat" | translate }}</button>
+            <button class="menu-button" onclick="window.location.href = '/config'">{{ "menu_config" | translate }}</button>
+            <button class="menu-button" onclick="window.location.href = '/'">{{ "menu_help" | translate }}</button>
+            <button class="menu-button" onclick="window.location.href = 'https://github.com/thed0ublec/NeoAI'">{{
+                "menu_github" | translate }}</button>
+            <button class="menu-button" style="margin-top: 40px;" onclick="closeMenu()">{{ "menu_close" | translate
+                }}</button>
+
         </div>
     </div>
 </body>

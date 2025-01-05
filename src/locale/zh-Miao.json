@@ -98,7 +98,39 @@
     "missing_user_input": "喵，输入不见了！",
     "invalid_configuration_data": "哎呀，配置好像不对喵！",
     "config_updated_successfully": "配置已成功更新，喵！",
-    "starting_web_ui": "喵~ 正在启动 WebUI，端口是：{port}"
+    "starting_web_ui": "喵~ 正在启动 WebUI，端口是：{port}",
+
+
+    "web_ui_titel": "NekoAI 喵~",
+
+    "menu_chat": "💬来聊天吧喵💬",
+    "menu_config": "⚙️喵喵设置⚙️",
+    "menu_help": "📜帮助喵~ (没做好TT)📜",
+    "menu_github": "🐈️去Github逛逛喵🐈️",
+    "menu_close": "关闭喵~",
+    "menu_header_title": "NeoAI - 菜单喵~",
+    "title": "NeoAI - 设置喵~",
+    "header_title": "NeoAI - 设置喵~",
+    "toggle_password_button": "查看隐私项喵👁️",
+    "api_key_label": "API Key 喵:",
+    "api_key_tooltip": "快输入你的 OpenAI API 密钥喵~",
+    "api_base_url_label": "API 基础 URL 喵:",
+    "api_base_url_tooltip": "输入你的 API 基础 URL 喵~ 默认是 https://api.openai.com/v1/chat/completions",
+    "model_label": "模型喵:",
+    "model_tooltip": "请输入你想用的模型名字喵~ 比如 gpt-4",
+    "execution_level_label": "安全等级喵:",
+    "execution_level_tooltip": "输入安全等级喵，范围是 0 - 3~",
+    "return_timeout_label": "执行超时喵:",
+    "return_timeout_tooltip": "输入超时时间喵~ (单位是秒)，-1 表示自动喵~",
+    "temperature_label": "温度喵~:",
+    "temperature_tooltip": "设置温度喵~ 范围是 0 - 2~",
+    "max_tokens_label": "最大 Tokens 数喵:",
+    "max_tokens_tooltip": "设置最大输出 Tokens 数喵~",
+    "max_turns_label": "最大对话轮数喵~:",
+    "max_turns_tooltip": "设置对话轮数喵~ 1 轮 = 1 提问 + 1 回答喵~",
+    "save_config_button": "保存设置喵~",
+    "language_label": "选择语言喵~(😾更改后一定要重启WebUI😾):",
+    "language_tooltip": "选择你喜欢的语言喵~ 快来试试吧~ 更改后如果不重启就不会生效哦💢"
     
 
 }

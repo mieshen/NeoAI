@@ -99,6 +99,40 @@
     "missing_user_input": "缺少用户输入",
     "invalid_configuration_data": "无效的配置数据",
     "config_updated_successfully": "配置更新成功！",
-    "starting_web_ui": "正在启动 WebUI，端口: {port}"
+    "starting_web_ui": "正在启动 WebUI，端口: {port}",
 
+
+
+    "web_ui_titel": "NeoAI",
+
+    "menu_chat": "💬聊天💬",
+    "menu_config": "⚙️设置⚙️",
+    "menu_help": "📜帮助(还没做好)📜",
+    "menu_github": "🐈️Github🐈️",
+    "menu_close": "关闭",
+    "menu_header_title": "NeoAI - 菜单",
+    "title": "NeoAI - 设置",
+    "header_title": "NeoAI - 设置",
+    "toggle_password_button": "查看隐私项👁️",
+    "api_key_label": "API Key:",
+    "api_key_tooltip": "请输入您的 OpenAI API 密钥",
+    "api_base_url_label": "API Base URL:",
+    "api_base_url_tooltip": "请输入您的 API 基础 URL，默认值为 https://api.openai.com/v1/chat/completions",
+    "model_label": "模型:",
+    "model_tooltip": "请输入您希望使用的模型名称，例如 gpt-4",
+    "execution_level_label": "安全等级:",
+    "execution_level_tooltip": "输入安全等级，范围 0 - 3。",
+    "return_timeout_label": "执行超时:",
+    "return_timeout_tooltip": "输入超时时间(单位秒)，-1为自适应超时时间。",
+    "temperature_label": "温度:",
+    "temperature_tooltip": "设置温度，范围 0 - 2。",
+    "max_tokens_label": "最大Token数:",
+    "max_tokens_tooltip": "设置输出最大Token数。",
+    "max_turns_label": "最大对话保存轮数:",
+    "max_turns_tooltip": "设置最大对话保存轮数，1 轮 = 2 条对话(用户提问 + AI回答)",
+    "save_config_button": "保存配置",
+    "language_label": "选择语言(更改后必须重启WebUI):",
+    "language_tooltip": "选择您希望使用的语言，更改后不重启则不会生效。"
+
+    
 }
