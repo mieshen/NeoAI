@@ -1,6 +1,7 @@
 import os
 import json
 
+
 def t(key, translations, **kwargs):
     """
     获取翻译文本，并支持占位符替换
@@ -9,6 +10,7 @@ def t(key, translations, **kwargs):
     if isinstance(text, str):
         return text.format(**kwargs)  # 如果是字符串，进行格式化
     return text  # 如果是其他类型（如列表），直接返回
+
 
 # 输出处理类
 class OutputHandler:
@@ -36,10 +38,9 @@ class OutputHandler:
                 with open(default_locale_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             except FileNotFoundError:
-                raise FileNotFoundError("Default language file 'en.json' not found in locale directory.")
-
-
-
+                raise FileNotFoundError(
+                    "Default language file 'en.json' not found in locale directory."
+                )
 
     def set_language(self, new_language):
         self.language = new_language
@@ -67,14 +68,16 @@ class OutputHandler:
             if file.endswith(".json"):
                 language_code = os.path.splitext(file)[0]
                 try:
-                    with open(os.path.join(locale_dir, file), "r", encoding="utf-8") as f:
+                    with open(
+                        os.path.join(locale_dir, file), "r", encoding="utf-8"
+                    ) as f:
                         translations = json.load(f)
                         language_name = translations.get("language_name", language_code)
                         available_languages.append((language_code, language_name))
                 except Exception as e:
                     print(f"Failed to load {file}: {e}")
         return available_languages
-    
+
     def log(self, key, **kwargs):
         """
         打印日志信息（仅在 log_output 为 True 时启用）
@@ -87,7 +90,7 @@ class OutputHandler:
         """
         清屏函数，跨平台支持
         """
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("cls" if os.name == "nt" else "clear")
 
     def get_translation(self, key, **kwargs):
         """

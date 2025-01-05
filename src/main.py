@@ -22,7 +22,7 @@ DEFAULT_CONFIG = {
     "EXECUTION_LEVEL": 2,
     "LOOP": True,
     "LOG_OUTPUT": False,
-    "RETURN_TIMEOUT" : -1, # -1 为自适应超时，大于 0 为固定超时
+    "RETURN_TIMEOUT": -1,  # -1 为自适应超时，大于 0 为固定超时
     "TEMPERATURE": 0.7,
     "MAX_TOKENS": 4096,
     "MAX_TURNS": 32,
@@ -31,15 +31,15 @@ DEFAULT_CONFIG = {
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 # 全局配置变量
+global config
 config = DEFAULT_CONFIG.copy()
 
 
-
-output_handler = OutputHandler(language=config["LANGUAGE"], log_output=config["LOG_OUTPUT"])
-
 def load_config():
     global config
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+    config_file_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "config.json"
+    )
     config_updated = False
 
     if os.path.exists(config_file_path):
@@ -54,27 +54,30 @@ def load_config():
                 config.update(loaded_config)
                 if config_updated:
                     save_config()
-            output_handler.print_to_console("config_loaded")
         except Exception as e:
-            output_handler.print_to_console("config_load_failed", error=str(e))
             config = DEFAULT_CONFIG.copy()
             save_config()
     else:
-        output_handler.print_to_console("config_not_found")
         save_config()
 
 
 load_config()
+output_handler = OutputHandler(
+    language=config["LANGUAGE"], log_output=config["LOG_OUTPUT"]
+)
+
 
 def save_config():
     try:
-        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
+            "w",
+            encoding="utf-8",
+        ) as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
         output_handler.print_to_console("config_save_success")
     except Exception as e:
         output_handler.print_to_console("config_save_failed", error=str(e))
-
-
 
 
 def log_to_terminal(key, data=None, **kwargs):
@@ -92,7 +95,6 @@ def log_to_terminal(key, data=None, **kwargs):
             print(data)
 
 
-
 def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
     """
     将日志发送到 WebUI
@@ -105,17 +107,16 @@ def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
         return
     try:
         import requests
+
         message = output_handler.get_translation(key, **kwargs)
         payload = {"message": message, "data": data}
         requests.post(web_ui_url, json=payload)
     except Exception as e:
         if config["LOG_OUTPUT"]:
-            error_message = output_handler.get_translation("log_web_ui_error", error=str(e))
+            error_message = output_handler.get_translation(
+                "log_web_ui_error", error=str(e)
+            )
             print(error_message)
-
-
-
-
 
 
 def run_main_program(user_input, web_ui_url=None):
@@ -145,7 +146,16 @@ def run_main_program(user_input, web_ui_url=None):
     log_to_terminal("log_prompt_generated", prompt=prompt)
 
     # 获取 AI 响应
-    ai_response = get_ai_response(prompt, api_key, api_base_url, model, user_input, config["TEMPERATURE"], config["MAX_TOKENS"], config["MAX_TURNS"])
+    ai_response = get_ai_response(
+        prompt,
+        api_key,
+        api_base_url,
+        model,
+        user_input,
+        config["TEMPERATURE"],
+        config["MAX_TOKENS"],
+        config["MAX_TURNS"],
+    )
     log_to_terminal("log_ai_response", data=ai_response)
 
     # 提取代码块
@@ -155,22 +165,39 @@ def run_main_program(user_input, web_ui_url=None):
     # 执行代码或返回普通响应
     execution_result = None
     if code:
-        stdout, stderr = execute_in_subprocess(code,config,output_handler)
+        stdout, stderr = execute_in_subprocess(code, config, output_handler)
         if stderr:
             if "[TIMEOUT]" in stderr:
-                execution_result = output_handler.get_translation("error_timeout", timeout=config["RETURN_TIMEOUT"])
+                execution_result = output_handler.get_translation(
+                    "error_timeout", timeout=config["RETURN_TIMEOUT"]
+                )
             else:
-                execution_result = output_handler.get_translation("error_execution", error=stderr)
+                execution_result = output_handler.get_translation(
+                    "error_execution", error=stderr
+                )
         else:
-            execution_result = stdout if stdout else output_handler.get_translation("no_stdout")
+            execution_result = (
+                stdout if stdout else output_handler.get_translation("no_stdout")
+            )
     else:
         execution_result = None
 
-    append_to_last_history(output_handler.get_translation("execution_result_prefix") + (execution_result or ""))
+    append_to_last_history(
+        output_handler.get_translation("execution_result_prefix")
+        + (execution_result or "")
+    )
     result = {
         "prompt": prompt,
-        "ai_response": ai_response if ai_response else output_handler.get_translation("no_valid_response"),
-        "execution_result": execution_result if execution_result and execution_result != ai_response else "",
+        "ai_response": (
+            ai_response
+            if ai_response
+            else output_handler.get_translation("no_valid_response")
+        ),
+        "execution_result": (
+            execution_result
+            if execution_result and execution_result != ai_response
+            else ""
+        ),
         "error": None,
     }
 
@@ -188,31 +215,40 @@ def display_banner():
         print(banner_lines)
 
 
-
-
 def main():
     output_handler.set_language(config["LANGUAGE"])
-    output_handler.print_to_console("help_language_updated", language=config["LANGUAGE"])
-
+    output_handler.print_to_console(
+        "help_language_updated", language=config["LANGUAGE"]
+    )
 
     display_banner()  # 显示横幅
-    output_handler.print_to_console("current_security_level", level=config['EXECUTION_LEVEL'])
+    output_handler.print_to_console(
+        "current_security_level", level=config["EXECUTION_LEVEL"]
+    )
     output_handler.print_to_console("input_help")
 
     print("+==================================================+")
+
     def process_user_input():
         # 获取本地化的输入提示
-        input_message = output_handler.get_translation("input_message") +"\n>"
+        input_message = output_handler.get_translation("input_message") + "\n>"
         user_input = input(input_message).strip()
         if user_input.upper() == ".HELP":
-            show_help(config, clear_console=output_handler.clear_console, save_config=save_config, output_handler=output_handler)
+            show_help(
+                config,
+                clear_console=output_handler.clear_console,
+                save_config=save_config,
+                output_handler=output_handler,
+            )
         elif user_input.upper() == ".EXIT":
             cleanup_temp_dir()
             output_handler.print_to_console("program_exit")
             exit(0)
         else:
             result = run_main_program(user_input)
-            ai_response = result.get("ai_response", output_handler.get_translation("no_valid_response"))
+            ai_response = result.get(
+                "ai_response", output_handler.get_translation("no_valid_response")
+            )
             output_handler.print_to_console("ai_response")
             print(ai_response)
 
@@ -223,6 +259,7 @@ def main():
                 print(execution_result)
                 print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         print("+==================================================+")
+
     if config["LOOP"]:
         while True:
             process_user_input()
@@ -230,7 +267,6 @@ def main():
         process_user_input()
 
     cleanup_temp_dir()
-
 
 
 if __name__ == "__main__":

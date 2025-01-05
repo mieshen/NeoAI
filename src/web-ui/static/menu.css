@@ -5,20 +5,31 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0); /* 初始背景透明 */
-    backdrop-filter: blur(0); /* 初始无模糊 */
+    background: rgba(0, 0, 0, 0);
+    /* 初始背景透明 */
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+    /* 初始无模糊 */
     z-index: 1000;
-    opacity: 0; /* 初始透明 */
-    pointer-events: none; /* 禁用点击事件 */
-    transition: backdrop-filter 0.3s ease, background 0.3s ease, opacity 0.3s ease; /* 添加动画 */
+    opacity: 0;
+    /* 初始透明 */
+    pointer-events: none;
+    /* 禁用点击事件 */
+    transition: backdrop-filter 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+    /* 添加动画 */
 }
 
 /* 显示状态 */
 #menuOverlay.visible {
-    background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-    backdrop-filter: blur(10px); /* 最终模糊 */
-    opacity: 1; /* 不透明 */
-    pointer-events: all; /* 启用点击事件 */
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    /* 最终模糊 */
+    opacity: 1;
+    /* 不透明 */
+    pointer-events: all;
+    /* 启用点击事件 */
 }
 
 /* 菜单容器 */
@@ -26,26 +37,33 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -60%); /* 初始稍微往上偏移 */
+    transform: translate(-50%, -60%);
+    /* 初始稍微往上偏移 */
 
     background: #1e1e2e;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 
-                0 0 5px #007bff, /* 外部发光效果 */
-                0 0 5px #007bff; /* 扩散的 Glow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2),
+        0 0 5px #007bff,
+        /* 外部发光效果 */
+        0 0 5px #007bff;
+    /* 扩散的 Glow */
     padding: 20px;
     width: 80%;
     max-width: 500px;
     z-index: 1001;
-    opacity: 0; /* 初始透明 */
-    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease; /* 添加淡入淡出动画 */
+    opacity: 0;
+    /* 初始透明 */
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+    /* 添加淡入淡出动画 */
 }
 
 
 /* 菜单显示状态 */
 .menu-container.visible {
-    opacity: 1; /* 完全显示 */
-    transform: translate(-50%, -50%); /* 中心位置 */
+    opacity: 1;
+    /* 完全显示 */
+    transform: translate(-50%, -50%);
+    /* 中心位置 */
 }
 
 /* 菜单头部样式 */
@@ -68,9 +86,12 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    margin: 0 auto; /* Center horizontally */
-    display: block; /* Ensure block display for centering */
-    text-align: center; /* Center text inside the button */
+    margin: 0 auto;
+    /* Center horizontally */
+    display: block;
+    /* Ensure block display for centering */
+    text-align: center;
+    /* Center text inside the button */
     margin-bottom: 10px;
 }
 

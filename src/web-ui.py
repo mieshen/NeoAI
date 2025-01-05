@@ -5,14 +5,17 @@ from utils.output_handler import OutputHandler  # 导入 OutputHandler
 # 初始化 OutputHandler（默认语言：英语）
 output_handler = OutputHandler(language=config["LANGUAGE"], log_output=True)
 
+
+load_config()
 # 指定 templates 和 static 文件夹路径
 app = Flask(
     __name__,
     template_folder="web-ui/templates",  # 指定模板路径
-    static_folder="web-ui/static"       # 指定静态文件路径
+    static_folder="web-ui/static",  # 指定静态文件路径
 )
 
 logs = []
+
 
 @app.route("/")
 def index():
@@ -21,6 +24,7 @@ def index():
     """
     return render_template("index.html")
 
+
 @app.route("/config")
 def config_page():
     """
@@ -28,9 +32,11 @@ def config_page():
     """
     return render_template("config.html", config=config)
 
+
 @app.route("/menu")
 def menu():
     return render_template("menu.html")
+
 
 @app.route("/api/logs", methods=["GET"])
 def get_logs():
@@ -39,6 +45,7 @@ def get_logs():
     """
     return jsonify(logs), 200
 
+
 @app.route("/api/interact", methods=["POST"])
 def interact_with_ai():
     """
@@ -46,27 +53,34 @@ def interact_with_ai():
     """
     data = request.json
     if not data or "user_input" not in data:
-        return jsonify({"error": output_handler.get_translation("missing_user_input")}), 400
+        return (
+            jsonify({"error": output_handler.get_translation("missing_user_input")}),
+            400,
+        )
 
     user_input = data["user_input"]
-    
+
     # 调用主程序处理请求
     result = run_main_program(user_input)
 
-    # 提取简化的 AI 响应（例如权限提示）    
+    # 提取简化的 AI 响应（例如权限提示）
     ai_response = result.get("ai_response", "")
 
     # 添加完整日志信息
-    logs.append({
-        "user_input": user_input,
-        "ai_response": ai_response,
-        "full_log": result  
-    })
+    logs.append(
+        {"user_input": user_input, "ai_response": ai_response, "full_log": result}
+    )
 
-    return jsonify({
-        "ai_response": ai_response, 
-        "execution_result": result.get("execution_result", "").strip()
-    }), 200
+    return (
+        jsonify(
+            {
+                "ai_response": ai_response,
+                "execution_result": result.get("execution_result", "").strip(),
+            }
+        ),
+        200,
+    )
+
 
 @app.route("/api/config", methods=["GET", "POST"])
 def manage_config():
@@ -79,21 +93,42 @@ def manage_config():
     elif request.method == "POST":
         new_config = request.json
         if not new_config:
-            return jsonify({"error": output_handler.get_translation("invalid_configuration_data")}), 400
-        
+            return (
+                jsonify(
+                    {
+                        "error": output_handler.get_translation(
+                            "invalid_configuration_data"
+                        )
+                    }
+                ),
+                400,
+            )
+
         # 更新配置
         config.update(new_config)
         save_config()  # 保存配置到文件
-        return jsonify({"message": output_handler.get_translation("config_updated_successfully")}), 200
+        return (
+            jsonify(
+                {
+                    "message": output_handler.get_translation(
+                        "config_updated_successfully"
+                    )
+                }
+            ),
+            200,
+        )
+
 
 def find_free_port():
     """
     动态分配未被占用的端口
     """
     import socket
+
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
+
 
 if __name__ == "__main__":
     load_config()  # 加载配置

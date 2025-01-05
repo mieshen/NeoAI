@@ -19,8 +19,8 @@ body {
     height: 100px;
     z-index: 999;
     width: calc(100vw - 13px);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
@@ -34,17 +34,20 @@ body {
     padding: 15px 20px;
     font-size: 1.6rem;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 123, 255, 0.6), 0 0 25px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 123, 255, 0.6),
+        0 0 25px rgba(0, 123, 255, 0.4);
     border-radius: 50px;
     z-index: 1000;
-    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, min-width 0.25s ease;
+    transition: transform 0.25s ease, background-color 0.25s ease,
+        box-shadow 0.25s ease, min-width 0.25s ease;
 }
 
 .header:hover {
     cursor: pointer;
     background-color: #007bff;
     transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 0.6);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 123, 255, 0.8),
+        0 0 40px rgba(0, 123, 255, 0.6);
 }
 
 .chat-container {
@@ -108,8 +111,8 @@ body {
     }
 
     .gradient-transparent {
-        backdrop-filter: blur(0px);
         -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px);
     }
 
     .header {
@@ -129,8 +132,8 @@ body {
     }
 
     .gradient-transparent {
-        backdrop-filter: blur(0px);
         -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px);
     }
 
     .header {
@@ -241,7 +244,8 @@ pre {
     transition: all 0.3s ease;
 }
 
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled,
+.form-control[readonly] {
     background-color: #2e2e3e;
     opacity: 0.7;
     cursor: not-allowed;
@@ -253,5 +257,3 @@ pre {
     opacity: 1;
     transition: all 0.3s ease;
 }
-
-

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
 </head>
+
 <body>
     <div class="menu-container">
         <div class="menu-header">
@@ -16,9 +18,11 @@
             <button class="menu-button" onclick="window.location.href = '/'">💬聊天💬</button>
             <button class="menu-button" onclick="window.location.href = '/config'">⚙️设置⚙️</button>
             <button class="menu-button" onclick="window.location.href = '/'">📜帮助(还没做好)📜</button>
-            <button class="menu-button" onclick="window.location.href = 'https://github.com/thed0ublec/NeoAI'">🐈️Github🐈️</button>
+            <button class="menu-button"
+                onclick="window.location.href = 'https://github.com/thed0ublec/NeoAI'">🐈️Github🐈️</button>
             <button class="menu-button" style="margin-top: 40px;" onclick="closeMenu()">关闭</button>
         </div>
     </div>
 </body>
+
 </html>

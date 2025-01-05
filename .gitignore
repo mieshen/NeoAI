@@ -5,3 +5,4 @@ __pycache__/
 src/config.json
 # NeoAI运行时产生的临时脚本文件
 src/temp_scripts
+.hintrc
