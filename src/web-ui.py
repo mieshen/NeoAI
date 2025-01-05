@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify, render_template
 from main import run_main_program, load_config, config, save_config
 from utils.output_handler import OutputHandler  # 导入 OutputHandler
-
+from main import VERSION
 # 初始化 OutputHandler（默认语言：英语）
 output_handler = OutputHandler(language=config["LANGUAGE"], log_output=True)
-
 
 load_config()
 # 指定 templates 和 static 文件夹路径
@@ -43,7 +42,7 @@ def config_page():
 
 @app.route("/menu")
 def menu():
-    return render_template("menu.html")
+    return render_template("menu.html",version=VERSION)
 
 
 @app.route("/api/logs", methods=["GET"])
@@ -148,7 +147,7 @@ def set_language(lang):
 
 if __name__ == "__main__":
     load_config()  # 加载配置
-    # 使用动态端口
+    
     port = 7820
     print(output_handler.get_translation("starting_web_ui", port=port))
 

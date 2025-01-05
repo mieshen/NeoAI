@@ -30,6 +30,47 @@ DEFAULT_CONFIG = {
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
+VERSION = "0.8.1-beta+20250105"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 全局配置变量
 global config
 config = DEFAULT_CONFIG.copy()
