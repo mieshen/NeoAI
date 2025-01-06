@@ -30,7 +30,7 @@ DEFAULT_CONFIG = {
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
-VERSION = "0.8.2-beta+20250106"
+VERSION = "0.8.3-beta+20250106"
 
 
 
