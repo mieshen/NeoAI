@@ -1,5 +1,6 @@
 const header = document.querySelector(".header");
-const movementLimit = 30;
+const movementLimit = 35;
+const rotationLimit = 30;
 let detectionArea = {};
 
 function initializeDetectionArea() {
@@ -16,30 +17,48 @@ function initializeDetectionArea() {
 
 initializeDetectionArea();
 
+
+
+let animationFrameId;
 document.addEventListener("mousemove", (event) => {
-    const isInsideDetectionArea =
-        event.clientX >= detectionArea.left &&
-        event.clientX <= detectionArea.right &&
-        event.clientY >= detectionArea.top &&
-        event.clientY <= detectionArea.bottom;
-
-    if (isInsideDetectionArea) {
-        const centerX = (detectionArea.left + detectionArea.right) / 2;
-        const centerY = (detectionArea.top + detectionArea.bottom) / 2;
-
-        const mouseX =
-            (event.clientX - centerX) / (detectionArea.right - detectionArea.left);
-        const mouseY =
-            (event.clientY - centerY) / (detectionArea.bottom - detectionArea.top);
-
-        const offsetX = -mouseX * movementLimit;
-        const offsetY = -mouseY * movementLimit;
-
-        header.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-    } else {
-        header.style.transform = "translate(0, 0)";
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
     }
+
+    animationFrameId = requestAnimationFrame(() => {
+        const isInsideDetectionArea =
+            event.clientX >= detectionArea.left &&
+            event.clientX <= detectionArea.right &&
+            event.clientY >= detectionArea.top &&
+            event.clientY <= detectionArea.bottom;
+
+        if (isInsideDetectionArea) {
+            const centerX = (detectionArea.left + detectionArea.right) / 2;
+            const centerY = (detectionArea.top + detectionArea.bottom) / 2;
+
+            const mouseX =
+                (event.clientX - centerX) / (detectionArea.right - detectionArea.left);
+            const mouseY =
+                (event.clientY - centerY) / (detectionArea.bottom - detectionArea.top);
+
+            const offsetX = -mouseX * movementLimit;
+            const offsetY = -mouseY * movementLimit;
+
+            const rotationX = mouseY * -rotationLimit; // 上下方向旋转
+            const rotationY = -mouseX * -rotationLimit; // 左右方向旋转
+
+            header.style.transform = `
+                translate(${offsetX}px, ${offsetY}px)
+                rotateX(${rotationX}deg)
+                rotateY(${rotationY}deg)
+            `;
+        } else {
+            header.style.transform = "translate(0, 0) rotateX(0deg) rotateY(0deg)";
+        }
+    });
 });
+
+
 
 function addChatBubble(content, isUser = false, bubbleId = null) {
     const chatContainer = document.getElementById("chat_container");
