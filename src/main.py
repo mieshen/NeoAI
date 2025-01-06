@@ -43,34 +43,6 @@ VERSION = "0.8.2-beta+20250106"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 全局配置变量
 global config
 config = DEFAULT_CONFIG.copy()
@@ -89,7 +61,6 @@ def load_config():
                 loaded_config = json.load(f)
                 for key, value in DEFAULT_CONFIG.items():
                     if key not in loaded_config:
-                        output_handler.log("config_missing_key", key=key, value=value)
                         loaded_config[key] = value
                         config_updated = True
                 config.update(loaded_config)
@@ -100,6 +71,7 @@ def load_config():
             save_config()
     else:
         save_config()
+
 
 
 load_config()
@@ -116,10 +88,8 @@ def save_config():
             encoding="utf-8",
         ) as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
-        output_handler.print_to_console("config_save_success")
     except Exception as e:
-        output_handler.print_to_console("config_save_failed", error=str(e))
-
+        print("save failed")
 
 def log_to_terminal(key, data=None, **kwargs):
     """
