@@ -41,3 +41,29 @@ function closeMenu() {
         overlay.innerHTML = "";
     }, 300); // 与 CSS 的动画时间一致
 }
+
+
+function clearHistory() {
+    const button = document.getElementById('clear-history-button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '...';
+    fetch('/api/clear_history', { method: 'GET' })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then(data => {
+            console.log(data.message);
+            button.innerHTML = '✅';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
+        })
+        .catch(error => {
+            button.innerHTML = '❌';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 4000);
+        });
+}

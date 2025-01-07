@@ -30,17 +30,19 @@ DEFAULT_CONFIG = {
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
-VERSION = "0.8.3-beta+20250106"
+VERSION = "0.8.4-beta+20250107"
 
 
-
-
-
-
-
-
-
-
+def save_config():
+    try:
+        with open(
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
+            "w",
+            encoding="utf-8",
+        ) as f:
+            json.dump(config, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print("save failed")
 
 
 # 全局配置变量
@@ -73,23 +75,12 @@ def load_config():
         save_config()
 
 
-
 load_config()
+
 output_handler = OutputHandler(
     language=config["LANGUAGE"], log_output=config["LOG_OUTPUT"]
 )
 
-
-def save_config():
-    try:
-        with open(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
-            "w",
-            encoding="utf-8",
-        ) as f:
-            json.dump(config, f, indent=4, ensure_ascii=False)
-    except Exception as e:
-        print("save failed")
 
 def log_to_terminal(key, data=None, **kwargs):
     """

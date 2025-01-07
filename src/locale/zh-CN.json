@@ -3,7 +3,6 @@
     "available_languages": "可用语言：",
     "select_language": "输入语言编号以选择语言：",
     "help_language_updated": "语言已成功更改为：{language}",
-
     "config_loaded": "配置文件加载成功！",
     "config_not_found": "配置文件不存在，正在生成默认配置...",
     "config_save_success": "配置已保存到脚本目录的 config.json",
@@ -24,7 +23,6 @@
         " ╚═╝  ╚═══╝╚══════╝ ╚═════╝     ╚═╝  ╚═╝╚═╝",
         "+=========================================+"
     ],
-
     "log_start": "日志记录：",
     "log_system_info": "系统信息已获取。",
     "log_prompt_generated": "生成的 Prompt: {prompt}",
@@ -38,7 +36,6 @@
     "no_valid_response": "未收到有效响应。",
     "execution_result_prefix": "执行结果：",
     "input_message": "输入消息：",
-
     "help_title": "+=========== 帮助菜单 ===========+",
     "help_options": [
         " 1. 输入 '{GREEN}.BASE_URL <url>{RESET}' 修改 API 地址",
@@ -77,7 +74,6 @@
     "help_show_max_turns": "当前最大对话轮数：{max_turns}",
     "help_invalid_command": "无效指令，请重试。",
     "press_enter_to_continue": "按回车键继续...",
-
     "levels_title": "+================== 安全等级说明 ==================+",
     "levels_description": [
         "{RED} Level 0: 最高权限 {RESET}",
@@ -100,11 +96,7 @@
     "invalid_configuration_data": "无效的配置数据",
     "config_updated_successfully": "配置更新成功！",
     "starting_web_ui": "正在启动 WebUI，端口: {port}",
-
-
-
     "web_ui_titel": "NeoAI",
-
     "menu_chat": "💬聊天💬",
     "menu_config": "⚙️设置⚙️",
     "menu_help": "📜帮助(还没做好)📜",
@@ -132,7 +124,6 @@
     "max_turns_tooltip": "设置最大对话保存轮数，1 轮 = 2 条对话(用户提问 + AI回答)",
     "save_config_button": "保存配置",
     "language_label": "选择语言(更改后必须重启WebUI):",
-    "language_tooltip": "选择您希望使用的语言，更改后不重启则不会生效。"
-
-    
+    "language_tooltip": "选择您希望使用的语言，更改后不重启则不会生效。",
+    "clear_history": "清空聊天记录"
 }

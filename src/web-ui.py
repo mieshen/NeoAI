@@ -1,7 +1,11 @@
+import copy
 from flask import Flask, request, jsonify, render_template
 from main import run_main_program, load_config, config, save_config
 from utils.output_handler import OutputHandler  # 导入 OutputHandler
 from main import VERSION
+from utils.ai_interaction import clear_history
+from utils.ai_interaction import history
+
 # 初始化 OutputHandler（默认语言：英语）
 output_handler = OutputHandler(language=config["LANGUAGE"], log_output=True)
 
@@ -14,6 +18,7 @@ app = Flask(
 )
 
 logs = []
+
 
 @app.template_filter("translate")
 def translate(key, **kwargs):
@@ -42,7 +47,7 @@ def config_page():
 
 @app.route("/menu")
 def menu():
-    return render_template("menu.html",version=VERSION)
+    return render_template("menu.html", version=VERSION)
 
 
 @app.route("/api/logs", methods=["GET"])
@@ -51,6 +56,18 @@ def get_logs():
     返回实时日志数据
     """
     return jsonify(logs), 200
+
+
+@app.route("/api/clear_history", methods=["GET"])
+def clear_history_route():
+    src_history = copy.deepcopy(history)
+    clear_history()
+    return (
+        jsonify(
+            {"message": "清除好啦~", "history": history, "src_history": src_history}
+        ),
+        200,
+    )
 
 
 @app.route("/api/interact", methods=["POST"])
@@ -136,6 +153,7 @@ def find_free_port():
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
 
+
 @app.route("/set_language/<lang>", methods=["POST", "GET"])
 def set_language(lang):
     config["LANGUAGE"] = lang
@@ -145,9 +163,10 @@ def set_language(lang):
 
     return jsonify({"LANGUAGE": lang, "message": f"Language set to {lang}"}), 200
 
+
 if __name__ == "__main__":
     load_config()  # 加载配置
-    
+
     port = 7820
     print(output_handler.get_translation("starting_web_ui", port=port))
 

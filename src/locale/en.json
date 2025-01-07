@@ -3,7 +3,6 @@
     "available_languages": "Available languages:",
     "select_language": "Select a language by entering its number: ",
     "help_language_updated": "Language successfully updated to: {language}",
-
     "config_loaded": "",
     "config_not_found": "Configuration file not found, generating default configuration...",
     "config_save_success": "Configuration saved to the script directory config.json",
@@ -37,7 +36,6 @@
     "no_valid_response": "No valid response received.",
     "execution_result_prefix": "Execution Result: ",
     "input_message": "Enter your message: ",
-    
     "help_title": "+=========== Help Menu ===========+",
     "help_options": [
         " 1. Enter '{GREEN}.BASE_URL <url>{RESET}' to modify API URL",
@@ -98,12 +96,7 @@
     "invalid_configuration_data": "Invalid configuration data",
     "config_updated_successfully": "Configuration updated successfully!",
     "starting_web_ui": "Starting WebUI on port: {port}",
-
-
-
-
     "web_ui_titel": "NeoAI",
-
     "menu_chat": "💬Chat💬",
     "menu_config": "⚙️Settings⚙️",
     "menu_help": "📜Help (Not Ready Yet)📜",
@@ -131,6 +124,6 @@
     "max_turns_tooltip": "Set the maximum number of saved dialogue turns, 1 turn = 1 question + 1 answer.",
     "save_config_button": "Save Configuration",
     "language_label": "Select Language (WebUI must be restarted after change):",
-    "language_tooltip": "Choose your preferred language. Changes will not take effect unless the WebUI is restarted."
-
+    "language_tooltip": "Choose your preferred language. Changes will not take effect unless the WebUI is restarted.",
+    "clear_history": "Clear History"
 }

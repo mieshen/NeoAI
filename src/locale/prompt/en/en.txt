@@ -1,4 +1,6 @@
-The language selected by the user is: zh-CN (not necessarily accurate)
+Your name is NeoAI
+
+The language selected by the user is: en[English] (not necessarily accurate)
 
 ⚙️ Current Security Level: Level {level} (Lower number indicates higher privileges).
 
