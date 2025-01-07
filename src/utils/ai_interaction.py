@@ -22,7 +22,7 @@ def get_ai_response(
         max_turns (int): 保存的最大对话轮次（1 轮 = 1 次用户输入 + AI 回复）。
 
     返回：
-        str: AI 回复内容。
+        str: AI 回复内容或错误信息。
     """
     global history  # 使用全局变量 history
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"}
@@ -42,25 +42,34 @@ def get_ai_response(
         "max_tokens": max_tokens,
     }
 
-    # 发起请求
-    response = requests.post(api_base_url, headers=headers, data=json.dumps(payload))
+    try:
+        # 发起请求
+        response = requests.post(api_base_url, headers=headers, data=json.dumps(payload), timeout=10)
 
-    if response.status_code == 200:
-        # 获取 AI 回复
-        ai_response = response.json()["choices"][0]["message"]["content"]
+        if response.status_code == 200:
+            # 获取 AI 回复
+            ai_response = response.json()["choices"][0]["message"]["content"]
 
-        # 自动更新历史记录
-        history.append({"role": "user", "content": user_input})
-        history.append({"role": "assistant", "content": ai_response})
+            # 自动更新历史记录
+            history.append({"role": "user", "content": user_input})
+            history.append({"role": "assistant", "content": ai_response})
 
-        # 限制历史记录长度，保持最多 max_turns 轮对话
-        if len(history) > max_turns * 2:  # 每轮包含用户输入和 AI 回复，共 2 条
-            history = history[-max_turns * 2 :]
+            # 限制历史记录长度，保持最多 max_turns 轮对话
+            if len(history) > max_turns * 2:  # 每轮包含用户输入和 AI 回复，共 2 条
+                history = history[-max_turns * 2 :]
 
-        return ai_response
-    else:
-        return f"调用失败，状态码：{response.status_code}, 错误信息：{response.text}"
+            return ai_response
+        else:
+            return f"调用失败，状态码：{response.status_code}, 错误信息：{response.text}"
 
+    except requests.exceptions.SSLError as ssl_error:
+        return f"SSL 错误：{ssl_error}"
+
+    except requests.exceptions.RequestException as req_error:
+        return f"请求错误：{req_error}"
+
+    except Exception as e:
+        return f"未知错误：{e}"
 
 def append_to_last_history(content_to_append):
     """
