@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ "title" | translate }}</title>
+    <title>{{ "web_ui_settings_title" | translate }}</title>
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='NeoAI.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='config.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -14,7 +14,7 @@
 <body>
 
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
-    <div class="header" onclick="showMenu()">{{ "header_title" | translate }}</div>
+    <div class="header" onclick="showMenu()">{{ "web_ui_settings_header_title" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
     <div style="min-height: 400px;"></div>
 
