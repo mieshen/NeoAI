@@ -59,7 +59,6 @@ document.addEventListener("mousemove", (event) => {
 });
 
 
-
 function addChatBubble(content, isUser = false, bubbleId = null) {
     const chatContainer = document.getElementById("chat_container");
     let bubble;
@@ -77,7 +76,7 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
     bubble.id = bubbleId || `bubble_${Date.now()}`;
 
     bubble.style.opacity = 0;
-    bubble.innerHTML = "";
+    bubble.innerHTML = ""; // 初始化为空
 
     chatContainer.appendChild(bubble);
 
@@ -87,27 +86,36 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
         if (isUser) {
             bubble.innerText = content;
         } else {
-            const markdownContent = marked.parse(content, {
-                highlight: function (code, lang) {
-                    if (hljs.getLanguage(lang)) {
-                        return hljs.highlight(lang, code).value;
-                    }
-                    return hljs.highlightAuto(code).value;
-                },
-                gfm: true,
-            });
-
-            simulateTypingAnimation(bubble, markdownContent);
+            // 使用模拟打字动画渲染内容
+            simulateTypingAnimation(bubble, content);
         }
 
+        // 滚动到最新消息
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }, 300);
 
     return bubble.id;
 }
+
+// 配置 highlight.js
 hljs.configure({ languages: ["python", "javascript", "html", "css"] });
+
+// 确保代码块高亮正确应用
 document.querySelectorAll("pre code").forEach((el) => {
     hljs.highlightElement(el);
+});
+
+
+
+const md = window.markdownit({
+    highlight: function (code, lang) {
+        if (hljs.getLanguage(lang)) {
+            return hljs.highlight(lang, code).value;
+        }
+        return hljs.highlightAuto(code).value;
+    },
+    html: true, // 允许渲染 HTML
+    linkify: true, // 自动将 URL 转换为链接
 });
 
 function simulateTypingAnimation(bubble, content) {
@@ -125,7 +133,7 @@ function simulateTypingAnimation(bubble, content) {
         totalDuration *= reductionFactor;
     }
 
-    // 限制总时长在[minDuration, maxDuration]之间
+    // 限制总时长在 [minDuration, maxDuration] 之间
     totalDuration = Math.min(Math.max(totalDuration, minDuration), maxDuration);
 
     // 动态计算每个字符的显示间隔
@@ -141,30 +149,18 @@ function simulateTypingAnimation(bubble, content) {
     // 动画逻辑
     const typeText = setInterval(() => {
         if (index < content.length) {
-            const nextChar = content.charAt(index);
+            // 模拟逐字输出
+            currentText += content.charAt(index);
+            index++;
 
-            if (nextChar === "<") {
-                const htmlEndIndex = content.indexOf(">", index);
-                if (htmlEndIndex !== -1) {
-                    currentText += content.slice(index, htmlEndIndex + 1);
-                    index = htmlEndIndex + 1;
-                } else {
-                    currentText += nextChar;
-                    index++;
-                }
-            } else {
-                currentText += nextChar;
-                index++;
-            }
-
-            // 渲染 Markdown 内容
-            const renderedMarkdown = marked.parse(currentText);
+            // 渲染部分 Markdown 内容
+            const renderedMarkdown = md.render(currentText);
             markdownContainer.innerHTML = renderedMarkdown;
 
-            // 滚动到最新内容
+            // 滚动到最新消息
             bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
         } else {
-            clearInterval(typeText);
+            clearInterval(typeText); // 动画结束
         }
     }, typingSpeed);
 }
@@ -188,8 +184,8 @@ function interact() {
 
             let aiContent = aiResponse;
             if (executionResult.trim()) {
-                if (executionResult.trim() !== "无标准输出") {
-                    aiContent += "\n" + `<br><b>执行结果:</b> ${executionResult}`;
+                if (!executionResult.includes("[NONE]")) {
+                    //aiContent += "\n" + `<br>\n<b>执行结果:</b> ${executionResult}`;
                 }
             }
             addChatBubble(aiContent, false);

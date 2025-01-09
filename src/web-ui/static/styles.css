@@ -60,7 +60,7 @@ body {
     margin: 10px;
     position: absolute;
     top: 0px;
-    bottom: 55px;
+    bottom: 70px;
     left: -5px;
     right: -5px;
     max-width: 100%;
@@ -99,47 +99,6 @@ body {
     max-width: 70%;
 }
 
-@media (min-width: 768px) {
-    .user-bubble {
-        margin-right: 10%;
-        max-width: 50%;
-    }
-
-    .ai-bubble {
-        margin-left: 10%;
-        max-width: 50%;
-    }
-
-    .gradient-transparent {
-        -webkit-backdrop-filter: blur(0px);
-        backdrop-filter: blur(0px);
-    }
-
-    .header {
-        min-width: 20%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .user-bubble {
-        margin-right: 25%;
-        max-width: 25%;
-    }
-
-    .ai-bubble {
-        margin-left: 25%;
-        max-width: 25%;
-    }
-
-    .gradient-transparent {
-        -webkit-backdrop-filter: blur(0px);
-        backdrop-filter: blur(0px);
-    }
-
-    .header {
-        min-width: 10%;
-    }
-}
 
 .chat-container::-webkit-scrollbar {
     width: 8px;
@@ -161,59 +120,120 @@ body {
 .input-container {
     display: flex;
     align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    position: fixed; /* 保持固定定位 */
+    bottom: 2%; /* 距离底部 */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 初始水平居中 */
     padding: 10px;
     background-color: #2e2e3e;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
     border-top: 1px solid #444;
     gap: 10px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-.input-container input {
-    flex-grow: 1;
     border-radius: 20px;
-    padding: 10px 15px;
-    border: 1px solid #444;
-    font-size: 1rem;
-    background-color: #1e1e2e;
-    color: #eaeaea;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+    width: 90%; /* 占屏幕宽度的 90% */
+    max-width: 90%;
+    transition: transform 1s ease, box-shadow 1s ease; /* 平滑过渡 */
+    z-index: 100;
 }
 
-.input-container input::placeholder {
-    color: #888;
-    transition: all 0.3s ease;
+.input-container:hover {
+    transform: translateX(-50%) translateY(-5px) scale(1.02); /* 上浮并放大 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* 更强的阴影效果 */
 }
+
+
+@media (min-width: 768px) {
+    .user-bubble {
+        margin-right: 10%;
+        max-width: 50%;
+    }
+
+    .ai-bubble {
+        margin-left: 10%;
+        max-width: 50%;
+    }
+
+    .gradient-transparent {
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px);
+    }
+
+    .header {
+        min-width: 20%;
+    }
+    .input-container{
+        max-width: 80%;
+        
+    }
+    
+}
+
+@media (min-width: 1200px) {
+    .user-bubble {
+        margin-right: 25%;
+        max-width: 25%;
+    }
+
+    .ai-bubble {
+        margin-left: 25%;
+        max-width: 25%;
+    }
+
+    .gradient-transparent {
+        -webkit-backdrop-filter: blur(0px);
+        backdrop-filter: blur(0px);
+    }
+
+    .header {
+        min-width: 10%;
+    }
+
+    .input-container{
+
+        max-width: 50%;
+
+        
+    }
+}
+
+
+
+
 
 .input-container button {
     flex-shrink: 0;
-    border-radius: 20px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease, transform 0.2s ease;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 5px;
+    background-color: #007bff; /* 按钮背景色 */
+    color: white; /* 按钮文字颜色 */
+    padding: 10px 15px; /* 内边距 */
+    border: none; /* 无边框 */
+    font-size: 1rem; /* 字体大小 */
+    cursor: pointer; /* 鼠标样式 */
+    transition: all 1s ease, transform 1s ease, box-shadow 1s ease; /* 过渡效果 */
+    margin: 0 auto; /* 水平居中 */
+    left: -100px;
+    scale: 0.90; /* 默认缩放 */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* 默认发光效果 */
+}
+
+.input-container button:hover {
+    border-radius: 15px; /* 圆角变化 */
+    transform: scale(1.1); /* 放大 */
+    background-color: #007bff; /* 按钮背景色 */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 30px rgba(0, 123, 255, 0.6); /* 增强发光效果 */
 }
 
 .btn:disabled {
     pointer-events: none;
-    opacity: 0.5;
-    cursor: not-allowed;
-    transition: none;
+    opacity: 0.5; /* 半透明效果 */
+    cursor: not-allowed; /* 禁用时鼠标样式 */
+    box-shadow: none; /* 无发光 */
 }
 
-.input-container button:hover {
-    background-color: #ff6f61;
-    transform: scale(1.05);
-}
 
 pre {
     background-color: #272822;
@@ -225,9 +245,12 @@ pre {
     transition: all 0.3s ease;
 }
 
-.form-control {
+.user-input-message {
     flex-grow: 1;
-    border-radius: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 5px ;
+    border-bottom-right-radius: 5px ;
+    border-bottom-left-radius: 15px ;
     padding: 10px 15px;
     border: 1px solid #444;
     font-size: 1rem;
@@ -235,24 +258,33 @@ pre {
     color: #eaeaea;
     box-sizing: border-box;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 1s ease;
 }
 
-.form-control:focus {
-    border-color: #007bff;
+.user-input-message:hover {
+    border-radius: 15px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.9), 0 0 6px rgba(255, 255, 255, 0.6);
+
+
+    transform: scale(1.01); /* 放大1.1倍 */
+}
+
+.user-input-message:focus {
+    border-color: #ffffff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-    transition: all 0.3s ease;
+    border-radius: 40px; /* 悬停时的目标值 */
+    transition: all 1s ease;
 }
 
-.form-control:disabled,
-.form-control[readonly] {
+.user-input-message:disabled,
+.user-input-message[readonly] {
     background-color: #2e2e3e;
     opacity: 0.7;
     cursor: not-allowed;
     transition: all 0.3s ease;
 }
 
-.form-control::placeholder {
+.user-input-message::placeholder {
     color: #888;
     opacity: 1;
     transition: all 0.3s ease;

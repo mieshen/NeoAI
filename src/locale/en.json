@@ -32,7 +32,7 @@
     "log_web_ui_error": "Failed to send log to WebUI: {error}",
     "error_timeout": "Execution timeout after {timeout} seconds.",
     "error_execution": "Execution error: {error}",
-    "no_stdout": "No standard output.",
+    "no_stdout": "[NONE]No standard output.",
     "no_valid_response": "No valid response received.",
     "execution_result_prefix": "Execution Result: ",
     "input_message": "Enter your message: ",

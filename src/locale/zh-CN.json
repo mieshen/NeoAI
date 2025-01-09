@@ -32,7 +32,7 @@
     "log_web_ui_error": "无法发送日志到 WebUI：{error}",
     "error_timeout": "执行超时 {timeout} 秒。",
     "error_execution": "执行错误：{error}",
-    "no_stdout": "没有标准输出。",
+    "no_stdout": "[NONE]没有标准输出。",
     "no_valid_response": "未收到有效响应。",
     "execution_result_prefix": "执行结果：",
     "input_message": "输入消息：",
