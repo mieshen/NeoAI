@@ -30,7 +30,7 @@ DEFAULT_CONFIG = {
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
-VERSION = "0.8.4-beta+20250107"
+VERSION = "0.8.5-beta+20250109"
 
 
 def save_config():
