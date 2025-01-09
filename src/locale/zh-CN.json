@@ -125,5 +125,7 @@
     "save_config_button": "保存配置",
     "language_label": "选择语言(更改后必须重启WebUI):",
     "language_tooltip": "选择您希望使用的语言，更改后不重启则不会生效。",
-    "clear_history": "清空聊天记录"
+    "clear_history": "清空聊天记录",
+    "web_ui_enter_message": "输入消息...",
+    "web_ui_send_message": "发送"
 }

@@ -125,5 +125,7 @@
     "save_config_button": "Save Configuration",
     "language_label": "Select Language (WebUI must be restarted after change):",
     "language_tooltip": "Choose your preferred language. Changes will not take effect unless the WebUI is restarted.",
-    "clear_history": "Clear History"
+    "clear_history": "Clear History",
+    "web_ui_enter_message": "Enter message...",
+    "web_ui_send_message": "Send"
 }
