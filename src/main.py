@@ -43,6 +43,12 @@ def save_config():
     此函数会尝试将全局配置变量 'config' 以 JSON 格式写入到指定的配置文件路径中。
     如果写入过程中出现任何异常，将在终端打印 "save failed"。
     """
+    """
+    将当前配置保存到 config.json 文件中。
+
+    此函数会尝试将全局配置变量 'config' 以 JSON 格式写入到指定的配置文件路径中。
+    如果写入过程中出现任何异常，将在终端打印 "save failed"。
+    """
     try:
         config_path = os.path.join(MAIN_DIRECTORY, "config.json")
         with open(config_path, "w", encoding="utf-8") as f:
@@ -124,7 +130,6 @@ def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
         return
     try:
         import requests
-
         message = output_handler.get_translation(key, **kwargs)
         payload = {"message": message, "data": data}
         requests.post(web_ui_url, json=payload)
