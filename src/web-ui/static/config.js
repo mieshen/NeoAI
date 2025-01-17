@@ -45,16 +45,12 @@ function saveConfig() {
             }
             return response.json();
         })
-        .then((data) => {
+        .then(() => {
             updateButton.textContent = "✅已更新配置文件✅"; // 更新按钮文本
             setTimeout(() => {
                 updateButton.textContent = "保存配置"; // 恢复按钮文本
             }, 4000);
 
-            // 如果语言发生改变，则刷新页面
-            if (config["LANGUAGE"] !== data["LANGUAGE"]) {
-                location.reload(); // 刷新页面以应用新的语言
-            }
         })
         .catch((error) => {
             console.error("Error:", error);
