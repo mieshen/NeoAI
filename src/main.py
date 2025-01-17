@@ -26,19 +26,24 @@ DEFAULT_CONFIG = {
     "TEMPERATURE": 0.7,
     "MAX_TOKENS": 4096,
     "MAX_TURNS": 32,
-    "LANGUAGE": "en",
+    "LANGUAGE": "en"
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-
 VERSION = "0.8.5-beta+20250109"
 
 
 def save_config():
+    """
+    将当前配置保存到 config.json 文件中。
+
+    此函数会尝试将全局配置变量 'config' 以 JSON 格式写入到指定的配置文件路径中。
+    如果写入过程中出现任何异常，将在终端打印 "save failed"。
+    """
     try:
         with open(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
-            "w",
-            encoding="utf-8",
+                os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
+                "w",
+                encoding="utf-8"
         ) as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
     except Exception as e:
@@ -51,12 +56,18 @@ config = DEFAULT_CONFIG.copy()
 
 
 def load_config():
+    """
+    从 config.json 文件加载配置信息，如果文件不存在则创建默认配置文件。
+
+    首先检查配置文件是否存在，如果存在则读取文件内容并更新到全局配置变量 'config' 中。
+    如果读取过程中出现异常，将重置 'config' 为默认配置并保存。
+    如果配置文件不存在，直接保存默认配置到文件中。
+    """
     global config
     config_file_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "config.json"
     )
     config_updated = False
-
     if os.path.exists(config_file_path):
         try:
             with open(config_file_path, "r", encoding="utf-8") as f:
@@ -76,7 +87,6 @@ def load_config():
 
 
 load_config()
-
 output_handler = OutputHandler(
     language=config["LANGUAGE"], log_output=config["LOG_OUTPUT"]
 )
@@ -84,10 +94,12 @@ output_handler = OutputHandler(
 
 def log_to_terminal(key, data=None, **kwargs):
     """
-    将日志打印到终端
-    :param key: 翻译文本的 key
-    :param data: 额外数据（可选）
-    :param kwargs: 动态参数，用于格式化翻译文本
+    将日志打印到终端。
+
+    :param key: 翻译文本的 key，用于从输出处理器获取相应的翻译文本。
+    :param data: 额外数据（可选），将在打印翻译文本后打印。
+    :param kwargs: 动态参数，用于格式化翻译文本。
+    只有当全局配置中的 'LOG_OUTPUT' 为 True 时，才会执行打印操作。
     """
     if config["LOG_OUTPUT"]:  # 仅当 LOG_OUTPUT 为 True 时才打印日志
         print("\n" + output_handler.get_translation("log_start"))  # 日志开头提示
@@ -99,17 +111,19 @@ def log_to_terminal(key, data=None, **kwargs):
 
 def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
     """
-    将日志发送到 WebUI
-    :param web_ui_url: WebUI 地址
-    :param key: 翻译文本的 key
-    :param data: 额外数据（可选）
-    :param kwargs: 动态参数，用于格式化翻译文本
+    将日志发送到 WebUI。
+
+    :param web_ui_url: WebUI 地址。
+    :param key: 翻译文本的 key，用于从输出处理器获取相应的翻译文本。
+    :param data: 额外数据（可选），将包含在发送到 WebUI 的负载中。
+    :param kwargs: 动态参数，用于格式化翻译文本。
+    如果未提供 'web_ui_url'，则函数直接返回，不执行任何操作。
+    如果在发送过程中出现异常且 'LOG_OUTPUT' 为 True，将在终端打印错误信息。
     """
     if not web_ui_url:
         return
     try:
         import requests
-
         message = output_handler.get_translation(key, **kwargs)
         payload = {"message": message, "data": data}
         requests.post(web_ui_url, json=payload)
@@ -125,11 +139,9 @@ def run_main_program(user_input, web_ui_url=None):
     api_key = config["API_KEY"]
     api_base_url = config["API_BASE_URL"]
     model = config["MODEL"]
-
     # 获取系统信息
     system_info = get_system_info()
     log_to_terminal("log_system_info", data=system_info)
-
     # 根据当前安全等级选择合适的参数
     execution_level = config["EXECUTION_LEVEL"]
     if execution_level == 0:
@@ -142,11 +154,9 @@ def run_main_program(user_input, web_ui_url=None):
         from level.level_3 import get_prompt
     else:
         raise ValueError(output_handler.get_translation("error_invalid_level"))
-
     # 生成 Prompt
     prompt = get_prompt(system_info)
     log_to_terminal("log_prompt_generated", prompt=prompt)
-
     # 获取 AI 响应
     ai_response = get_ai_response(
         prompt,
@@ -159,11 +169,9 @@ def run_main_program(user_input, web_ui_url=None):
         config["MAX_TURNS"],
     )
     log_to_terminal("log_ai_response", data=ai_response)
-
     # 提取代码块
     code = extract_code(ai_response)
     log_to_terminal("log_code_extracted", data=code)
-
     # 执行代码或返回普通响应
     execution_result = None
     if code:
@@ -183,7 +191,6 @@ def run_main_program(user_input, web_ui_url=None):
             )
     else:
         execution_result = None
-
     append_to_last_history(
         output_handler.get_translation("execution_result_prefix")
         + (execution_result or "")
@@ -197,12 +204,11 @@ def run_main_program(user_input, web_ui_url=None):
         ),
         "execution_result": (
             execution_result
-            if execution_result and execution_result != ai_response
+            if execution_result and execution_result!= ai_response
             else ""
         ),
         "error": None,
     }
-
     log_to_terminal("log_execution_result", data=result)
     log_to_web_ui(web_ui_url, "log_execution_result", data=result)
     return result
@@ -222,13 +228,11 @@ def main():
     output_handler.print_to_console(
         "help_language_updated", language=config["LANGUAGE"]
     )
-
     display_banner()  # 显示横幅
     output_handler.print_to_console(
         "current_security_level", level=config["EXECUTION_LEVEL"]
     )
     output_handler.print_to_console("input_help")
-
     print("+==================================================+")
 
     def process_user_input():
@@ -253,7 +257,6 @@ def main():
             )
             output_handler.print_to_console("ai_response")
             print(ai_response)
-
             execution_result = result.get("execution_result", "")
             if execution_result:
                 output_handler.print_to_console("execution_result")
@@ -267,7 +270,6 @@ def main():
             process_user_input()
     else:
         process_user_input()
-
     cleanup_temp_dir()
 
 
