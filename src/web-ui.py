@@ -20,6 +20,24 @@ app = Flask(
 logs = []
 
 
+@app.route("/log/history", methods=["GET"])
+def log_page():
+    """
+    以 HTML 页面形式显示日志
+    """
+    import json
+
+    decoded_logs = []
+    for log in logs:
+        decoded_log = log.copy()
+        if isinstance(log.get("full_log"), str):
+            # 解码 full_log 中的 Unicode 转义字符
+            decoded_log["full_log"] = json.loads(f'"{log["full_log"]}"')
+        decoded_logs.append(decoded_log)
+
+    return render_template("history-log.html", logs=decoded_logs, history=history)
+
+
 @app.template_filter("translate")
 def translate(key, **kwargs):
     """
@@ -87,7 +105,6 @@ def interact_with_ai():
     # 调用主程序处理请求
     result = run_main_program(user_input)
 
-    # 提取简化的 AI 响应（例如权限提示）
     ai_response = result.get("ai_response", "")
 
     # 添加完整日志信息

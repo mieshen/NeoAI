@@ -17,21 +17,29 @@ def get_prompt(system_info):
 
     # 构造语言文件路径（动态根据语言代码）
     main_dir = os.path.dirname(os.path.abspath(main_module.__file__))  # 获取主运行目录
-    locale_dir = os.path.join(main_dir, "locale", "prompt", language_code)  # 动态语言目录
-    levels_file_path = os.path.join(locale_dir, "levels.ini")  # 动态加载 levels.ini 文件
+    locale_dir = os.path.join(
+        main_dir, "locale", "prompt", language_code
+    )  # 动态语言目录
+    levels_file_path = os.path.join(
+        locale_dir, "levels.ini"
+    )  # 动态加载 levels.ini 文件
 
     # 检查文件是否存在
     if not os.path.exists(levels_file_path):
         raise FileNotFoundError(f"语言文件 '{levels_file_path}' 不存在！")
 
     # 加载等级配置
-    allowed_operations, restrictions, examples = load_level_configuration(levels_file_path, level)
+    allowed_operations, restrictions, examples = load_level_configuration(
+        levels_file_path, level
+    )
 
     # 调用 generate_prompt
     from level.common import generate_prompt
     from level.operation_levels import operation_levels
 
-    return generate_prompt(level, system_info, allowed_operations, restrictions, examples, operation_levels)
+    return generate_prompt(
+        level, system_info, allowed_operations, restrictions, examples, operation_levels
+    )
 
 
 def load_level_configuration(file_path, level):

@@ -26,7 +26,7 @@ DEFAULT_CONFIG = {
     "TEMPERATURE": 0.7,
     "MAX_TOKENS": 4096,
     "MAX_TURNS": 32,
-    "LANGUAGE": "en"
+    "LANGUAGE": "en",
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 VERSION = "0.8.5-beta+20250109"
@@ -41,9 +41,9 @@ def save_config():
     """
     try:
         with open(
-                os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
-                "w",
-                encoding="utf-8"
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
+            "w",
+            encoding="utf-8",
         ) as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
     except Exception as e:
@@ -124,6 +124,7 @@ def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
         return
     try:
         import requests
+
         message = output_handler.get_translation(key, **kwargs)
         payload = {"message": message, "data": data}
         requests.post(web_ui_url, json=payload)
@@ -139,9 +140,11 @@ def run_main_program(user_input, web_ui_url=None):
     api_key = config["API_KEY"]
     api_base_url = config["API_BASE_URL"]
     model = config["MODEL"]
+
     # 获取系统信息
     system_info = get_system_info()
     log_to_terminal("log_system_info", data=system_info)
+
     # 根据当前安全等级选择合适的参数
     execution_level = config["EXECUTION_LEVEL"]
     if execution_level == 0:
@@ -154,9 +157,11 @@ def run_main_program(user_input, web_ui_url=None):
         from level.level_3 import get_prompt
     else:
         raise ValueError(output_handler.get_translation("error_invalid_level"))
+
     # 生成 Prompt
     prompt = get_prompt(system_info)
     log_to_terminal("log_prompt_generated", prompt=prompt)
+
     # 获取 AI 响应
     ai_response = get_ai_response(
         prompt,
@@ -169,9 +174,11 @@ def run_main_program(user_input, web_ui_url=None):
         config["MAX_TURNS"],
     )
     log_to_terminal("log_ai_response", data=ai_response)
+
     # 提取代码块
     code = extract_code(ai_response)
     log_to_terminal("log_code_extracted", data=code)
+
     # 执行代码或返回普通响应
     execution_result = None
     if code:
@@ -191,26 +198,32 @@ def run_main_program(user_input, web_ui_url=None):
             )
     else:
         execution_result = None
+
+    # 将执行结果存入历史
     append_to_last_history(
         output_handler.get_translation("execution_result_prefix")
         + (execution_result or "")
     )
+
+    execution_result = (
+        output_handler.get_translation("execution_result") + execution_result
+        if execution_result
+        else None
+    )
+
     result = {
         "prompt": prompt,
-        "ai_response": (
-            ai_response
-            if ai_response
-            else output_handler.get_translation("no_valid_response")
-        ),
+        "ai_response": ai_response
+        or output_handler.get_translation("no_valid_response"),
         "execution_result": (
-            execution_result
-            if execution_result and execution_result!= ai_response
-            else ""
+            execution_result if execution_result else "No execution result returned."
         ),
         "error": None,
     }
+
     log_to_terminal("log_execution_result", data=result)
     log_to_web_ui(web_ui_url, "log_execution_result", data=result)
+
     return result
 
 

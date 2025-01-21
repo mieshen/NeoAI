@@ -179,14 +179,12 @@ function interact() {
     axios
         .post("/api/interact", { user_input: userInputElement.value })
         .then((response) => {
-            const aiResponse = response.data.ai_response || "无有效响应";
+            const aiResponse = response.data.ai_response || "Error: No response from AI.";
             const executionResult = response.data.execution_result || "";
 
             let aiContent = aiResponse;
-            if (executionResult.trim()) {
-                if (!executionResult.includes("[NONE]")) {
-                    //aiContent += "\n" + `<br>\n<b>执行结果:</b> ${executionResult}`;
-                }
+            if (executionResult.trim() && executionResult !== "No execution result returned.") {
+                aiContent += `\n ${executionResult}`;
             }
             addChatBubble(aiContent, false);
         })
@@ -202,3 +200,4 @@ function interact() {
             userInputElement.value = "";
         });
 }
+

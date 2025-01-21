@@ -44,7 +44,9 @@ def get_ai_response(
 
     try:
         # 发起请求
-        response = requests.post(api_base_url, headers=headers, data=json.dumps(payload), timeout=10)
+        response = requests.post(
+            api_base_url, headers=headers, data=json.dumps(payload), timeout=10
+        )
 
         if response.status_code == 200:
             # 获取 AI 回复
@@ -60,7 +62,9 @@ def get_ai_response(
 
             return ai_response
         else:
-            return f"调用失败，状态码：{response.status_code}, 错误信息：{response.text}"
+            return (
+                f"调用失败，状态码：{response.status_code}, 错误信息：{response.text}"
+            )
 
     except requests.exceptions.SSLError as ssl_error:
         return f"SSL 错误：{ssl_error}"
@@ -70,6 +74,7 @@ def get_ai_response(
 
     except Exception as e:
         return f"未知错误：{e}"
+
 
 def append_to_last_history(content_to_append):
     """

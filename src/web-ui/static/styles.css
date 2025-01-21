@@ -120,10 +120,14 @@ body {
 .input-container {
     display: flex;
     align-items: center;
-    position: fixed; /* 保持固定定位 */
-    bottom: 2%; /* 距离底部 */
-    left: 50%; /* 水平居中 */
-    transform: translateX(-50%); /* 初始水平居中 */
+    position: fixed;
+    /* 保持固定定位 */
+    bottom: 2%;
+    /* 距离底部 */
+    left: 50%;
+    /* 水平居中 */
+    transform: translateX(-50%);
+    /* 初始水平居中 */
     padding: 10px;
     background-color: #2e2e3e;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
@@ -131,15 +135,19 @@ body {
     gap: 10px;
     box-sizing: border-box;
     border-radius: 20px;
-    width: 90%; /* 占屏幕宽度的 90% */
+    width: 90%;
+    /* 占屏幕宽度的 90% */
     max-width: 90%;
-    transition: transform 1s ease, box-shadow 1s ease; /* 平滑过渡 */
+    transition: transform 1s ease, box-shadow 1s ease;
+    /* 平滑过渡 */
     z-index: 100;
 }
 
 .input-container:hover {
-    transform: translateX(-50%) translateY(-5px) scale(1.02); /* 上浮并放大 */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* 更强的阴影效果 */
+    transform: translateX(-50%) translateY(-5px) scale(1.02);
+    /* 上浮并放大 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    /* 更强的阴影效果 */
 }
 
 
@@ -162,11 +170,12 @@ body {
     .header {
         min-width: 20%;
     }
-    .input-container{
+
+    .input-container {
         max-width: 80%;
-        
+
     }
-    
+
 }
 
 @media (min-width: 1200px) {
@@ -189,11 +198,11 @@ body {
         min-width: 10%;
     }
 
-    .input-container{
+    .input-container {
 
         max-width: 50%;
 
-        
+
     }
 }
 
@@ -207,31 +216,48 @@ body {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 5px;
-    background-color: #007bff; /* 按钮背景色 */
-    color: white; /* 按钮文字颜色 */
-    padding: 10px 15px; /* 内边距 */
-    border: none; /* 无边框 */
-    font-size: 1rem; /* 字体大小 */
-    cursor: pointer; /* 鼠标样式 */
-    transition: all 1s ease, transform 1s ease, box-shadow 1s ease; /* 过渡效果 */
-    margin: 0 auto; /* 水平居中 */
+    background-color: #007bff;
+    /* 按钮背景色 */
+    color: white;
+    /* 按钮文字颜色 */
+    padding: 10px 15px;
+    /* 内边距 */
+    border: none;
+    /* 无边框 */
+    font-size: 1rem;
+    /* 字体大小 */
+    cursor: pointer;
+    /* 鼠标样式 */
+    transition: all 1s ease, transform 1s ease, box-shadow 1s ease;
+    /* 过渡效果 */
+    margin: 0 auto;
+    /* 水平居中 */
     left: -100px;
-    scale: 0.90; /* 默认缩放 */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* 默认发光效果 */
+    scale: 0.90;
+    /* 默认缩放 */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+    /* 默认发光效果 */
 }
 
 .input-container button:hover {
-    border-radius: 15px; /* 圆角变化 */
-    transform: scale(1.1); /* 放大 */
-    background-color: #007bff; /* 按钮背景色 */
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 30px rgba(0, 123, 255, 0.6); /* 增强发光效果 */
+    border-radius: 15px;
+    /* 圆角变化 */
+    transform: scale(1.1);
+    /* 放大 */
+    background-color: #007bff;
+    /* 按钮背景色 */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 30px rgba(0, 123, 255, 0.6);
+    /* 增强发光效果 */
 }
 
 .btn:disabled {
     pointer-events: none;
-    opacity: 0.5; /* 半透明效果 */
-    cursor: not-allowed; /* 禁用时鼠标样式 */
-    box-shadow: none; /* 无发光 */
+    opacity: 0.5;
+    /* 半透明效果 */
+    cursor: not-allowed;
+    /* 禁用时鼠标样式 */
+    box-shadow: none;
+    /* 无发光 */
 }
 
 
@@ -248,9 +274,9 @@ pre {
 .user-input-message {
     flex-grow: 1;
     border-top-left-radius: 15px;
-    border-top-right-radius: 5px ;
-    border-bottom-right-radius: 5px ;
-    border-bottom-left-radius: 15px ;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 15px;
     padding: 10px 15px;
     border: 1px solid #444;
     font-size: 1rem;
@@ -266,13 +292,15 @@ pre {
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.9), 0 0 6px rgba(255, 255, 255, 0.6);
 
 
-    transform: scale(1.01); /* 放大1.1倍 */
+    transform: scale(1.01);
+    /* 放大1.1倍 */
 }
 
 .user-input-message:focus {
     border-color: #ffffff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-    border-radius: 40px; /* 悬停时的目标值 */
+    border-radius: 40px;
+    /* 悬停时的目标值 */
     transition: all 1s ease;
 }
 

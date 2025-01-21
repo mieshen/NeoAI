@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import tempfile
 
+
 def estimate_timeout(code):
     """
     根据代码复杂度动态计算超时时间，优化简单语句和重复语句的权重
@@ -12,7 +13,7 @@ def estimate_timeout(code):
     try:
         # 解析代码为 AST（抽象语法树）
         tree = ast.parse(code)
-        
+
         # 基础时间和权重
         base_timeout = 5  # 基础超时时间
         statement_weight = 0.5  # 默认语句权重
@@ -21,7 +22,20 @@ def estimate_timeout(code):
         total_complexity = base_timeout
 
         # 定义常见简单函数集合
-        simple_functions = {"print", "len", "input", "range", "str", "int", "float", "bool", "list", "dict", "set", "tuple"}
+        simple_functions = {
+            "print",
+            "len",
+            "input",
+            "range",
+            "str",
+            "int",
+            "float",
+            "bool",
+            "list",
+            "dict",
+            "set",
+            "tuple",
+        }
 
         # 遍历 AST，计算复杂度
         for node in ast.walk(tree):
@@ -37,12 +51,13 @@ def estimate_timeout(code):
                     total_complexity += statement_weight
             elif isinstance(node, ast.Assign):
                 total_complexity += statement_weight
-        
+
         # 返回计算的超时时间，确保至少为 5 秒
         return max(5, total_complexity)
     except Exception as e:
         # 如果代码解析失败，返回默认超时时间
         return 10
+
 
 def get_main_directory():
     """
@@ -59,7 +74,9 @@ def get_main_directory():
     except Exception as e:
         # 返回默认目录（当前工作目录）
         return os.getcwd()
-def execute_in_subprocess(code, config,output_handler):
+
+
+def execute_in_subprocess(code, config, output_handler):
     """
     在主程序运行目录的 temp_scripts 文件夹中创建临时文件并执行代码，支持全局超时设置。
     """
@@ -79,7 +96,9 @@ def execute_in_subprocess(code, config,output_handler):
             os.makedirs(temp_scripts_dir)
 
         # 创建临时 Python 文件
-        temp_file_path = os.path.join(temp_scripts_dir, next(tempfile._get_candidate_names()) + ".py")
+        temp_file_path = os.path.join(
+            temp_scripts_dir, next(tempfile._get_candidate_names()) + ".py"
+        )
         with open(temp_file_path, "w", encoding="utf-8") as temp_file:
             temp_file.write("# -*- coding: utf-8 -*-\n")
             temp_file.write(code)
@@ -90,7 +109,7 @@ def execute_in_subprocess(code, config,output_handler):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            start_new_session=True
+            start_new_session=True,
         )
 
         try:
@@ -99,8 +118,7 @@ def execute_in_subprocess(code, config,output_handler):
         except subprocess.TimeoutExpired:
             # process.kill()
             timeout_message = output_handler.get_translation(
-                "error_timeout",
-                timeout=f"{timeout:.2f}"
+                "error_timeout", timeout=f"{timeout:.2f}"
             )
             return None, timeout_message
 
@@ -111,6 +129,7 @@ def execute_in_subprocess(code, config,output_handler):
     except Exception as e:
         return None, f"[ERROR] {str(e)}"
 
+
 def cleanup_temp_dir():
     """
     清理脚本运行目录下的 temp_scripts 文件夹
@@ -118,7 +137,7 @@ def cleanup_temp_dir():
     # 获取脚本运行目录
     script_dir = os.path.dirname(os.path.abspath(__file__))
     temp_dir = os.path.join(script_dir, "temp_scripts")
-    
+
     # 检查文件夹是否存在
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
