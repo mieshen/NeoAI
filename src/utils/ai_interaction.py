@@ -45,7 +45,7 @@ def get_ai_response(
     try:
         # 发起请求
         response = requests.post(
-            api_base_url, headers=headers, data=json.dumps(payload), timeout=10
+            api_base_url, headers=headers, data=json.dumps(payload), timeout=120
         )
 
         if response.status_code == 200:

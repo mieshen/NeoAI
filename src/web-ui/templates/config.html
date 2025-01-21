@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <script src="{{ url_for('static', filename='menu.js') }}"></script>
     <div class="header" onclick="showMenu()">{{ "web_ui_settings_header_title" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
@@ -26,7 +25,7 @@
 
             <label for="language_select">
                 {{ "language_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " language_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "language_tooltip" | translate }}">?</span>
             </label>
             <select id="language_select" onchange="changeLanguage()">
                 <option value="en" {% if config['LANGUAGE']=='en' %}selected{% endif %}>English</option>
@@ -34,63 +33,53 @@
                 <option value="zh-Miao" {% if config['LANGUAGE']=='zh-Miao' %}selected{% endif %}>🐱简喵体中文🐱</option>
             </select>
 
-
-
-
             <label for="api_key">
                 {{ "api_key_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " api_key_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "api_key_tooltip" | translate }}">?</span>
             </label>
             <input type="password" id="api_key" name="API_KEY" value="{{ config['API_KEY'] }}">
 
-
             <label for="api_base_url">
                 {{ "api_base_url_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " api_base_url_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "api_base_url_tooltip" | translate }}">?</span>
             </label>
             <input type="text" id="api_base_url" name="API_BASE_URL" value="{{ config['API_BASE_URL'] }}">
 
             <label for="model">
                 {{ "model_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " model_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "model_tooltip" | translate }}">?</span>
             </label>
             <input type="text" id="model" name="MODEL" value="{{ config['MODEL'] }}">
 
-
-
             <label for="execution_level">
                 {{ "execution_level_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " execution_level_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "execution_level_tooltip" | translate }}">?</span>
             </label>
-            <input type="number" id="execution_level" name="EXECUTION_LEVEL" min="0" max="3"
-                value="{{ config['EXECUTION_LEVEL'] }}">
+            <input type="number" id="execution_level" name="EXECUTION_LEVEL" min="0" max="3" value="{{ config['EXECUTION_LEVEL'] }}">
 
             <label for="return_timeout">
                 {{ "return_timeout_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " return_timeout_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "return_timeout_tooltip" | translate }}">?</span>
             </label>
-            <input type="number" id="return_timeout" name="RETURN_TIMEOUT" step="0.1"
-                value="{{ config['RETURN_TIMEOUT'] }}">
+            <input type="number" id="return_timeout" name="RETURN_TIMEOUT" step="0.1" value="{{ config['RETURN_TIMEOUT'] }}">
 
             <label for="temperature">
                 {{ "temperature_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " temperature_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "temperature_tooltip" | translate }}">?</span>
             </label>
-            <input type="number" id="temperature" name="TEMPERATURE" step="0.05" min="0" max="2"
-                value="{{ config['TEMPERATURE'] }}">
+            <input type="number" id="temperature" name="TEMPERATURE" step="0.05" min="0" max="2" value="{{ config['TEMPERATURE'] }}">
 
             <label for="max_tokens">
                 {{ "max_tokens_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " max_tokens_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "max_tokens_tooltip" | translate }}">?</span>
             </label>
-            <input type="number" id="max_tokens" name="MAX_TOKENS" step="" value="{{ config['MAX_TOKENS'] }}">
+            <input type="number" id="max_tokens" name="MAX_TOKENS" value="{{ config['MAX_TOKENS'] }}">
 
             <label for="max_turns">
                 {{ "max_turns_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " max_turns_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "max_turns_tooltip" | translate }}">?</span>
             </label>
-            <input type="number" id="max_turns" name="MAX_TURNS" step="" value="{{ config['MAX_TURNS'] }}">
-
+            <input type="number" id="max_turns" name="MAX_TURNS" value="{{ config['MAX_TURNS'] }}">
 
             <button type="button" id="update_button" onclick="saveConfig()">
                 {{ "save_config_button" | translate }}
@@ -100,7 +89,6 @@
 
     <script src="{{ url_for('static', filename='config.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-
 </body>
 
 </html>
