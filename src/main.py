@@ -29,7 +29,7 @@ DEFAULT_CONFIG = {
     "LANGUAGE": "en",
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-VERSION = "0.8.5-beta+20250109"
+VERSION = "0.9.0-beta+20250121"
 
 
 def save_config():
