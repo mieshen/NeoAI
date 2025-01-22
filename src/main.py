@@ -30,7 +30,7 @@ DEFAULT_CONFIG = {
     "LANGUAGE": "en",
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-VERSION = "0.9.0-beta+20250121"
+VERSION = "0.10.0-beta+20250122"
 WEB_UI_URL = None
 
 
