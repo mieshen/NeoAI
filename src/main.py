@@ -9,11 +9,12 @@ from utils.scripts_handler import cleanup_temp_dir, execute_in_subprocess
 from utils.system_info import get_system_info
 from utils.ai_interaction import get_ai_response
 from level.operation_levels import operation_levels
-from level.common import generate_prompt, extract_code
+from level.common import extract_callback, generate_prompt, extract_code
 from utils.ai_interaction import append_to_last_history
 from utils.help_handler import show_help
 
-# === 配置常量 ===
+
+# === 配置常量 === #
 CONFIG_FILE = os.path.join(os.getcwd(), "config.json")  # 配置文件路径
 DEFAULT_CONFIG = {
     "API_KEY": "YOUR_API_KEY",
@@ -30,6 +31,7 @@ DEFAULT_CONFIG = {
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 VERSION = "0.9.0-beta+20250121"
+WEB_UI_URL = None
 
 
 def save_config():
@@ -40,11 +42,8 @@ def save_config():
     如果写入过程中出现任何异常，将在终端打印 "save failed"。
     """
     try:
-        with open(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json"),
-            "w",
-            encoding="utf-8",
-        ) as f:
+        config_path = os.path.join(MAIN_DIRECTORY, "config.json")
+        with open(config_path, "w", encoding="utf-8") as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
     except Exception as e:
         print("save failed")
@@ -64,9 +63,8 @@ def load_config():
     如果配置文件不存在，直接保存默认配置到文件中。
     """
     global config
-    config_file_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "config.json"
-    )
+    config_file_path = os.path.join(MAIN_DIRECTORY, "config.json")
+
     config_updated = False
     if os.path.exists(config_file_path):
         try:
@@ -136,10 +134,11 @@ def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
             print(error_message)
 
 
-def run_main_program(user_input, web_ui_url=None):
+def run_main_program(user_input, web_ui_url=None, callback=False):
     api_key = config["API_KEY"]
     api_base_url = config["API_BASE_URL"]
     model = config["MODEL"]
+    WEB_UI_URL = web_ui_url
 
     # 获取系统信息
     system_info = get_system_info()
@@ -172,6 +171,7 @@ def run_main_program(user_input, web_ui_url=None):
         config["TEMPERATURE"],
         config["MAX_TOKENS"],
         config["MAX_TURNS"],
+        callback,
     )
     log_to_terminal("log_ai_response", data=ai_response)
 
@@ -200,29 +200,51 @@ def run_main_program(user_input, web_ui_url=None):
         execution_result = None
 
     # 将执行结果存入历史
-    append_to_last_history(
-        output_handler.get_translation("execution_result_prefix")
-        + (execution_result or "")
-    )
-
-    execution_result = (
-        output_handler.get_translation("execution_result") + execution_result
-        if execution_result
-        else None
-    )
+    if execution_result:
+        append_to_last_history(
+            output_handler.get_translation("execution_result_prefix")
+            + (execution_result or "")
+        )
+    # 如果有执行结果 获取本地化提示信息 并且附加到执行结果前
+    if execution_result:
+        execution_result = (
+            output_handler.get_translation("execution_result") + execution_result
+        )
 
     result = {
-        "prompt": prompt,
-        "ai_response": ai_response
-        or output_handler.get_translation("no_valid_response"),
+        "prompt": prompt,  # 生成的提示
+        "ai_response": ai_response  # AI的回复
+        or output_handler.get_translation(
+            "no_valid_response"
+        ),  # 如果AI没有回复，返回默认的提示
         "execution_result": (
-            execution_result if execution_result else "No execution result returned."
-        ),
-        "error": None,
+            execution_result.strip()
+            if execution_result and execution_result.strip()
+            else "No execution result returned."
+        ),  # 如果有执行结果 返回执行结果 否则返回默认提示
+        "error": None,  # 默认没有错误
     }
 
-    log_to_terminal("log_execution_result", data=result)
-    log_to_web_ui(web_ui_url, "log_execution_result", data=result)
+    """
+    回调解释：
+    1. 如AI回复中出现回调标识符（>>>CALLBACK>>>,<<<CALLBACK<<<），则提取回调内容
+    2. 将回调内容作为用户输入，再次调用主程序，但不会保存历史记录
+    3. 将回调的AI回复附加到原AI回复后
+    """
+
+    callback = extract_callback(ai_response)  # 提取回调
+
+    if callback:
+        callback_result = run_main_program(callback, WEB_UI_URL, True)[
+            "ai_response"
+        ]  # 递归调用主程序，不保存历史记录
+        result["ai_response"] = (
+            result["ai_response"] + "\n" + callback_result
+        )  # 将回调的AI回复附加到原AI回复后
+        append_to_last_history(callback_result)  # 将回调的AI回复附加到历史记录中
+
+    log_to_terminal("log_execution_result", data=result)  # 记录执行结果
+    log_to_web_ui(web_ui_url, "log_execution_result", data=result)  # 记录到WebUI
 
     return result
 

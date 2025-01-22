@@ -59,7 +59,7 @@ document.addEventListener("mousemove", (event) => {
 });
 
 
-function addChatBubble(content, isUser = false, bubbleId = null) {
+function addChatBubble(content, isUser = false, bubbleId = null, skipAnimation = false) {
     const chatContainer = document.getElementById("chat_container");
     let bubble;
 
@@ -83,11 +83,20 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
     setTimeout(() => {
         bubble.style.opacity = 1;
 
-        if (isUser) {
-            bubble.innerText = content;
+        if (skipAnimation) {
+            if (isUser) {
+                // 用户输入直接渲染为纯文本
+                bubble.innerText = content;
+            } else {
+                // AI 响应解析为 Markdown
+                simulateTypingAnimation(bubble, content, true);
+            }
         } else {
-            // 使用模拟打字动画渲染内容
-            simulateTypingAnimation(bubble, content);
+            if (isUser) {
+                bubble.innerText = content;
+            } else {
+                simulateTypingAnimation(bubble, content);
+            }
         }
 
         // 滚动到最新消息
@@ -96,6 +105,7 @@ function addChatBubble(content, isUser = false, bubbleId = null) {
 
     return bubble.id;
 }
+
 
 // 配置 highlight.js
 hljs.configure({ languages: ["python", "javascript", "html", "css"] });
@@ -118,7 +128,7 @@ const md = window.markdownit({
     linkify: true, // 自动将 URL 转换为链接
 });
 
-function simulateTypingAnimation(bubble, content) {
+function simulateTypingAnimation(bubble, content, skipAnimation = false) {
     const baseCharDuration = 5; // 每个字符的基础时长
     const reductionFactor = 0.8; // 短文本的时长缩减系数
     const minDuration = 200; // 最短总时长（毫秒）
@@ -146,6 +156,12 @@ function simulateTypingAnimation(bubble, content) {
     const markdownContainer = document.createElement("div");
     bubble.appendChild(markdownContainer);
 
+    if (skipAnimation) {
+        // 如果跳过动画，直接显示所有内容
+        markdownContainer.innerHTML = md.render(content);
+        return;
+    }
+
     // 动画逻辑
     const typeText = setInterval(() => {
         if (index < content.length) {
@@ -165,6 +181,8 @@ function simulateTypingAnimation(bubble, content) {
     }, typingSpeed);
 }
 
+
+// 实际交互函数
 function interact() {
     const userInputElement = document.getElementById("user_input");
     const sendButton = document.querySelector(".btn.btn-primary");
@@ -182,10 +200,12 @@ function interact() {
             const aiResponse = response.data.ai_response || "Error: No response from AI.";
             const executionResult = response.data.execution_result || "";
 
+            // 确保 "执行结果：" 只有在 executionResult 有效时才显示
             let aiContent = aiResponse;
-            if (executionResult.trim() && executionResult !== "No execution result returned.") {
-                aiContent += `\n ${executionResult}`;
+            if (executionResult.trim() && executionResult !== "No execution result returned." && executionResult.trim() !== "") {
+                aiContent += `\n\n\n${executionResult}`;
             }
+
             addChatBubble(aiContent, false);
         })
         .catch((error) => {
@@ -200,4 +220,47 @@ function interact() {
             userInputElement.value = "";
         });
 }
+// 页面加载时加载历史记录
+document.addEventListener("DOMContentLoaded", () => {
+    axios
+        .get("/api/log/get-history")
+        .then((response) => {
+            const logs = response.data; // 获取历史记录
+            if (logs && logs.length > 0) {
+                logs.forEach((log) => {
+                    if (log.role === "user") {
+                        // 如果是用户输入，直接渲染为纯文本
+                        addChatBubble(log.content, true, null, true);
+                    } else if (log.role === "assistant") {
+                        // 如果是 AI 响应，解析为 Markdown
+                        const responseData = {
+                            ai_response: log.content,
+                            execution_result: log.execution_result || "",
+                        };
 
+                        simulateInteractResponse(responseData);
+                    }
+                });
+
+                // 滚动到最新消息
+                const chatContainer = document.getElementById("chat_container");
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        })
+        .catch((error) => {
+            console.error("Error loading logs:", error);
+        });
+});
+
+
+function simulateInteractResponse(responseData) {
+    const aiResponse = responseData.ai_response || "Error: No response from AI.";
+    const executionResult = responseData.execution_result || "";
+
+    let aiContent = aiResponse;
+    if (executionResult.trim() && executionResult !== "No execution result returned.") {
+        aiContent += `\n\n\n${executionResult}`;
+    }
+
+    addChatBubble(aiContent, false, null, true);
+}

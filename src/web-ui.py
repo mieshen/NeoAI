@@ -1,10 +1,11 @@
 import copy
+import src
 from flask import Flask, request, jsonify, render_template
 from main import run_main_program, load_config, config, save_config
 from utils.output_handler import OutputHandler  # 导入 OutputHandler
-from main import VERSION
 from utils.ai_interaction import clear_history
 from utils.ai_interaction import history
+from main import VERSION
 
 # 初始化 OutputHandler（默认语言：英语）
 output_handler = OutputHandler(language=config["LANGUAGE"], log_output=True)
@@ -34,7 +35,6 @@ def log_page():
             # 解码 full_log 中的 Unicode 转义字符
             decoded_log["full_log"] = json.loads(f'"{log["full_log"]}"')
         decoded_logs.append(decoded_log)
-
     return render_template("history-log.html", logs=decoded_logs, history=history)
 
 
@@ -158,6 +158,11 @@ def manage_config():
             ),
             200,
         )
+
+
+@app.route("/api/log/get-history", methods=["GET"])
+def get_history():
+    return jsonify(history), 200
 
 
 def find_free_port():

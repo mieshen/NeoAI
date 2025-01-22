@@ -6,7 +6,15 @@ history = []
 
 
 def get_ai_response(
-    prompt, api_key, api_base_url, model, user_input, temperature, max_tokens, max_turns
+    prompt,
+    api_key,
+    api_base_url,
+    model,
+    user_input,
+    temperature,
+    max_tokens,
+    max_turns,
+    callback=False,
 ):
     """
     调用 OpenAI API，并在调用成功时自动更新历史记录，支持设置最大聊天轮次。
@@ -53,8 +61,9 @@ def get_ai_response(
             ai_response = response.json()["choices"][0]["message"]["content"]
 
             # 自动更新历史记录
-            history.append({"role": "user", "content": user_input})
-            history.append({"role": "assistant", "content": ai_response})
+            if not callback:
+                history.append({"role": "user", "content": user_input})
+                history.append({"role": "assistant", "content": ai_response})
 
             # 限制历史记录长度，保持最多 max_turns 轮对话
             if len(history) > max_turns * 2:  # 每轮包含用户输入和 AI 回复，共 2 条

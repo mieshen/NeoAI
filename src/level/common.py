@@ -59,3 +59,20 @@ def extract_code(ai_response):
     if match:
         return match.group(0).replace(">>>RUN>>>", "").replace("<<<RUN<<<", "").strip()
     return None
+
+
+def extract_callback(ai_response):
+    """
+    提取 AI 响应中的代码块。
+    """
+    import re
+
+    match = re.search(r">>>CALLBACK>>>[\s\S]*?<<<CALLBACK<<<", ai_response)
+    if match:
+        return (
+            match.group(0)
+            .replace(">>>CALLBACK>>>", "")
+            .replace("<<<CALLBACK<<<", "")
+            .strip()
+        )
+    return None

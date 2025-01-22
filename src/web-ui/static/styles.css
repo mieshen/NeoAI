@@ -90,6 +90,7 @@ body {
     max-width: 70%;
 }
 
+
 .ai-bubble {
     background-color: #2e2e3e;
     color: #ffffff;
@@ -271,6 +272,109 @@ pre {
     transition: all 0.3s ease;
 }
 
+/* 自定义滚动条样式 */
+pre::-webkit-scrollbar {
+    width: 8px;
+    /* 滚动条宽度 */
+    height: 8px;
+    /* 横向滚动条高度 */
+}
+
+pre::-webkit-scrollbar-track {
+    background: #1e1f1c;
+    /* 滚动条轨道颜色 */
+    border-radius: 5px;
+    /* 圆角 */
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: #555;
+    /* 滚动条滑块颜色 */
+    border-radius: 5px;
+    /* 圆角 */
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    /* 滑块悬停颜色 */
+}
+
+/* 横向滚动条样式 */
+pre::-webkit-scrollbar-corner {
+    background: #1e1f1c;
+    /* 滚动条转角处 */
+}
+
+code {
+
+    /* 设置代码块的上下和左右外边距 */
+    margin: 5px 2px;
+    /* 底色 */
+    background-color: #272822;
+    color: #f8f8f2;
+    /* 文本颜色 */
+    font-family: "Fira Code", "JetBrains Mono", Consolas, "Segoe UI", sans-serif;
+    /* 使用更现代的字体 */
+    padding: 6px 8px;
+    /* 添加内边距 */
+    border-radius: 5px;
+    /* 圆角 */
+
+    font-size: 0.95rem;
+    /* 调整字体大小 */
+    word-wrap: break-word;
+    /* 自动换行 */
+    display: inline-block;
+    /* 使代码块独占一行时也适配 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+
+
+a {
+    color: #007bff !important;
+    /* 默认文字颜色 */
+    text-decoration: none;
+    /* 去掉下划线 */
+    font-weight: bold;
+    /* 加粗 */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+a:hover {
+    color: #0056b3;
+    /* 悬停时的文字颜色 */
+    text-shadow: 0 0 6px rgba(0, 123, 255, 0.8), 0 0 12px rgb(0, 123, 255);
+    /* 发光效果 */
+    transform: scale(1.05);
+    /* 微微放大 */
+}
+
+a:active {
+    color: #003d80;
+    /* 点击时的文字颜色 */
+    text-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    /* 减弱的发光效果 */
+}
+
+a:visited {
+    color: #6c757d;
+    /* 已访问链接的颜色 */
+    text-shadow: none;
+    /* 不发光 */
+}
+
+a:focus {
+    outline: none;
+    /* 去掉默认的焦点样式 */
+    text-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+    /* 聚焦时的发光效果 */
+}
+
+
 .user-input-message {
     flex-grow: 1;
     border-top-left-radius: 15px;
@@ -316,4 +420,105 @@ pre {
     color: #888;
     opacity: 1;
     transition: all 0.3s ease;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #1e1e2e;
+    color: #eaeaea;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+table:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 123, 255, 0.6);
+    transform: scale(1.02);
+}
+
+thead {
+    background-color: #007bff;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease-out;
+}
+
+thead th {
+    padding: 12px 15px;
+    border-bottom: 2px solid #3e3e4e;
+    text-align: left;
+    white-space: nowrap;
+}
+
+tbody tr {
+    background-color: #2e2e3e;
+    transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #262633;
+}
+
+tbody tr:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    transform: translateX(5px) scale(1.01);
+    cursor: pointer;
+}
+
+tbody td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #3e3e4e;
+    text-align: left;
+    transition: color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+tfoot {
+    background-color: #1e1e2e;
+    text-align: right;
+    font-size: 0.9rem;
+    padding: 12px 15px;
+    border-top: 2px solid #3e3e4e;
+    color: #888;
+    transition: background-color 0.3s ease-out;
+}
+
+tfoot td {
+    padding: 10px;
+}
+
+/* 可滚动表格样式 */
+table::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+    background: #3e3e4e;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-out;
+}
+
+table::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 5px;
+    transition: background 0.2s ease-out;
+}
+
+table::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* 对齐样式 */
+.table-center td,
+.table-center th {
+    text-align: center;
+}
+
+.table-right td,
+.table-right th {
+    text-align: right;
 }
