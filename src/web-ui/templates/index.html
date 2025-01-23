@@ -10,28 +10,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 
     <!-- 引用本地 CSS 文件 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='config.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/config.css') }}">
 </head>
 
 <body>
-    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
     <div class="header" onclick="showMenu()">{{ "web_ui_titel" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
 
     <div id="chat_container" class="chat-container">
         <div class="none"></div>
         <div class="input-container">
-            <input type="text" id="user_input" class="user-input-message" placeholder="{{ "web_ui_enter_message" | translate }}" />
+            <textarea id="user_input" class="user-input-message" placeholder="{{ 'web_ui_enter_message' | translate }}"
+                oninput="adjustHeight(this)"></textarea>
+
             <button class="btn btn-primary" onclick="interact()">{{ "web_ui_send_message" | translate }}</button>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    </div> <!-- 关闭 chat_container -->
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 
-        <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body> <!-- 关闭 body -->
 
 </html>

@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ "web_ui_settings_title" | translate }}</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='NeoAI.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='config.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/NeoAI.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/config.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    
 </head>
 
 <body>
-    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
     <div class="header" onclick="showMenu()">{{ "web_ui_settings_header_title" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
     <div style="min-height: 400px;"></div>
@@ -87,8 +88,8 @@
         </form>
     </div>
 
-    <script src="{{ url_for('static', filename='config.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 
 </html>

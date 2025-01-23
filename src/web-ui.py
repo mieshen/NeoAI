@@ -20,7 +20,7 @@ app = Flask(
 logs = []
 
 
-@app.route("/log/history", methods=["GET"])
+@app.route("/debug/history", methods=["GET"])
 def log_page():
     """
     以 HTML 页面形式显示日志
@@ -34,7 +34,7 @@ def log_page():
             # 解码 full_log 中的 Unicode 转义字符
             decoded_log["full_log"] = json.loads(f'"{log["full_log"]}"')
         decoded_logs.append(decoded_log)
-    return render_template("history-log.html", logs=decoded_logs, history=history)
+    return render_template("debug-history.html", logs=decoded_logs, history=history)
 
 
 @app.template_filter("translate")
@@ -75,7 +75,7 @@ def get_logs():
     return jsonify(logs), 200
 
 
-@app.route("/api/clear_history", methods=["GET"])
+@app.route("/api/clear-history", methods=["GET"])
 def clear_history_route():
     src_history = copy.deepcopy(history)
     clear_history()
@@ -159,7 +159,7 @@ def manage_config():
         )
 
 
-@app.route("/api/log/get-history", methods=["GET"])
+@app.route("/api/get-history", methods=["GET"])
 def get_history():
     return jsonify(history), 200
 
@@ -173,6 +173,35 @@ def find_free_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("0.0.0.0", 0))
         return s.getsockname()[1]
+
+
+@app.route("/api/add-history", methods=["GET"])
+def add_history():
+    """
+    根据请求的 type 参数（ai 或 user）添加一条历史记录。
+    """
+    record_type = request.args.get("type", "").lower()  # 获取 type 参数，转换为小写
+    text = request.args.get("text", "")  # 获取 text 参数
+
+    if not text:  # 检查 text 是否为空
+        return jsonify({"error": "Missing 'text' parameter"}), 400
+
+    if record_type not in ["ai", "user"]:  # 检查 type 是否有效
+        return (
+            jsonify(
+                {"error": f"Invalid 'type': {record_type}. Must be 'ai' or 'user'."}
+            ),
+            400,
+        )
+
+    # 根据 type 添加历史记录
+    history.append(
+        {"role": "assistant" if record_type == "ai" else "user", "content": text}
+    )
+
+    return jsonify(
+        {"message": "History updated successfully!", "current_history": history}
+    )
 
 
 @app.route("/set_language/<lang>", methods=["POST", "GET"])

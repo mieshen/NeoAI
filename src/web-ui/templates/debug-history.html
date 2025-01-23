@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='NeoAI.ico') }}">
+    <title>History Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        h3 {
+            text-align: center;
+            color: #af4c4c;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        thead {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        th {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        td {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        input {
+            padding: 8px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 20%;
+        }
+
+        select {
+            padding: 8px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #3e8e41;
+        }
+
+        div {
+            padding: 10px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="group" style="text-align: center;">
+        <div class="group" style="text-align: center;">
+            <h2 style="display: block; margin-bottom: 10px; margin-top: 10px;">添加历史记录</h2>
+            <label for="add-message-input">添加消息</label>
+            <input type="text" placeholder="为指定类型的 History 增加消息..." id="add-message-input">
+            <label for="history-type">类型</label>
+            <select name="history-type" id="history-type">
+                <option value="user">User</option>
+                <option value="ai">AI</option>
+            </select>
+            <button onclick="addMessage()">添加</button>
+        </div>
+
+        <button onclick="clearHistory()">清空 History</button>
+        <button onclick="loadExample(1)">一键加载模板例子[1]</button>
+        <button onclick="loadExample(2)">一键加载模板例子[2]</button>
+    </div>
+
+
+    <h1>Chat History</h1>
+    <h3>在无代码执行时 执行结果会被隐藏</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Role</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody id="history-table-body">
+            <!-- 动态加载表格内容 -->
+        </tbody>
+    </table>
+
+
+    <script>
+        async function clearHistory() {
+            try {
+                const response = await fetch('/api/clear-history', { method: 'GET' });
+                if (response.ok) {
+                    fetchHistory(); // 重新加载历史记录
+                } else {
+                    console.error('Failed to clear history:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error clearing history:', error);
+            }
+        }
+        async function fetchHistory() {
+            try {
+                // 发送 GET 请求获取最新的历史记录
+                const response = await fetch('/api/get-history');
+                if (response.ok) {
+                    const data = await response.json(); // 此时 data 是一个数组
+                    if (Array.isArray(data)) {
+                        updateTable(data); // 直接传入数组
+                    } else {
+                        console.error('Invalid response format: expected an array');
+                    }
+                } else {
+                    console.error('Failed to fetch history:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching history:', error);
+            }
+        }
+
+        function updateTable(history) {
+            const tableBody = document.getElementById('history-table-body');
+            tableBody.innerHTML = ''; // 清空表格内容
+            history.forEach((entry, index) => {
+                const row = document.createElement('tr');
+
+                // 创建单元格
+                const indexCell = document.createElement('td');
+                const roleCell = document.createElement('td');
+                const contentCell = document.createElement('td');
+
+                // 填充内容
+                indexCell.textContent = index + 1;
+                roleCell.textContent = entry.role;
+                contentCell.textContent = entry.content;
+
+                // 添加到行
+                row.appendChild(indexCell);
+                row.appendChild(roleCell);
+                row.appendChild(contentCell);
+
+                // 添加到表格
+                tableBody.appendChild(row);
+            });
+        }
+
+
+        // 每隔 5 秒刷新一次
+        setInterval(fetchHistory, 5000);
+
+        // 初次加载
+        fetchHistory();
+
+
+        function addMessage() {
+            const input = document.getElementById('add-message-input');
+            const type = document.getElementById('history-type').value;
+            const content = input.value;
+            if (!content) {
+                alert('消息内容不能为空！');
+                return;
+            }
+            fetch(`/api/add-history?type=${type}&text=${content}`)
+                .then(response => {
+                    if (response.ok) {
+                        input.value = ''; // 清空输入框
+                        fetchHistory(); // 重新加载历史记录
+                    } else {
+                        console.error('Failed to add message:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding message:', error);
+                });
+        }
+
+
+
+        function loadExample(templateNumber) {
+
+        }
+
+
+    </script>
+</body>
+
+</html>

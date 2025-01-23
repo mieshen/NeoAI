@@ -47,7 +47,7 @@ function clearHistory() {
     const button = document.getElementById('clear-history-button');
     const originalText = button.innerHTML;
     button.innerHTML = '...';
-    fetch('/api/clear_history', { method: 'GET' })
+    fetch('/api/clear-history', { method: 'GET' })
         .then(response => {
             if (response.ok) {
                 return response.json();
