@@ -267,9 +267,6 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
             if (!userScrolled) {
                 bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
             }
-
-            // 每次时间减少20%
-            typingSpeed *= 0.8;
         } else {
             clearInterval(typeText); // 动画结束
         }
