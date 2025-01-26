@@ -14,12 +14,12 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: Push to Gitee
+      - name: Push to Gitee || 推送到 Gitee
         run: |
           git remote add gitee https://TheD0ubleC:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
           git push gitee main -f
 
-      - name: Push to GitCode
+      - name: Push to GitCode || 推送到 GitCode
         run: |
           git remote add gitcode https://TheD0ubleC:${{ secrets.GITCODE_TOKEN }}@gitcode.com/TheD0ubleC/NeoAI.git
           git push gitcode main -f
