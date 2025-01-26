@@ -193,8 +193,6 @@ document.querySelectorAll("pre code").forEach((el) => {
     hljs.highlightElement(el);
 });
 
-
-
 const md = window.markdownit({
     highlight: function (code, lang) {
         if (hljs.getLanguage(lang)) {

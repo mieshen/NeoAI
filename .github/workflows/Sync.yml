@@ -27,3 +27,4 @@ jobs:
         run: |
           git remote add gitcode https://TheD0ubleC:${{ secrets.GITCODE_TOKEN }}@gitcode.com/TheD0ubleC/NeoAI.git
           git push gitcode main -f
+          
