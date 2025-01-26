@@ -207,28 +207,6 @@ const md = window.markdownit({
 });
 
 function simulateTypingAnimation(bubble, content, skipAnimation = false) {
-    const baseCharDuration = 5; // 每个字符的基础时长
-    const reductionFactor = 0.8; // 短文本的时长缩减系数
-    const minDuration = 200; // 最短总时长（毫秒）
-    const maxDuration = 10000; // 最长总时长（毫秒）
-    const totalCharacters = content.length;
-
-    // 动态计算总时长
-    let totalDuration = totalCharacters * baseCharDuration;
-
-    // 对短文本应用缩减
-    if (totalCharacters < 50) {
-        totalDuration *= reductionFactor;
-    }
-
-    // 限制总时长在 [minDuration, maxDuration] 之间
-    totalDuration = Math.min(Math.max(totalDuration, minDuration), maxDuration);
-
-    // 动态计算每个字符的显示间隔
-    const typingSpeed = totalDuration / totalCharacters;
-    let index = 0;
-    let currentText = "";
-
     // 清空对话气泡内容
     bubble.innerHTML = "";
     const markdownContainer = document.createElement("div");
@@ -270,19 +248,13 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
             // 渲染部分 Markdown 内容
             markdownContainer.innerHTML = md.render(currentText);
 
-            // 添加复制按钮
-            addCopyButton(markdownContainer);
-
-            // 滚动到最新消息
+            // 如果当前是最底部则滚动到最新消息
             bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
-
-            // 每次时间减少20%
-            typingSpeed *= 0.8;
         } else {
             clearInterval(typeText); // 动画结束
             addCopyButton(markdownContainer); // 添加复制按钮
         }
-    }, Math.max(typingSpeed, 1)); // 确保每次间隔至少为 1ms
+    }, Math.max(typingSpeed, 10)); // 确保每次间隔至少为 10ms
 }
 
 function addCopyButton(container) {
