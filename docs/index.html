@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoAI Docs</title>
+    <!-- Docsify 主题样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+    <!-- Prism.js 高亮主题 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-okaidia.css">
+    <!-- Codemirror 样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+    <link rel="icon" href="/images/NeoAI.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <!-- 引入脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/selection/active-line.min.js"></script>
+
+    <script>
+        function changeLanguage() {
+            const language = document.getElementById("languageSwitcher").value;
+            const appDiv = document.getElementById("app");
+
+            // 清空文档内容
+            appDiv.innerHTML = '';
+
+            // 动态切换 Docsify basePath
+            window.$docsify.basePath = `./${language}/`;
+            window.$docsify.loadSidebar = true;
+
+            // 重新初始化 Docsify
+            if (window.Docsify) {
+                Docsify.prototype.init();
+            }
+        }
+
+        window.$docsify = {
+            name: 'NeoAI Documentation', // 文档名称
+            repo: 'https://github.com/TheD0ubleC/NeoAI', // 仓库链接
+            basePath: './', // 设置为根路径
+            loadSidebar: true, // 启用侧边栏
+            loadNavbar: true, // 启用顶部导航
+            themeColor: '#FF9AA2', // 主题颜色
+            search: {
+                placeholder: 'Search...', // 搜索框占位文本
+                noData: 'No results found!', // 搜索无结果提示
+                depth: 2 // 搜索深度
+            },
+            copyCode: {
+                buttonText: 'Copy', // 复制按钮文本
+                successText: 'Copied!' // 复制成功提示
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const checkAndRedirect = () => {
+                // 获取当前 URL 的哈希值
+                const hash = window.location.hash;
+
+                console.log("Current hash:", hash); // 调试输出哈希值
+
+                // 检查是否是 #/back-NeoAI
+                if (hash === "#/back-NeoAI") {
+                    console.log("Hash detected, preparing to redirect...");
+
+                    // 获取协议和主机名
+                    const currentProtocol = window.location.protocol;
+                    const currentHost = window.location.hostname;
+
+                    // 拼接目标 URL（7820 端口）
+                    const targetUrl = `${currentProtocol}//${currentHost}:7820`;
+
+                    // 执行跳转
+                    window.location.href = targetUrl;
+                }
+            };
+
+            // 轮询检测哈希值，每 100 毫秒执行一次，最多尝试 30 次
+            let attempts = 0;
+            const intervalId = setInterval(() => {
+                checkAndRedirect();
+
+                attempts += 1;
+                if (attempts > 30) {
+                    clearInterval(intervalId); // 停止轮询
+                }
+            }, 100);
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+</body>
+
+</html>

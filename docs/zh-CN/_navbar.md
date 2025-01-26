@@ -1,0 +1,4 @@
+- [安装](/zh-CN/installation.md)
+- [快速开始](/zh-CN/quickstart.md)
+- [配置教程](/zh-CN/tutorial.md)
+- [回到 NeoAI](/back-NeoAI)

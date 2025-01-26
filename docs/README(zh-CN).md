@@ -4,6 +4,8 @@
   <img src="LOGO.png" alt="Logo" width="400" />
 </p>
 
+## [Web 文档](thed0ublec.github.com/NeoAI)
+
 <section align="center">
   <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
   <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">

@@ -2,6 +2,8 @@
 
 ## [简体中文文档点我](docs/README(zh-CN).md)
 
+## [Web Docs](thed0ublec.github.com/NeoAI)
+
 <p align="center">
   <img src="docs/LOGO.png" alt="Logo" width="400" />
 </p>

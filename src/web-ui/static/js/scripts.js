@@ -109,23 +109,32 @@ function addChatBubble(content, isUser = false, bubbleId = null, skipAnimation =
     return bubble.id;
 }
 
-// 添加/更新 none 元素到聊天气泡的最下方
+// 添加/更新 none 元素到聊天气泡的顶部和底部
 function updateNoneElement(chatContainer) {
-    // 查找是否已经存在 "none" 元素
-    let existingNone = chatContainer.querySelector(".none");
-
-    // 如果存在，先删除
-    if (existingNone) {
-        existingNone.remove();
+    // 检查是否已存在顶部的 "none" 元素
+    let topNone = chatContainer.querySelector(".none-top");
+    if (!topNone) {
+        // 如果顶部的 "none" 不存在，创建一个并添加到顶部
+        topNone = document.createElement("div");
+        topNone.className = "none none-top";
+        chatContainer.insertBefore(topNone, chatContainer.firstChild); // 添加到最顶部
     }
 
-    // 创建新的 "none" 元素
-    const noneElement = document.createElement("div");
-    noneElement.className = "none";
-    
-    // 将它添加到最下面
-    chatContainer.appendChild(noneElement);
+    // 检查是否已存在底部的 "none" 元素
+    let bottomNone = chatContainer.querySelector(".none-bottom");
+    if (bottomNone) {
+        // 如果底部的 "none" 存在，删除旧的
+        bottomNone.remove();
+    }
+
+    // 创建新的底部 "none" 元素
+    const newBottomNone = document.createElement("div");
+    newBottomNone.className = "none none-bottom";
+
+    // 添加到最底部
+    chatContainer.appendChild(newBottomNone);
 }
+
 
 // 用于交互时处理用户输入的函数
 function interact() {
@@ -198,28 +207,6 @@ const md = window.markdownit({
 });
 
 function simulateTypingAnimation(bubble, content, skipAnimation = false) {
-    const baseCharDuration = 5; // 每个字符的基础时长
-    const reductionFactor = 0.8; // 短文本的时长缩减系数
-    const minDuration = 200; // 最短总时长（毫秒）
-    const maxDuration = 10000; // 最长总时长（毫秒）
-    const totalCharacters = content.length;
-
-    // 动态计算总时长
-    let totalDuration = totalCharacters * baseCharDuration;
-
-    // 对短文本应用缩减
-    if (totalCharacters < 50) {
-        totalDuration *= reductionFactor;
-    }
-
-    // 限制总时长在 [minDuration, maxDuration] 之间
-    totalDuration = Math.min(Math.max(totalDuration, minDuration), maxDuration);
-
-    // 动态计算每个字符的显示间隔
-    const typingSpeed = totalDuration / totalCharacters;
-    let index = 0;
-    let currentText = "";
-
     // 清空对话气泡内容
     bubble.innerHTML = "";
     const markdownContainer = document.createElement("div");
@@ -232,29 +219,44 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
         return;
     }
 
-    // 动画逻辑
+    const minDuration = 200; // 最短总时长（毫秒）
+    const maxDuration = 10000; // 最长总时长（毫秒）
+    const totalCharacters = content.length;
+
+    // 动态计算总时长，限制在 [minDuration, maxDuration] 之间
+    const totalDuration = Math.min(Math.max(totalCharacters * 5, minDuration), maxDuration);
+
+    // 动态计算每个字符的显示间隔
+    const typingSpeed = totalDuration / totalCharacters;
+
+    // 动态调整每次显示的字符数
+    let batchSize = 1; // 默认逐字输出
+    if (typingSpeed < 10) {
+        // 如果间隔时间太短，就批量显示多个字符
+        batchSize = Math.ceil(10 / typingSpeed);
+    }
+
+    let index = 0;
+    let currentText = "";
+
     const typeText = setInterval(() => {
         if (index < content.length) {
-            // 模拟逐字输出
-            currentText += content.charAt(index);
-            index++;
+            // 批量增加字符
+            currentText += content.slice(index, index + batchSize);
+            index += batchSize;
 
             // 渲染部分 Markdown 内容
-            const renderedMarkdown = md.render(currentText);
-            markdownContainer.innerHTML = renderedMarkdown;
+            markdownContainer.innerHTML = md.render(currentText);
 
-            // 添加复制按钮
-            addCopyButton(markdownContainer);
-
-            // 滚动到最新消息
+            // 如果当前是最底部则滚动到最新消息
             bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
         } else {
             clearInterval(typeText); // 动画结束
+            addCopyButton(markdownContainer); // 添加复制按钮
         }
-    }, typingSpeed);
+    }, Math.max(typingSpeed, 1)); // 确保每次间隔至少为 1ms
 }
 
-// 为渲染的代码块添加复制按钮
 function addCopyButton(container) {
     // 获取所有的代码块
     const codeBlocks = container.querySelectorAll("pre code");
@@ -262,6 +264,7 @@ function addCopyButton(container) {
     codeBlocks.forEach((codeBlock) => {
         // 如果没有添加复制按钮，则添加
         if (!codeBlock.closest("pre").querySelector(".copy-btn")) {
+            // 创建按钮
             const button = document.createElement("button");
             button.classList.add("copy-btn");
             button.innerText = "复制";
@@ -270,11 +273,25 @@ function addCopyButton(container) {
             button.addEventListener("click", () => {
                 const text = codeBlock.textContent || codeBlock.innerText;
                 copyToClipboard(text); // 执行复制操作
+                button.innerText = "已复制!";
+                setTimeout(() => (button.innerText = "复制"), 2000); // 恢复按钮文字
             });
 
-            // 将按钮添加到代码块前面
+            // 将代码块的父元素设置为相对定位
             const preTag = codeBlock.closest("pre");
-            preTag.insertBefore(button, preTag.firstChild);
+            preTag.style.position = "relative"; // 确保按钮可以相对于代码块定位
+
+            // 设置按钮的样式
+            button.style.position = "absolute";
+            button.style.top = "10px"; // 距离代码块顶部的距离
+            button.style.right = "10px"; // 距离代码块右边的距离
+            button.style.zIndex = "10"; // 保证按钮不会被代码块覆盖
+            button.style.padding = "5px 10px"; // 按钮样式优化
+            button.style.fontSize = "12px";
+            button.style.cursor = "pointer";
+
+            // 添加按钮到代码块的父元素
+            preTag.appendChild(button);
         }
     });
 }

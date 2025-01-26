@@ -1,5 +1,8 @@
 import copy
-from flask import Flask, request, jsonify, render_template
+import os
+import subprocess
+import threading
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from main import run_main_program, load_config, config, save_config
 from utils.output_handler import OutputHandler  # 导入 OutputHandler
 from utils.ai_interaction import clear_history
@@ -18,6 +21,8 @@ app = Flask(
 )
 
 logs = []
+port = 7820
+docs_port = port + 1
 
 
 @app.route("/debug/history", methods=["GET"])
@@ -168,11 +173,6 @@ def find_free_port():
     """
     动态分配未被占用的端口
     """
-    import socket
-
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(("0.0.0.0", 0))
-        return s.getsockname()[1]
 
 
 @app.route("/api/add-history", methods=["GET"])
@@ -214,10 +214,30 @@ def set_language(lang):
     return jsonify({"LANGUAGE": lang, "message": f"Language set to {lang}"}), 200
 
 
+# 获取当前脚本的绝对路径
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # 脚本所在目录
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # 项目根目录（脚本目录的上一级）
+DOCS_DIR = os.path.join(PROJECT_ROOT, "docs")  # docs 目录路径
+
+
+def run_docs_server():
+    """
+    在新线程中运行 docs 目录的 HTTP 服务器
+    """
+    subprocess.run(["python", "-m", "http.server", str(docs_port)], cwd=DOCS_DIR)
+
+
+# 在新线程中启动 docs 目录的 HTTP 服务器
+threading.Thread(target=run_docs_server, daemon=True).start()
+
+
 if __name__ == "__main__":
     load_config()  # 加载配置
 
-    port = 7820
-    print(output_handler.get_translation("starting_web_ui", port=port))
+    print(
+        output_handler.get_translation(
+            "starting_web_ui", port=port, docs_port=docs_port
+        )
+    )
 
     app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)

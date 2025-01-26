@@ -31,7 +31,9 @@ body {
         background-color 1s ease,
         box-shadow 1s ease,
         min-width 1s ease;
+    cursor: pointer; /* 添加鼠标指针样式 */
 }
+
 
 .none {
     display: block;
@@ -215,12 +217,12 @@ pre {
 @media (min-width: 1200px) {
     .user-bubble {
         margin-right: 25%;
-        max-width: 25%;
+        max-width: 40%;
     }
 
     .ai-bubble {
         margin-left: 25%;
-        max-width: 25%;
+        max-width: 40%;
     }
 
     .gradient-transparent {
