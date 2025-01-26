@@ -4,7 +4,7 @@
   <img src="images/LOGO.png" alt="Logo" width="400" />
 </p>
 
-## [Web 文档](https://thed0ublec.github.com/NeoAI)
+## [Web 文档](https://thed0ublec.github.io/NeoAI)
 
 <section align="center">
   <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">

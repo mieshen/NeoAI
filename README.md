@@ -2,7 +2,7 @@
 
 ## [简体中文文档点我](docs/README(zh-CN).md)
 
-## [Web Docs](https://thed0ublec.github.com/NeoAI)
+## [Web Docs](https://thed0ublec.github.io/NeoAI)
 
 <p align="center">
   <img src="docs/images/LOGO.png" alt="Logo" width="400" />
