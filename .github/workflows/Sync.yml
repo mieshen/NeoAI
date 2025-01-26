@@ -18,3 +18,8 @@ jobs:
         run: |
           git remote add gitee https://TheD0ubleC:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
           git push gitee main -f
+
+      - name: Push to GitCode
+        run: |
+          git remote add gitcode https://TheD0ubleC:${{ secrets.GITCODE_TOKEN }}@gitcode.com/TheD0ubleC/NeoAI.git
+          git push gitcode main -f
