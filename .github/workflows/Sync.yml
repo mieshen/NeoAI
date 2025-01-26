@@ -11,7 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+        with:
+          fetch-depth: 0 
+
       - name: Push to Gitee
         run: |
           git remote add gitee https://TheD0ubleC:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
