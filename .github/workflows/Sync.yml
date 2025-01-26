@@ -14,5 +14,5 @@ jobs:
         
       - name: Push to Gitee
         run: |
-          git remote add gitee https://<TheD0ubleC>:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
+          git remote add gitee https://TheD0ubleC:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
           git push gitee main -f
