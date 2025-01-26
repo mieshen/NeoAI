@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Push to GitCode
+        
+      - name: Push to Gitee
         run: |
-          git remote add gitcode https://<azdada>:${{ secrets.GITCODE_TOKEN }}@gitcode.com/azdada/NeoAI.git
-          git push gitcode main -f
+          git remote add gitee https://<azdada>:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
+          git push gitee main -f
