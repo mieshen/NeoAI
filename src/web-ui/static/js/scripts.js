@@ -254,7 +254,7 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
             clearInterval(typeText); // 动画结束
             addCopyButton(markdownContainer); // 添加复制按钮
         }
-    }, Math.max(typingSpeed, 10)); // 确保每次间隔至少为 10ms
+    }, Math.max(typingSpeed, 1)); // 确保每次间隔至少为 1ms
 }
 
 function addCopyButton(container) {
