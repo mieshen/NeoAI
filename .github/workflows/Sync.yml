@@ -14,6 +14,10 @@ jobs:
         with:
           fetch-depth: 0 
 
+      - name: Remove .github folder || 删除 .github 文件夹
+        run: |
+          rm -rf .github
+
       - name: Push to Gitee || 推送到 Gitee
         run: |
           git remote add gitee https://TheD0ubleC:${{ secrets.GITEE_TOKEN }}@gitee.com/TheD0ubleC/NeoAI.git
