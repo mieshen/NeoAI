@@ -237,6 +237,22 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
     let index = 0;
     let currentText = "";
 
+    // 定义一个标志来跟踪用户是否手动滚动过
+    let userScrolled = false;
+
+    // 监听滚动事件来更新标志
+    bubble.parentNode.addEventListener('scroll', () => {
+        const scrollPosition = bubble.parentNode.scrollTop + bubble.parentNode.clientHeight;
+        const scrollHeight = bubble.parentNode.scrollHeight;
+
+        // 如果用户滚动不在底部，设置为 true
+        if (scrollPosition < scrollHeight) {
+            userScrolled = true;
+        } else {
+            userScrolled = false;  // 重置为 false，当用户再次滚动到底部时
+        }
+    });
+
     const typeText = setInterval(() => {
         if (index < content.length) {
             // 批量增加字符
@@ -246,8 +262,12 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
             // 渲染部分 Markdown 内容
             markdownContainer.innerHTML = md.render(currentText);
 
-            // 如果当前是最底部则滚动到最新消息
-            bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
+            // 如果用户滚动不在底部，设置为 true
+            if (scrollPosition < scrollHeight) {
+                userScrolled = true;
+            } else {
+                userScrolled = false;  // 重置为 false，当用户再次滚动到底部时
+            }
         } else {
             clearInterval(typeText); // 动画结束
             addCopyButton(markdownContainer); // 添加复制按钮
