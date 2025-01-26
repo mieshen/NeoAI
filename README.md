@@ -5,7 +5,7 @@
 ## [Web Docs](thed0ublec.github.com/NeoAI)
 
 <p align="center">
-  <img src="docs/LOGO.png" alt="Logo" width="400" />
+  <img src="docs/images/LOGO.png" alt="Logo" width="400" />
 </p>
 
 <section align="center">
@@ -38,8 +38,8 @@ NeoAI is an innovative tool that enables you to control your computer through na
 
 | Device  | Example Dialog                                                             | Feature Demonstration     |
 |---------|----------------------------------------------------------------------------|---------------------------|
-| **PC**  | **"Where is my work report file?"**  <br> **"Your work report file is located in the Project folder on drive D. Shall I open it for you?"** | ![PC](docs/PC.png)        |
-| **Phone** | **"Restart the computer in 10 minutes."** <br> **"Sure, I have scheduled it for you."**                 | ![Phone](docs/Phone.jpg) |
+| **PC**  | **"Where is my work report file?"**  <br> **"Your work report file is located in the Project folder on drive D. Shall I open it for you?"** | ![PC](docs/images/PC.png)        |
+| **Phone** | **"Restart the computer in 10 minutes."** <br> **"Sure, I have scheduled it for you."**                 | ![Phone](docs/images/Phone.jpg) |
 
 NeoAI supports operation from any device with a browser. You can host the service on your machine and then input commands to the AI via your phone, and it will execute them immediately.
 
