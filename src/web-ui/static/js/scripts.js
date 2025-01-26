@@ -122,7 +122,7 @@ function updateNoneElement(chatContainer) {
     // 创建新的 "none" 元素
     const noneElement = document.createElement("div");
     noneElement.className = "none";
-    
+
     // 将它添加到最下面
     chatContainer.appendChild(noneElement);
 }
@@ -198,6 +198,18 @@ const md = window.markdownit({
 });
 
 function simulateTypingAnimation(bubble, content, skipAnimation = false) {
+    // 清空对话气泡内容
+    bubble.innerHTML = "";
+    const markdownContainer = document.createElement("div");
+    bubble.appendChild(markdownContainer);
+
+    if (skipAnimation) {
+        // 如果跳过动画，直接显示所有内容
+        markdownContainer.innerHTML = md.render(content);
+        addCopyButton(markdownContainer); // 添加复制按钮
+        return;
+    }
+
     const baseCharDuration = 5; // 每个字符的基础时长
     const reductionFactor = 0.8; // 短文本的时长缩减系数
     const minDuration = 200; // 最短总时长（毫秒）
@@ -220,19 +232,24 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
     let index = 0;
     let currentText = "";
 
-    // 清空对话气泡内容
-    bubble.innerHTML = "";
-    const markdownContainer = document.createElement("div");
-    bubble.appendChild(markdownContainer);
 
-    if (skipAnimation) {
-        // 如果跳过动画，直接显示所有内容
-        markdownContainer.innerHTML = md.render(content);
-        addCopyButton(markdownContainer); // 添加复制按钮
-        return;
-    }
 
-    // 动画逻辑
+    // 定义一个标志来跟踪用户是否手动滚动过
+    let userScrolled = false;
+
+    // 监听滚动事件来更新标志
+    bubble.parentNode.addEventListener('scroll', () => {
+        const scrollPosition = bubble.parentNode.scrollTop + bubble.parentNode.clientHeight;
+        const scrollHeight = bubble.parentNode.scrollHeight;
+
+        // 如果用户滚动不在底部，设置为 true
+        if (scrollPosition < scrollHeight) {
+            userScrolled = true;
+        } else {
+            userScrolled = false;  // 重置为 false，当用户再次滚动到底部时
+        }
+    });
+
     const typeText = setInterval(() => {
         if (index < content.length) {
             // 模拟逐字输出
@@ -246,8 +263,13 @@ function simulateTypingAnimation(bubble, content, skipAnimation = false) {
             // 添加复制按钮
             addCopyButton(markdownContainer);
 
-            // 滚动到最新消息
-            bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
+            // 如果当前是最底部且用户没有手动滚动过，则滚动到最新消息
+            if (!userScrolled) {
+                bubble.parentNode.scrollTop = bubble.parentNode.scrollHeight;
+            }
+
+            // 每次时间减少20%
+            typingSpeed *= 0.8;
         } else {
             clearInterval(typeText); // 动画结束
         }
