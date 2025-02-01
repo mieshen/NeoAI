@@ -98,6 +98,20 @@ def append_to_last_history(content_to_append):
     else:
         print("历史记录为空，无法拼接内容！")
 
+# 替换 history 列表最后一个元素的 content 字段。
+def replace_last_history(content_to_replace):
+    """
+    替换 history 列表最后一个元素的 content 字段。
+
+    参数：
+        content_to_replace (str): 要替换的字符串。
+    """
+    global history
+    if history:  # 确保 history 不为空
+        history[-1]["content"] = content_to_replace
+    else:
+        print("历史记录为空，无法替换内容！")
+
 
 def clear_history():
     history.clear()

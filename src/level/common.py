@@ -1,6 +1,7 @@
 import importlib
 import os
 import re
+import tiktoken
 
 
 def generate_prompt(
@@ -45,8 +46,18 @@ def generate_prompt(
         restrictions=restrictions,
         examples=examples,
     )
+    
 
-    return prompt
+    encoding = tiktoken.encoding_for_model("gpt-4o")
+    tokens1 = encoding.encode(prompt)
+    tokens2 = encoding.encode(prompt.replace("\n", "").replace("\r", ""))
+    tokens3 = encoding.encode(prompt.replace("\n", "").replace("\r", "").replace(" ", ""))
+    print("tokens1 "+str(len(tokens1)))
+    print("tokens2 "+str(len(tokens2)))
+    print("tokens3 "+str(len(tokens3)))
+
+
+    return prompt.replace("\n", "").replace("\r", "")
 
 
 def extract_code(ai_response):
@@ -76,3 +87,21 @@ def extract_callback(ai_response):
             .strip()
         )
     return None
+
+
+import re
+
+def extract_all_code(ai_response):
+    """
+    提取 AI 响应中的所有代码块
+    """
+    matches = re.findall(r">>>RUN>>>[\s\S]*?<<<RUN<<<", ai_response)
+    return [match.replace(">>>RUN>>>", "").replace("<<<RUN<<<", "").strip() for match in matches] if matches else []
+
+def extract_all_callbacks(ai_response):
+    """
+    提取 AI 响应中的所有回调块
+    """
+    matches = re.findall(r">>>CALLBACK>>>[\s\S]*?<<<CALLBACK<<<", ai_response)
+    return [match.replace(">>>CALLBACK>>>", "").replace("<<<CALLBACK<<<", "").strip() for match in matches] if matches else []
+

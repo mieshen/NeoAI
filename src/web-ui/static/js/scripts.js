@@ -333,7 +333,6 @@ function copyToClipboard(text) {
 
 
 
-// 实际交互函数
 function interact() {
     const userInputElement = document.getElementById("user_input");
     const sendButton = document.querySelector(".btn.btn-primary");
@@ -351,17 +350,11 @@ function interact() {
     axios
         .post("/api/interact", { user_input: userInputElement.value })
         .then((response) => {
+            // 直接显示 ai_response，不处理 execution_result
             const aiResponse = response.data.ai_response || "Error: No response from AI.";
-            const executionResult = response.data.execution_result || "";
-
-            // 确保 "执行结果：" 只有在 executionResult 有效时才显示
-            let aiContent = aiResponse;
-            if (executionResult.trim() && executionResult !== "No execution result returned." && executionResult.trim() !== "") {
-                aiContent += `\n\n\n${executionResult}`;
-            }
-
-            // 添加 AI 响应的对话气泡
-            addChatBubble(aiContent, false);
+            console.log("AI Response:", aiResponse);    
+            // 只显示 AI 响应
+            addChatBubble(aiResponse, false);
         })
         .catch((error) => {
             const errorMsg = error.response
@@ -379,6 +372,8 @@ function interact() {
             userInputElement.style.height = "auto";  // 重置输入框的高度
         });
 }
+
+
 
 function adjustHeight(element) {
     element.style.height = "auto"; // 重置高度，防止高度累加

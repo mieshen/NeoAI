@@ -1,5 +1,6 @@
 import ast
 import os
+import re
 import subprocess
 import tempfile
 import shutil
@@ -7,7 +8,7 @@ import json  # 用于持久化配置
 from utils.output_handler import OutputHandler
 from utils.scripts_handler import cleanup_temp_dir, execute_in_subprocess
 from utils.system_info import get_system_info
-from utils.ai_interaction import get_ai_response
+from utils.ai_interaction import get_ai_response, replace_last_history
 from level.operation_levels import operation_levels
 from level.common import extract_callback, generate_prompt, extract_code
 from utils.ai_interaction import append_to_last_history
@@ -179,72 +180,56 @@ def run_main_program(user_input, web_ui_url=None, callback=False):
     code = extract_code(ai_response)
     log_to_terminal("log_code_extracted", data=code)
 
-    # 执行代码或返回普通响应
-    execution_result = None
+    # 如果检测到代码块，就直接执行并把执行结果拼到 ai_response 里
     if code:
         stdout, stderr = execute_in_subprocess(code, config, output_handler)
         if stderr:
+            # 判断超时
             if "[TIMEOUT]" in stderr:
-                execution_result = output_handler.get_translation(
+                error_text = output_handler.get_translation(
                     "error_timeout", timeout=config["RETURN_TIMEOUT"]
                 )
+                # 将错误信息直接拼到 ai_response
+                ai_response += f"\n\n{error_text}"
+                # append_to_last_history('\n\n'+error_text)
             else:
-                execution_result = output_handler.get_translation(
+                error_text = output_handler.get_translation(
                     "error_execution", error=stderr
                 )
+                # 将错误信息直接拼到 ai_response
+                ai_response += f"\n\n{error_text}"
+                # append_to_last_history('\n\n'+error_text)
         else:
-            execution_result = (
-                stdout if stdout else output_handler.get_translation("no_stdout")
-            )
-    else:
-        execution_result = None
+            # 如果执行没有错误，就把 stdout 拼到回复里
+            if stdout and stdout.strip():
+                ai_response += f"\n\n## {output_handler.get_translation('execution_result')}\n\n`{stdout.strip()}`"
+                # append_to_last_history(output_handler.get_translation('execution_result')+stdout.strip())
+            else:
+                ai_response += f"\n\n## {output_handler.get_translation('no_stdout')}"
+                # append_to_last_history(output_handler.get_translation('no_stdout'))
 
-    # 将执行结果存入历史
-    if execution_result:
-        append_to_last_history(
-            output_handler.get_translation("execution_result_prefix")
-            + (execution_result or "")
-        )
-    # 如果有执行结果 获取本地化提示信息 并且附加到执行结果前
-    if execution_result:
-        execution_result = (
-            output_handler.get_translation("execution_result") + execution_result
-        )
+    # 回调逻辑：如AI中出现回调标识符，则提取回调内容再递归调用
+    callback_text = extract_callback(ai_response)
+    if callback_text:
+        callback_result = run_main_program(callback_text, WEB_UI_URL, True)[
+            "ai_response"
+        ]
 
+        ai_response += "\n\n" + callback_result
+
+        # append_to_last_history(callback_result)
+
+    # 准备返回结果
     result = {
         "prompt": prompt,  # 生成的提示
-        "ai_response": ai_response  # AI的回复
-        or output_handler.get_translation(
-            "no_valid_response"
-        ),  # 如果AI没有回复，返回默认的提示
-        "execution_result": (
-            execution_result.strip()
-            if execution_result and execution_result.strip()
-            else "No execution result returned."
-        ),  # 如果有执行结果 返回执行结果 否则返回默认提示
-        "error": None,  # 默认没有错误
+        "ai_response": ai_response
+        or output_handler.get_translation("no_valid_response"),
+        "error": None,
     }
+    replace_last_history(ai_response)
 
-    """
-    回调解释：
-    1. 如AI回复中出现回调标识符（>>>CALLBACK>>>,<<<CALLBACK<<<），则提取回调内容
-    2. 将回调内容作为用户输入，再次调用主程序，但不会保存历史记录
-    3. 将回调的AI回复附加到原AI回复后
-    """
-
-    callback = extract_callback(ai_response)  # 提取回调
-
-    if callback:
-        callback_result = run_main_program(callback, WEB_UI_URL, True)[
-            "ai_response"
-        ]  # 递归调用主程序，不保存历史记录
-        result["ai_response"] = (
-            result["ai_response"] + "\n" + callback_result
-        )  # 将回调的AI回复附加到原AI回复后
-        append_to_last_history(callback_result)  # 将回调的AI回复附加到历史记录中
-
-    log_to_terminal("log_execution_result", data=result)  # 记录执行结果
-    log_to_web_ui(web_ui_url, "log_execution_result", data=result)  # 记录到WebUI
+    log_to_terminal("log_execution_result", data=result)
+    log_to_web_ui(web_ui_url, "log_execution_result", data=result)
 
     return result
 
