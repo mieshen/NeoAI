@@ -14,10 +14,11 @@
 
 <body>
     <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    
     <div class="header" onclick="showMenu()">{{ "web_ui_settings_header_title" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
     <div style="min-height: 400px;"></div>
-
+    <div class="wrapper">
     <div class="container">
         <form id="config_form">
             <button type="button" id="toggle_password" onclick="togglePasswordVisibility()">
@@ -32,6 +33,7 @@
                 <option value="en" {% if config['LANGUAGE']=='en' %}selected{% endif %}>English</option>
                 <option value="zh-CN" {% if config['LANGUAGE']=='zh-CN' %}selected{% endif %}>简体中文</option>
                 <option value="zh-Miao" {% if config['LANGUAGE']=='zh-Miao' %}selected{% endif %}>🐱简喵体中文🐱</option>
+                <option value="jp" {% if config['LANGUAGE']=='jp' %}selected{% endif %}>日本語</option>
             </select>
 
             <label for="api_key">
@@ -87,6 +89,8 @@
             </button>
         </form>
     </div>
+</div>
+
 
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>

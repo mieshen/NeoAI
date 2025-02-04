@@ -37,8 +37,16 @@ def get_prompt(system_info):
     from level.common import generate_prompt
     from level.operation_levels import operation_levels
 
+    extra_prompt = config["EXTRA_PROMPT"]
+
     return generate_prompt(
-        level, system_info, allowed_operations, restrictions, examples, operation_levels
+        level,
+        system_info,
+        allowed_operations,
+        restrictions,
+        examples,
+        operation_levels,
+        extra_prompt,
     )
 
 

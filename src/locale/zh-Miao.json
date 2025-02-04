@@ -102,6 +102,7 @@
     "menu_help": "📜喵喵帮助~📜",
     "menu_github": "🐈️去Github逛逛喵🐈️",
     "menu_close": "关闭喵~",
+    "menu_extra_prompt": "🧰自定义提示词🧰",
     "web_ui_menu_header_title": "NeoAI - 菜单喵~",
     "web_ui_settings_title": "NeoAI - 设置喵~",
     "web_ui_settings_header_title": "NeoAI - 设置喵~",
@@ -127,5 +128,9 @@
     "language_tooltip": "选择你喜欢的语言喵~ 快来试试吧~ 更改后如果不重启就不会生效哦💢",
     "clear_history": "遗忘我...(清空聊天记录)",
     "web_ui_enter_message": "告诉我你的问题吧~",
-    "web_ui_send_message": "发送"
+    "web_ui_send_message": "发送",
+    "extra_prompt_label": "额外提示词(Prompt)",
+    "extra_prompt_tooltip": "如果你想让我知道你的电脑里有什么东西的话，比如文件位置、有没有安装某个程序之类的。告诉我，这样就不用做多余的检查了！或者也可以自定义我的说话方式！",
+    "web_ui_prompt_header_title": "NeoAI - 自定义提示词",
+    "web_ui_prompt_title": "NeoAI - 自定义提示词"
 }

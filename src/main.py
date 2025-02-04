@@ -29,9 +29,10 @@ DEFAULT_CONFIG = {
     "MAX_TOKENS": 4096,
     "MAX_TURNS": 32,
     "LANGUAGE": "en",
+    "EXTRA_PROMPT": "NONE",
 }
 MAIN_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-VERSION = "0.12.0-beta+20250126"
+VERSION = "0.13.0-beta+20250126"
 WEB_UI_URL = None
 
 
@@ -202,7 +203,7 @@ def run_main_program(user_input, web_ui_url=None, callback=False):
         else:
             # 如果执行没有错误，就把 stdout 拼到回复里
             if stdout and stdout.strip():
-                ai_response += f"\n\n## {output_handler.get_translation('execution_result')}\n\n`{stdout.strip()}`"
+                ai_response += f"\n\n## {output_handler.get_translation('execution_result')}\n\n```{stdout.strip()}\n```"
                 # append_to_last_history(output_handler.get_translation('execution_result')+stdout.strip())
             else:
                 ai_response += f"\n\n## {output_handler.get_translation('no_stdout')}"

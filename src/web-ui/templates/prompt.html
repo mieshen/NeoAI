@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "web_ui_prompt_title" | translate }}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/NeoAI.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prompt.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+
+</head>
+
+<body>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <div class="header" onclick="showMenu()">{{ "web_ui_prompt_header_title" | translate }}</div>
+    <div id="menuOverlay" class="hidden"></div>
+    <div class="container">
+        <h1 id="tokens" style="text-align: center;">Token <>
+        </h1>
+        <form id="config_form">
+
+            <label for="extra_prompt">
+                {{ "extra_prompt_label" | translate }}
+                <span class="tooltip-icon" data-tooltip="{{ " extra_prompt_tooltip" | translate }}">?</span>
+            </label>
+            <textarea oninput="updateToken(this,document.getElementById('tokens'))"
+            id="extra_prompt" name="EXTRA_PROMPT">{{ config['EXTRA_PROMPT'] }}</textarea>
+        
+
+            <button type="button" id="update_button" onclick="saveConfig()">
+                {{ "save_config_button" | translate }}
+            </button>
+        </form>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/prompt.js') }}"></script>
+</body>
+
+</html>

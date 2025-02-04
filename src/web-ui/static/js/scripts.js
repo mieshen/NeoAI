@@ -58,7 +58,6 @@ document.addEventListener("mousemove", (event) => {
     });
 });
 
-
 function addChatBubble(content, isUser = false, bubbleId = null, skipAnimation = false) {
     const chatContainer = document.getElementById("chat_container");
     let bubble;
@@ -80,34 +79,82 @@ function addChatBubble(content, isUser = false, bubbleId = null, skipAnimation =
 
     chatContainer.appendChild(bubble);
 
+    // --- 解析内容，分离 <think> 部分与最终回复部分 ---
+    let thinkContent = "";
+    let finalContent = content;
+    const thinkRegex = /<think>([\s\S]+?)<\/think>/i;
+    const match = content.match(thinkRegex);
+    if (match) {
+        thinkContent = match[1].trim();
+        finalContent = content.replace(thinkRegex, "").trim();
+    }
+
+    // --- 如果存在 think 部分，则创建一个折叠区域 ---
+    let thinkContainer = null;
+    if (thinkContent) {
+        // 创建折叠按钮（显示在气泡顶部）
+        const toggleButton = document.createElement("button");
+        toggleButton.className = "toggle-btn";
+        toggleButton.innerText = "展开思考内容";
+        bubble.appendChild(toggleButton);
+
+        // 创建用于显示 think 内容的容器，默认隐藏
+        thinkContainer = document.createElement("div");
+        thinkContainer.className = "think-container";
+        thinkContainer.innerHTML = md.render(thinkContent);
+        thinkContainer.style.maxHeight = "0px"; // 初始隐藏
+        thinkContainer.style.overflow = "hidden"; // 防止溢出
+        thinkContainer.style.padding = "0px"; // 初始无内边距
+        bubble.appendChild(thinkContainer);
+
+        // 按钮点击事件（控制折叠/展开）
+        toggleButton.addEventListener("click", () => {
+            if (thinkContainer.style.maxHeight === "0px") {
+                thinkContainer.style.maxHeight = thinkContainer.scrollHeight + "px";
+                thinkContainer.style.padding = "10px";
+                toggleButton.innerText = "折叠思考内容";
+            } else {
+                thinkContainer.style.maxHeight = "0px";
+                thinkContainer.style.padding = "0px";
+                toggleButton.innerText = "展开思考内容";
+            }
+        });
+    }
+
+    // --- 创建最终回复内容的容器（始终展开） ---
+    const finalContainer = document.createElement("div");
+    finalContainer.className = "final-content";
+    bubble.appendChild(finalContainer);
+
+    // --- 延时后进行淡入及内容渲染，保持原有动画逻辑 ---
     setTimeout(() => {
         bubble.style.opacity = 1;
 
+        // 渲染最终回复部分
         if (skipAnimation) {
             if (isUser) {
-                // 用户输入直接渲染为纯文本
-                bubble.innerText = content;
+                finalContainer.innerText = finalContent;
             } else {
-                // AI 响应解析为 Markdown
-                simulateTypingAnimation(bubble, content, true);
+                finalContainer.innerHTML = md.render(finalContent);
             }
         } else {
             if (isUser) {
-                bubble.innerText = content;
+                finalContainer.innerText = finalContent;
             } else {
-                simulateTypingAnimation(bubble, content);
+                simulateTypingAnimation(finalContainer, finalContent);
             }
         }
 
         // 滚动到最新消息
         chatContainer.scrollTop = chatContainer.scrollHeight;
 
-        // 结束聊天时添加/更新 "none" 元素
+        // 更新顶部/底部的 "none" 元素
         updateNoneElement(chatContainer);
     }, 300);
 
     return bubble.id;
 }
+
 
 // 添加/更新 none 元素到聊天气泡的顶部和底部
 function updateNoneElement(chatContainer) {

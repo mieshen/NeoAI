@@ -5,7 +5,13 @@ import tiktoken
 
 
 def generate_prompt(
-    level, system_info, allowed_operations, restrictions, examples, operation_levels
+    level,
+    system_info,
+    allowed_operations,
+    restrictions,
+    examples,
+    operation_levels,
+    extra_prompt,
 ):
     """
     动态生成 Prompt，并让 AI 自行判断权限是否足够。
@@ -45,17 +51,18 @@ def generate_prompt(
         allowed_operations=allowed_operations,
         restrictions=restrictions,
         examples=examples,
+        extra_prompt=extra_prompt,
     )
-    
 
     encoding = tiktoken.encoding_for_model("gpt-4o")
     tokens1 = encoding.encode(prompt)
     tokens2 = encoding.encode(prompt.replace("\n", "").replace("\r", ""))
-    tokens3 = encoding.encode(prompt.replace("\n", "").replace("\r", "").replace(" ", ""))
-    print("tokens1 "+str(len(tokens1)))
-    print("tokens2 "+str(len(tokens2)))
-    print("tokens3 "+str(len(tokens3)))
-
+    tokens3 = encoding.encode(
+        prompt.replace("\n", "").replace("\r", "").replace(" ", "")
+    )
+    print("tokens1 " + str(len(tokens1)))
+    print("tokens2 " + str(len(tokens2)))
+    print("tokens3 " + str(len(tokens3)))
 
     return prompt.replace("\n", "").replace("\r", "")
 
@@ -91,17 +98,32 @@ def extract_callback(ai_response):
 
 import re
 
+
 def extract_all_code(ai_response):
     """
     提取 AI 响应中的所有代码块
     """
     matches = re.findall(r">>>RUN>>>[\s\S]*?<<<RUN<<<", ai_response)
-    return [match.replace(">>>RUN>>>", "").replace("<<<RUN<<<", "").strip() for match in matches] if matches else []
+    return (
+        [
+            match.replace(">>>RUN>>>", "").replace("<<<RUN<<<", "").strip()
+            for match in matches
+        ]
+        if matches
+        else []
+    )
+
 
 def extract_all_callbacks(ai_response):
     """
     提取 AI 响应中的所有回调块
     """
     matches = re.findall(r">>>CALLBACK>>>[\s\S]*?<<<CALLBACK<<<", ai_response)
-    return [match.replace(">>>CALLBACK>>>", "").replace("<<<CALLBACK<<<", "").strip() for match in matches] if matches else []
-
+    return (
+        [
+            match.replace(">>>CALLBACK>>>", "").replace("<<<CALLBACK<<<", "").strip()
+            for match in matches
+        ]
+        if matches
+        else []
+    )

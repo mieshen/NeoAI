@@ -67,6 +67,14 @@ def config_page():
     return render_template("config.html", config=config)
 
 
+@app.route("/prompt")
+def prompt_page():
+    """
+    自定义提示词
+    """
+    return render_template("prompt.html", config=config)
+
+
 @app.route("/menu")
 def menu():
     return render_template("menu.html", version=VERSION)

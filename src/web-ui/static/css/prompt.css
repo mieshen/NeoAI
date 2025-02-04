@@ -1,4 +1,4 @@
-/* config_styles.css */
+/*复制自config！！！懒狗cv工程师*/
 body {
     margin: 0;
     padding: 0;
@@ -6,11 +6,9 @@ body {
     background-color: #1e1e2e;
     color: #eaeaea;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* 这会使所有内容垂直居中 */
-    height: 100vh;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100vh; /* 让 body 占满整个屏幕 */
     transition: background-color 0.3s ease, color 0.3s ease;
 
 }
@@ -37,13 +35,14 @@ body {
 
 .container {
     margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
     width: 90%;
     max-width: 80%;
     background-color: #2e2e3e;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     padding: 20px;
-    margin-bottom: 100px;
 
 }
 
@@ -59,6 +58,24 @@ body {
         width: 40%;
     }
 
+}
+
+form textarea {
+    background-color: #1e1e2e;
+    border: 1px solid #444;
+    color: #eaeaea;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    resize: none; /* 禁止调整大小 */
+    min-height: 500px; /* 设置最小高度 */
+}
+
+form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
 }
 
 form {

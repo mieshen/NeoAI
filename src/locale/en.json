@@ -102,6 +102,7 @@
     "menu_help": "📜Help📜",
     "menu_github": "🐈️Github🐈️",
     "menu_close": "Close",
+    "menu_extra_prompt": "🧰Extra prompt🧰",
     "web_ui_menu_header_title": "NeoAI - Menu",
     "web_ui_settings_title": "NeoAI - Settings",
     "web_ui_settings_header_title": "NeoAI - Settings",
@@ -127,5 +128,9 @@
     "language_tooltip": "Choose your preferred language. Changes will not take effect unless the WebUI is restarted.",
     "clear_history": "Clear History",
     "web_ui_enter_message": "Enter message...",
-    "web_ui_send_message": "Send"
+    "web_ui_send_message": "Send",
+    "extra_prompt_label": "Extra prompt",
+    "extra_prompt_tooltip": "You can tell AI things that are unique to your computer, such as the location of files, whether a program is installed, and so on.Or customize the AI reply method.",
+    "web_ui_prompt_header_title": "NeoAI - Extra prompt",
+    "web_ui_prompt_title": "NeoAI - Extra prompt"
 }

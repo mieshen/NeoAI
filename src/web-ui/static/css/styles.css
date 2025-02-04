@@ -11,8 +11,16 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 布局组件 */
+/* CSS 部分 */
 .header {
+    -webkit-user-select: none;
+    /* 兼容 Safari 和旧版 Chrome */
+    -moz-user-select: none;
+    /* 兼容 Firefox */
+    -ms-user-select: none;
+    /* 兼容旧版 IE */
+    user-select: none;
+    /* 禁止选中 */
     position: fixed;
     top: 25px;
     left: 25px;
@@ -31,10 +39,33 @@ body {
         background-color 1s ease,
         box-shadow 1s ease,
         min-width 1s ease;
-    cursor: pointer; /* 添加鼠标指针样式 */
+    cursor: pointer;
+    will-change: transform;
 }
 
+.header:hover {
+    background-color: #3798ff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 123, 255, 0.8),
+        0 0 50px rgba(0, 123, 255, 0.6);
+    transform: scale(1.1) !important;
+}
 
+.header:active {
+    background-color: #0056b3;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2),
+        0 0 10px rgba(0, 123, 255, 0.4),
+        0 0 15px rgba(0, 123, 255, 0.2);
+    transform: scale(1.05) !important;
+}
+
+.header.dragging {
+    transition: transform 0.5s ease,
+    background-color 0.4s ease,
+    box-shadow 0.4s ease,
+    min-width 0.4s ease;
+  }
+  
 .none {
     display: block;
     min-height: 100px;
@@ -49,6 +80,36 @@ body {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
+
+/* 折叠区域的容器 */
+.think-container {
+    margin-top: 5px;
+    padding: 10px;
+    background-color: #3a3a4a; /* 让背景颜色更适配深色主题 */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #ddd; /* 使文字颜色与背景形成对比 */
+    line-height: 1.5;
+    
+    /* 平滑展开动画 */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+
+/* 点击展开后的内容 */
+.think-container p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+
+.final-content {
+    margin-top: 5px;
+}
+
 
 /* 聊天容器和气泡样式 */
 .chat-container {
@@ -126,13 +187,16 @@ pre {
 }
 
 
+/* AI 气泡样式 */
 .ai-bubble {
     background-color: #2e2e3e;
     color: #ffffff;
     align-self: flex-start;
-    border-radius: 30px 30px 30px 30px;
+    border-radius: 30px;
     margin-left: 0%;
     max-width: 70%;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out; /* 让大小调整更丝滑 */
 }
 
 
