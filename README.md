@@ -48,7 +48,7 @@
 
 ### **🔹 Install NeoAI**
 
-👉 [📥 Install NeoAI Now](https://thed0ublec.github.io/NeoAI/#/zh-CN/installation)
+👉 [📥 Install NeoAI Now](https://thed0ublec.github.io/NeoAI/#/en/installation)
 
 > **⚠️ NeoAI is currently in the testing phase. You may encounter some issues—feedback is welcome!**
 
