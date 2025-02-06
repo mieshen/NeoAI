@@ -54,7 +54,6 @@ function clearHistory() {
             }
         })
         .then(data => {
-            console.log(data.message);
             button.innerHTML = '✅';
             setTimeout(() => {
                 button.innerHTML = originalText;

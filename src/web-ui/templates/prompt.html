@@ -23,11 +23,11 @@
 
             <label for="extra_prompt">
                 {{ "extra_prompt_label" | translate }}
-                <span class="tooltip-icon" data-tooltip="{{ " extra_prompt_tooltip" | translate }}">?</span>
+                <span class="tooltip-icon" data-tooltip="{{ "extra_prompt_tooltip" | translate }}">?</span>
             </label>
-            <textarea oninput="updateToken(this,document.getElementById('tokens'))"
-            id="extra_prompt" name="EXTRA_PROMPT">{{ config['EXTRA_PROMPT'] }}</textarea>
-        
+            <textarea oninput="updateToken(this,document.getElementById('tokens'))" id="extra_prompt"
+                name="EXTRA_PROMPT">{{ config['EXTRA_PROMPT'] }}</textarea>
+
 
             <button type="button" id="update_button" onclick="saveConfig()">
                 {{ "save_config_button" | translate }}

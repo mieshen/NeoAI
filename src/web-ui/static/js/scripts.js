@@ -399,7 +399,6 @@ function interact() {
         .then((response) => {
             // 直接显示 ai_response，不处理 execution_result
             const aiResponse = response.data.ai_response || "Error: No response from AI.";
-            console.log("AI Response:", aiResponse);    
             // 只显示 AI 响应
             addChatBubble(aiResponse, false);
         })

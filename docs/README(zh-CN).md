@@ -1,143 +1,64 @@
-# NeoAI：无需一行代码！让 AI 掌控您的电脑！
+# NeoAI - 跨时代的 AI 助手：零代码，智能操控您的电脑！
+
+## [📖 网页文档](https://thed0ublec.github.io/NeoAI)
 
 <p align="center">
-  <img src="images/LOGO.png" alt="Logo" width="400" />
+  <img src="docs/images/LOGO.png" alt="Logo" width="400" />
 </p>
 
-## [Web 文档](https://thed0ublec.github.io/NeoAI)
+<p align="center">
+  <img src="https://img.shields.io/badge/STARS-%E2%AD%90%2051-white?style=for-the-badge" alt="GitHub Stars">
+  <img src="https://img.shields.io/badge/LICENSE-MIT-purple?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/OPENAI%20API-REQUIRED-red?style=for-the-badge">
+</p>
 
-<section align="center">
-  <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
-  <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
-  <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
-</section>
-
----
-
-前言：NeoAI 目前正在测试阶段，有许多未知的问题。
-
-如果你愿意的话，可以成为 NeoAI 的贡献者，让我们一起完善 NeoAI！
+<p align="center">
+  <img src="https://img.shields.io/badge/PLATFORM-WINDOWS-0078D6?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PLATFORM-macOS-292E33?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PLATFORM-LINUX-1793D1?style=for-the-badge">
+</p>
 
 ---
 
-## **目录**
+### 🌍 语言支持
 
-- [NeoAI 的功能](#neoai-的功能)
-- [安装与使用](#安装与使用)
-  - [快速安装](#快速安装)
-  - [快速使用](#快速使用)
+![English](https://img.shields.io/badge/Language-🇺🇸English-blue?style=for-the-badge)
+![简体中文](https://img.shields.io/badge/语言-🇨🇳简体中文-red?style=for-the-badge)
+![日本語](https://img.shields.io/badge/言語-🇯🇵日本語-pink?style=for-the-badge)
 
----
+#### 🎭 扩展人设语言
 
-## **✨ NeoAI 的功能**
-
-NeoAI 是一款创新的工具，能够帮助您通过自然语言控制电脑，实现远程操作、自动化任务和设备管理。它功能强大且简单易用，支持以下场景：
-
-| 设备     | 示例对话                                                                                               | 功能展示            |
-| -------- | ------------------------------------------------------------------------------------------------------ | ------------------- |
-| **电脑** | **"我的工作报表文件在哪？"** <br> **"您的工作报表文件位于 D 盘的 Project 文件夹，需要我帮您打开吗？"** | ![PC](images/PC.png)       |
-| **手机** | **"10 分钟后帮我重启电脑。"** <br> **"好的，已为您添加定时执行。"**                                    | ![Phone](images/Phone.jpg) |
-
-## NeoAI 支持通过任何带有浏览器的设备操作。您可以在您的主机上创建服务，再在手机上对 AI 输入想要执行的操作，AI 会帮您立刻执行。
-
-## **安装与使用**
-
-### **快速安装**
-
-1. **克隆仓库**
-
-   ```bash
-   git clone https://github.com/TheD0ubleC/NeoAI.git
-   ```
-
-2. **进入目录**
-
-   ```bash
-   cd NeoAI
-   ```
-
-3. **安装依赖**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **启动 NeoAI**
-
-   - **WebUI 模式：**
-
-     ```bash
-     python ./src/web-ui.py
-     ```
-
-   - **终端模式：**
-     ```bash
-     python ./src/main.py
-     ```
+![简喵体中文](https://img.shields.io/badge/语言-🇨🇳简喵体中文🐱-red?style=for-the-badge)
 
 ---
 
-### **快速使用**
+# ⭐ 实机演示
 
-#### **WebUI 模式**
-
-1. 启动后打开浏览器，访问：
-
-   ```
-   localhost:7820
-   ```
-
-2. 点击左上角的 **NeoAI** > ⚙️ **设置** 进行初次配置。
-   或直接访问：
-   ```
-   localhost:7820/config
-   ```
-
-#### **终端模式**
-
-1. 启动程序，若正确显示 NeoAI 的 LOGO：
-
-   ```
-   +=========================================+
-    ███╗   ██╗███████╗ ██████╗      █████╗ ██╗
-    ████╗  ██║██╔════╝██╔═══██╗    ██╔══██╗██║
-    ██╔██╗ ██║█████╗  ██║   ██║    ███████║██║
-    ██║╚██╗██║██╔══╝  ██║   ██║    ██╔══██║██║
-    ██║ ╚████║███████╗╚██████╔╝    ██║  ██║██║
-     ╚═╝  ╚═══╝╚══════╝ ╚═════╝     ╚═╝  ╚═╝╚═╝
-   +=========================================+
-   ```
-
-2. 输入以下命令查看帮助并完成初次配置：
-
-   ```bash
-   .help
-   ```
-
-3. 按需设置完成后，开始享受 AI 的强大功能！
+| 演示图                  | 功能                                                                  | 设备                         |
+| ----------------------- | --------------------------------------------------------------------- | ---------------------------- |
+| ![alt text](images/demo-1.png) | 使用你的模糊记忆寻找指定文件。                                        | PC 端 [Windows]              |
+| ![alt text](images/demo-2.png) | 提供每日独一份的乐趣！可能是赛博诈骗，也可能会在你电脑的某个角落里... | PC 端 [Windows]              |
+| ![alt text](images/demo-3.png) | 监测系统状态，查看资源占用。                                          | 移动端 [iOS] + PC 端 [Linux] |
 
 ---
 
-### **NeoAI 的亮点功能**
+## 🚀 让我们开始使用 NeoAI
 
-- **远程操作设备：**
+### **🔹 安装 NeoAI**
 
-  - 随时随地通过手机或其他设备远程控制电脑。
+👉 [📥 立即安装 NeoAI](https://thed0ublec.github.io/NeoAI/#/zh-CN/installation)
 
-- **快速文件管理：**
+> **⚠️ 目前 NeoAI 处于测试阶段，可能会遇到一些问题，欢迎反馈！**
 
-  - 通过简单的对话找到文件并直接打开。
+### **🔹 运行环境要求**
 
-- **自动化任务：**
-
-  - 定时重启、定时关机，轻松安排任务。
-
-- **设备管理：**
-  - 监控和控制多个设备，高效便捷。
+- **操作系统**: Windows / macOS / Linux
+- **必需 API / 本地模型（二选一，需符合 OpenAI API 格式）**:
+  - **云端模式**：需要 OpenAI API Key（推荐使用 GPT-4o）
+  - **本地模式**：必须使用 **支持 OpenAI API 兼容格式** 的本地模型服务器，确保可访问 `/v1/chat/completions`，如：
+    - **LM Studio**（需开启 API 服务器模式）
+    - **Ollama**（默认支持 OpenAI API 格式）
+    - **其他 OpenAI API 兼容本地 LLM 服务器**
+- **运行时版本**: Python 3.8+
 
 ---
-
-**快来尝试 NeoAI！**
-
-![Star Trend](https://starchart.cc/thed0ublec/neoai.svg)

@@ -1,138 +1,67 @@
-# NeoAI: No Coding Required! Let AI Take Control of Your Computer! | NeoAI：无需一行代码！让 AI 掌控您的电脑！
+# NeoAI - A Revolutionary AI Assistant: Zero-Code, Intelligent Control of Your Computer!
 
-## [简体中文文档点我](docs/README(zh-CN).md)
+## [🇨🇳 中文文档点我！](docs/README(zh-CN).md)
 
-## [Web Docs](https://thed0ublec.github.io/NeoAI)
+## [📖 Web Documentation](https://thed0ublec.github.io/NeoAI)
 
 <p align="center">
   <img src="docs/images/LOGO.png" alt="Logo" width="400" />
 </p>
 
-<section align="center">
-  <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
-  <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
-  <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
-</section>
+<p align="center">
+  <img src="https://img.shields.io/badge/STARS-%E2%AD%90%2051-white?style=for-the-badge" alt="GitHub Stars">
+  <img src="https://img.shields.io/badge/LICENSE-MIT-purple?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/OPENAI%20API-REQUIRED-red?style=for-the-badge">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PLATFORM-WINDOWS-0078D6?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PLATFORM-macOS-292E33?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PLATFORM-LINUX-1793D1?style=for-the-badge">
+</p>
 
 ---
 
-**Introduction:** NeoAI is currently in the testing phase and may have some unknown issues.
+### 🌍 Language Support
 
-If you are willing, you can become a contributor to NeoAI and help us improve it together!
+![English](https://img.shields.io/badge/Language-🇺🇸English-blue?style=for-the-badge)
+![Simplified Chinese](https://img.shields.io/badge/语言-🇨🇳简体中文-red?style=for-the-badge)
+![Japanese](https://img.shields.io/badge/言語-🇯🇵日本語-pink?style=for-the-badge)
 
----
+#### 🎭 Extended Character Language Support
 
-## **Table of Contents**
-
-- [Features of NeoAI](#features-of-neoai)
-- [Installation and Usage](#installation-and-usage)
-  - [Quick Installation](#quick-installation)
-  - [Quick Start](#quick-start)
+![Simplified Meow Chinese](https://img.shields.io/badge/语言-🇨🇳简喵体中文🐱-red?style=for-the-badge)
 
 ---
 
-## **✨ Features of NeoAI**
+# ⭐ Live Demonstration
 
-NeoAI is an innovative tool that enables you to control your computer through natural language, facilitating remote operations, task automation, and device management. It is powerful yet easy to use and supports the following scenarios:
-
-| Device  | Example Dialog                                                             | Feature Demonstration     |
-|---------|----------------------------------------------------------------------------|---------------------------|
-| **PC**  | **"Where is my work report file?"**  <br> **"Your work report file is located in the Project folder on drive D. Shall I open it for you?"** | ![PC](docs/images/PC.png)        |
-| **Phone** | **"Restart the computer in 10 minutes."** <br> **"Sure, I have scheduled it for you."**                 | ![Phone](docs/images/Phone.jpg) |
-
-NeoAI supports operation from any device with a browser. You can host the service on your machine and then input commands to the AI via your phone, and it will execute them immediately.
+| Demo Image                 | Feature Description                                                   | Device                        |
+| -------------------------- | ------------------------------------------------------------------- | ----------------------------- |
+| ![alt text](docs/images/demo-1.png) | Use your vague memory to search for specific files.                  | PC [Windows]                  |
+| ![alt text](docs/images/demo-2.png) | Enjoy a unique daily surprise! It could be cyber fraud or something lurking on your computer... | PC [Windows]                  |
+| ![alt text](docs/images/demo-3.png) | Monitor system status and check resource usage.                      | Mobile [iOS] + PC [Linux]     |
 
 ---
 
-## **Installation and Usage**
+## 🚀 Let's Get Started with NeoAI
 
-### **Quick Installation**
+### **🔹 Install NeoAI**
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/TheD0ubleC/NeoAI.git
-   ```
+👉 [📥 Install NeoAI Now](https://thed0ublec.github.io/NeoAI/#/zh-CN/installation)
 
-2. **Navigate to the Directory**
-   ```bash
-   cd NeoAI
-   ```
+> **⚠️ NeoAI is currently in the testing phase. You may encounter some issues—feedback is welcome!**
 
-3. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### **🔹 System Requirements**
 
-4. **Start NeoAI**
-
-   - **WebUI Mode:**
-     ```bash
-     python ./src/web-ui.py
-     ```
-
-   - **Terminal Mode:**
-     ```bash
-     python ./src/main.py
-     ```
+- **Operating System**: Windows / macOS / Linux
+- **Required API / Local Model (Choose One, Must Follow OpenAI API Format)**:
+  - **Cloud Mode**: Requires an OpenAI API Key (GPT-4o recommended)
+  - **Local Mode**: Must use a **local model server that supports OpenAI API format** and is accessible via `/v1/chat/completions`, such as:
+    - **LM Studio** (API server mode must be enabled)
+    - **Ollama** (Supports OpenAI API format by default)
+    - **Other OpenAI API-compatible local LLM servers**
+- **Runtime Version**: Python 3.8+
 
 ---
-
-### **Quick Start**
-
-#### **WebUI Mode**
-
-1. After starting, open your browser and visit:
-   ```
-   localhost:7820
-   ```
-
-2. Click **NeoAI** > ⚙️ **Settings** in the top left corner to perform initial configuration.
-   Or directly visit:
-   ```
-   localhost:7820/config
-   ```
-
-#### **Terminal Mode**
-
-1. Start the program. If NeoAI’s logo displays correctly:
-   ```
-   +=========================================+
-    ███╗   ██╗███████╗ ██████╗      █████╗ ██╗
-    ████╗  ██║██╔════╝██╔═══██╗    ██╔══██╗██║
-    ██╔██╗ ██║█████╗  ██║   ██║    ███████║██║
-    ██║╚██╗██║██╔══╝  ██║   ██║    ██╔══██║██║
-    ██║ ╚████║███████╗╚██████╔╝    ██║  ██║██║
-     ╚═╝  ╚═══╝╚══════╝ ╚═════╝     ╚═╝  ╚═╝╚═╝
-   +=========================================+
-   ```
-
-2. Enter the following command to view help and complete the initial configuration:
-   ```bash
-   .help
-   ```
-
-3. After setup, start enjoying the powerful features of NeoAI!
-
----
-
-### **Highlight Features of NeoAI**
-
-- **Remote Device Operations:**
-  - Control your computer remotely from your phone or other devices, anytime, anywhere.
-
-- **Quick File Management:**
-  - Find and open files with simple conversations.
-
-- **Task Automation:**
-  - Schedule tasks like restarting or shutting down with ease.
-
-- **Device Management:**
-  - Monitor and manage multiple devices efficiently.
-
----
-
-**Try NeoAI Now!**
-
-![Star Trend](https://starchart.cc/thed0ublec/neoai.svg)
 
