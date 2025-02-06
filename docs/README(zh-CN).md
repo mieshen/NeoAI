@@ -3,7 +3,7 @@
 ## [📖 网页文档](https://thed0ublec.github.io/NeoAI)
 
 <p align="center">
-  <img src="docs/images/LOGO.png" alt="Logo" width="400" />
+  <img src="images/LOGO.png" alt="Logo" width="400" />
 </p>
 
 <p align="center">
