@@ -1,5 +1,11 @@
 # NeoAI - A Revolutionary AI Assistant: Zero-Code, Intelligent Control of Your Computer!
 
+Some observations about individuals 一些关于个人的看法:
+
+In fact, back in 2023 NeoAI has already appeared but unfortunately busy with his studies did not go to the release and update, but only now realized that the original NeoAI is the first AI framework can control the computer, a lot of AI manufacturers have also begun to produce similar tools, if you are interested in, you can look at how NeoAI is achieved. Unfortunately, there is no project uploaded in 2023, otherwise I would be the first one to create an AI framework to control a computer~!
+
+其实早在2023年NeoAI就已经出现了 但可惜忙于学业 没能去发布与更新，但到现在才发现，原来NeoAI是第一个可以控制电脑的AI框架，很多AI大厂也开始制作类似的工具了，如果你们感兴趣，可以看看NeoAI是怎么实现的。可惜的是，2023年没有上传这个项目，不然我可真要变成第一个创造控制电脑的AI框架的人啦~!
+
 ## [🇨🇳 中文文档点我！](docs/README(zh-CN).md)
 
 ## [📖 Web Documentation](https://thed0ublec.github.io/NeoAI)
