@@ -477,3 +477,30 @@ function simulateInteractResponse(responseData) {
 
     addChatBubble(aiContent, false, null, true);
 }
+
+document.getElementById("user_input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault(); // 阻止默认换行行为
+        interact(); // 发送消息
+    }
+});
+
+
+const chatContainer = document.getElementById("chat_container");
+const scrollToBottomBtn = document.getElementById("scrollToBottomBtn");
+
+// 监听滚动事件
+chatContainer.addEventListener("scroll", () => {
+    const isAtBottom = chatContainer.scrollHeight - chatContainer.scrollTop <= chatContainer.clientHeight + 10;
+
+    if (isAtBottom) {
+        scrollToBottomBtn.classList.remove("show"); // 让按钮淡出
+    } else {
+        scrollToBottomBtn.classList.add("show"); // 让按钮淡入
+    }
+});
+
+// 点击按钮滚动到底部
+scrollToBottomBtn.addEventListener("click", () => {
+    chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
+});

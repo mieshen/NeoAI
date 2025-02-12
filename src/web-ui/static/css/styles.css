@@ -61,11 +61,11 @@ body {
 
 .header.dragging {
     transition: transform 0.5s ease,
-    background-color 0.4s ease,
-    box-shadow 0.4s ease,
-    min-width 0.4s ease;
-  }
-  
+        background-color 0.4s ease,
+        box-shadow 0.4s ease,
+        min-width 0.4s ease;
+}
+
 .none {
     display: block;
     min-height: 100px;
@@ -85,13 +85,15 @@ body {
 .think-container {
     margin-top: 5px;
     padding: 10px;
-    background-color: #3a3a4a; /* 让背景颜色更适配深色主题 */
+    background-color: #3a3a4a;
+    /* 让背景颜色更适配深色主题 */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    color: #ddd; /* 使文字颜色与背景形成对比 */
+    color: #ddd;
+    /* 使文字颜色与背景形成对比 */
     line-height: 1.5;
-    
+
     /* 平滑展开动画 */
     max-height: 0;
     overflow: hidden;
@@ -183,7 +185,7 @@ pre {
     align-self: flex-end;
     border-radius: 30px 30px 30px 30px;
     margin-right: 0%;
-    max-width: 70%;
+    max-width: 90%;
 }
 
 
@@ -194,9 +196,10 @@ pre {
     align-self: flex-start;
     border-radius: 30px;
     margin-left: 0%;
-    max-width: 70%;
+    max-width: 90%;
     padding: 10px 15px;
-    transition: all 0.3s ease-in-out; /* 让大小调整更丝滑 */
+    transition: all 0.3s ease-in-out;
+    /* 让大小调整更丝滑 */
 }
 
 
@@ -254,12 +257,12 @@ pre {
 @media (min-width: 768px) {
     .user-bubble {
         margin-right: 10%;
-        max-width: 50%;
+        max-width: 60%;
     }
 
     .ai-bubble {
         margin-left: 10%;
-        max-width: 50%;
+        max-width: 60%;
     }
 
     .gradient-transparent {
@@ -281,12 +284,12 @@ pre {
 @media (min-width: 1200px) {
     .user-bubble {
         margin-right: 25%;
-        max-width: 40%;
+        max-width: 60%;
     }
 
     .ai-bubble {
         margin-left: 25%;
-        max-width: 40%;
+        max-width: 60%;
     }
 
     .gradient-transparent {
@@ -687,4 +690,42 @@ table::-webkit-scrollbar-thumb:hover {
 .table-right td,
 .table-right th {
     text-align: right;
+}
+
+.scroll-to-bottom {
+    position: fixed !important;
+    bottom: calc(15%) !important; /* 让按钮出现在输入框上方 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: #007bff !important; /* 继承你的按钮颜色 */
+    color: white !important;
+    border: none !important;
+    border-radius: 50px !important; /* 使其更贴合你的 UI */
+    width: 60px !important; /* 适配 UI */
+    height: 35px !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6) !important;
+    z-index: 9999 !important; /* 确保在最上层 */
+
+    /* 添加默认隐藏动画 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* 按钮可见时 */
+.scroll-to-bottom.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 按钮悬停效果 */
+.scroll-to-bottom:hover {
+    background-color: #007bff !important;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 30px rgba(0, 123, 255, 0.6) !important;
 }

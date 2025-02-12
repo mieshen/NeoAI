@@ -20,6 +20,9 @@
     <div class="header" onclick="showMenu()">{{ "web_ui_titel" | translate }}</div>
     <div id="menuOverlay" class="hidden"></div>
     <div id="chat_container" class="chat-container">
+
+        <button id="scrollToBottomBtn" class="scroll-to-bottom hidden">⬇</button>
+
         <div class="input-container">
             <textarea id="user_input" class="user-input-message" placeholder="{{ 'web_ui_enter_message' | translate }}"
                 oninput="adjustHeight(this)"></textarea>
