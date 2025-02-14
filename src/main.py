@@ -130,6 +130,7 @@ def log_to_web_ui(web_ui_url, key, data=None, **kwargs):
         return
     try:
         import requests
+
         message = output_handler.get_translation(key, **kwargs)
         payload = {"message": message, "data": data}
         requests.post(web_ui_url, json=payload)
