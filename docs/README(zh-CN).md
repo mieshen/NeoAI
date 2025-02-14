@@ -1,5 +1,8 @@
 # NeoAI - 跨时代的 AI 助手：零代码，智能操控您的电脑！
 
+### *目前开发者仅 TheD0ubleC(Owner) 一人，更新会缓慢，但NeoAI依旧活着!*
+
+
 ## [📖 网页文档](https://thed0ublec.github.io/NeoAI)
 
 <p align="center">
