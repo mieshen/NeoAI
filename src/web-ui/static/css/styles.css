@@ -284,12 +284,12 @@ pre {
 @media (min-width: 1200px) {
     .user-bubble {
         margin-right: 25%;
-        max-width: 60%;
+        max-width: 45%;
     }
 
     .ai-bubble {
         margin-left: 25%;
-        max-width: 60%;
+        max-width: 45%;
     }
 
     .gradient-transparent {
@@ -694,14 +694,18 @@ table::-webkit-scrollbar-thumb:hover {
 
 .scroll-to-bottom {
     position: fixed !important;
-    bottom: calc(15%) !important; /* 让按钮出现在输入框上方 */
+    bottom: calc(15%) !important;
+    /* 让按钮出现在输入框上方 */
     left: 50% !important;
     transform: translateX(-50%) !important;
-    background-color: #007bff !important; /* 继承你的按钮颜色 */
+    background-color: #007bff !important;
+    /* 继承你的按钮颜色 */
     color: white !important;
     border: none !important;
-    border-radius: 50px !important; /* 使其更贴合你的 UI */
-    width: 60px !important; /* 适配 UI */
+    border-radius: 50px !important;
+    /* 使其更贴合你的 UI */
+    width: 60px !important;
+    /* 适配 UI */
     height: 35px !important;
     font-size: 1rem !important;
     cursor: pointer !important;
@@ -710,7 +714,8 @@ table::-webkit-scrollbar-thumb:hover {
     justify-content: center !important;
     align-items: center !important;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.6) !important;
-    z-index: 9999 !important; /* 确保在最上层 */
+    z-index: 9999 !important;
+    /* 确保在最上层 */
 
     /* 添加默认隐藏动画 */
     opacity: 0;

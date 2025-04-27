@@ -4,7 +4,7 @@ import os
 import shutil
 import subprocess
 import tempfile
-
+import sys
 
 def estimate_timeout(code):
     """
@@ -104,13 +104,16 @@ def execute_in_subprocess(code, config, output_handler):
             temp_file.write(code)
 
         # 执行临时文件
+
+        print("解释器路径:", sys.executable)
         process = subprocess.Popen(
-            ["python", temp_file_path],
+            [sys.executable, temp_file_path],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
             start_new_session=True,
         )
+
 
         try:
             # 设置超时并等待输出
