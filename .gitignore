@@ -1,8 +1,26 @@
-# 忽略Python制造的垃圾
-/*.pyc
-__pycache__/
-# 里面包含了重大敏感信息 不要上传
-src/config.json
-# NeoAI运行时产生的临时脚本文件
-src/temp_scripts
-.hintrc
+@ -1,24 +1,24 @@
+# NeoAI: No Coding Required! Let AI Take Control of Your Computer!
+# NeoAI: No Coding Required! Let AI Take Control of Your Computer! | NeoAI：无需一行代码！让 AI 掌控您的电脑！
+
+## [简体中文文档点我](docs/README(zh-CN).md)
+
+<p align="center">
+  <img src="docs/LOGO.png" alt="Logo" width="400" />
+</p>
+
+<section align="center">
+  <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Windows Support">
+  <img src="https://img.shields.io/badge/platform-macOS-lightgreen?style=for-the-badge" alt="macOS Support">
+  <img src="https://img.shields.io/badge/platform-Linux-green?style=for-the-badge" alt="Linux Support">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
+</section>
+
+---
+
+**Introduction:** NeoAI is currently in the testing phase and may have some unknown issues.
+
+If you are willing, you can become a contributor to NeoAI and help us improve it together!
+
+---
+
+## **Table of Contents**
